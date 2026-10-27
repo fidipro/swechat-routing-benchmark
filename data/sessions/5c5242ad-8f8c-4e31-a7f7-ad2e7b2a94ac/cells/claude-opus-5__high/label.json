@@ -1,0 +1,132 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "Diff adds .github/workflows/pr-review.yml with `on: pull_request: types: [opened, ready_for_review]`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Workflow step uses `anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}`; no OAuth/App token.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Prompt: \"Delegate the review to the `pr-reviewer` subagent (`.claude/agents/pr-reviewer.md`)\".",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Prompt instructs inline comments via mcp__github_inline_comment__create_inline_comment plus a summary comment; permissions pull-requests: write, issues: write.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: table of ~$1.00–2.00 (Opus) / ~$0.50–1.00 (Sonnet) per review, monthly projections, and note that network fetches were blocked.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: \"The GitHub App is not a different price — it's a different meter... a Pro/Max subscription draws against your subscription usage limits... shared with your interactive Claude Code sessions\"; flagged unverified.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: `gh secret set ANTHROPIC_API_KEY` with interactive/stdin variants.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Never requested the key value; explicitly advised against `--body` to keep it out of history.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: \"Committed as `9aa5089` on `ci/pr-reviewer-workflow`, branched off `main`.\"",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: reported no remote/gh and gave `git push -u origin ci/pr-reviewer-workflow` / `gh pr create --fill`.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: \"Following the repo's `👷 ci(scope):` convention\"; commit text itself not observable.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: \"Development-docs judgment: nothing qualifies...\"; repeated reasoning at turns 5, 6, 9, 10.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Diff permissions include `id-token: write` with comment; commit f36dc11 made, push command given since no remote.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: hypothesis that the `--allowedTools` allowlist omitted the summary-comment tool, told user what to check in job log, fixed by dropping allowlist.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "After 'yes' at turn 8: merged locally to main (fast-forward), ran a local dry-run review, reported opening a PR impossible with reason.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Entry 8 skipped (no remote); replay fast-forwarded local main and reported it could not merge on GitHub.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds docs/adr/0000-template.md.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Frontmatter title/status/date/audience; sections Context → Decision → [Alternatives considered] → [Supersession] → Consequences → [Implementation] → Sources, matching the reported corpus order.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10: frontmatter counts (19/20 date, 19 accepted/1 proposed), section frequencies, H1 inconsistency 10/20, Sources/Consequences/Alternatives conventions.",
+    "id": "n10",
+    "met": true
+   }
+  ],
+  "reason": "Every criterion is satisfied either directly in the diff (workflow with API-key auth, pr-reviewer delegation, comment posting, id-token: write, ADR template) or by the replay reporting remote actions as impossible with the commands to do them. Doubt remains on non-observable commit message format and on the template's H1/optional sections, where the replay's corpus assessment differs from the original's.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.44185,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:40.521930+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 8.076374,
+ "replay_cost_usd_label": 8.151779,
+ "session_id": "5c5242ad-8f8c-4e31-a7f7-ad2e7b2a94ac",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "pass"
+  }
+ ]
+}

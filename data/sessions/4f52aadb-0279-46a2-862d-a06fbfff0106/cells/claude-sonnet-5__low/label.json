@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.88,
+  "criteria": [
+   {
+    "evidence": "Diff shows `-## [Unreleased]` replaced by `+## [0.9.0] - 2026-08-28` with the Security/Added content retained beneath it.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Nearly every bullet has a period before the link, e.g. `Pulls go-billy to v6.0.0-alpha.2. ([#105](...), [#106](...))` and `...goes from 12 vulnerabilities to 0. ([#106](...))`; only the #104 Housekeeping bullet omits the period. Also #109–#111 are never cited (ref-name, materialized-limit, sanitize, TLS, provenance all attributed to #112).",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "#104 appears as a Housekeeping bullet `([#104](...))` and #105 is cited on the go-git Security bullet; identified from git history after the user flagged #104.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only CHANGELOG.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets reduced from multi-sentence paragraphs to one-to-three sentences each, e.g. the credentials-bound bullet shrank to three short sentences.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "All 14 Security entries present before compression remain after it, each ending with a PR link.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "go-git bump appears only in the Security bullet; Housekeeping now contains only the #104 golang.org/x bump.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "go-git bullet ends with `([#105](...), [#106](...))`.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The release heading, compression, consolidation and #104/#105 coverage are all in place, but almost every bullet terminates with a period before the PR link, violating the changelog's `text ([#N](...))` format that c2 explicitly requires. The replay also attributed several bullets to #112 and never cites #109–#111, which further undermines the link back-fill even though c3's literal scope (#104, #105) is satisfied.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.30037,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:43.424323+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.7087,
+ "replay_cost_usd_label": 0.765085,
+ "session_id": "4f52aadb-0279-46a2-862d-a06fbfff0106",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.88,
+   "verdict": "fail"
+  }
+ ]
+}

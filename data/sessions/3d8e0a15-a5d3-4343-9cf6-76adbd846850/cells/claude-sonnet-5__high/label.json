@@ -1,0 +1,105 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "New .github/workflows/nightly-smoke.yml with `schedule: - cron: \"30 6 * * *\"` plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Three OS jobs (linux/ubuntu-latest, macos/macos-latest, windows/windows-latest) written as explicit jobs rather than strategy.matrix; functionally one job per OS as the user requested in turn 1 and approved.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "macos job: `brew install entireio/homebrew-tap/entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "linux job: `curl -fsSL https://entire.io/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "windows job runs `pwsh -File scripts/install.ps1 -Channel nightly` with a newly created scripts/install.ps1; invoked from checkout rather than irm|iex, disclosed with a comment and in the turn-1 summary.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "All three jobs use actions/checkout with `ref: main`.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Loop runs `mise run test:e2e --agent \"$agent\" TestPartialStaging` for claude-code opencode factoryai-droid cursor-cli copilot-cli roger-roger codex; gemini-cli excluded with hooksPath reason; Windows limited to claude-code with stated reason.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "TestPartialStaging chosen: 'prompt 1 → commit → wait for checkpoint 1 → prompt 2 → commit → checkpoint 2'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 reply surveys e2e tests and explains why TestPartialStaging is the only exact 2-prompt match.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 reply lists e2e.yml, e2e-windows.yml, e2e-isolated.yml, nightly.yml, e2e-checkpoints-v2.yml before proposing a plan.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Per-agent runs happen in a sequential `for agent in $AGENTS` loop inside each OS job; no agent matrix.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "'Committed locally as b960207f on add-nightly-matrix-e2e-test ... no origin remote ... can't push the branch or open the draft PR'.",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers a nightly-scheduled workflow covering all three OSes with the correct per-OS install paths, a single two-prompt checkpoint test run per agent inside each OS job, checkout of main, and a local commit with the PR limitation explained. Doubt remains because the OS coverage is three hand-written jobs rather than a literal strategy.matrix, the Windows installer is invoked from the checkout rather than as if published, and pi/vogon are not explicitly excluded with a reason.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.04261,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:06.808309+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.887045,
+ "replay_cost_usd_label": 1.94343,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.68,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

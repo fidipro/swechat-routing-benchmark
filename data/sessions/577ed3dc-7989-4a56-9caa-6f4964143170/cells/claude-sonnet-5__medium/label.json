@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.72,
+  "criteria": [
+   {
+    "evidence": "Turn 2: 'This is stale cached frontend translations, not a bug in the current code' — showed {slot_num} was removed from config/options strings in 7cadf02 (5.0.0), stated GitHub was unreachable and reasoned from the repo.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: identified `condition` in code_slot step labelled as `entity_id`, and `users` in config yaml and options init steps labelled as `slots`, with raw-key fallback consequence.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff renames entity_id→condition (code_slot), slots→users (yaml, options init) in both strings.json and translations/en.json.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff extends _start_ui_config_flow, _start_yaml_config_flow and test_options_flow to assert set(result['data_schema'].schema keys) == set(strings step data keys); no schema refactor.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "pytest not installed ('No module named pytest', no pip); replay disclosed it could not run tests, verified parse; set-equality asserts would logically fail on old keys and pass after rename — accepted with doubt.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Test suite could not be run (no pytest); replay disclosed this; diff adds only assertions consistent with the fixed strings — accepted with doubt.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "No network; replay stated 'Nothing was posted to the GitHub issue, as requested.'",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff leaves 'The config is expected to be a dictionary where the key is the slot number' and 'the slot configurations' unchanged, and the replay never mentioned or reported them as not done.",
+    "id": "c7",
+    "met": false
+   }
+  ],
+  "reason": "The replay diagnosed the stale-translation cause, found and fixed the label-key drift in both string files, and added Option B schema-key guards in the existing config-flow tests, though it could not execute the tests. It failed c7: the stale slot-keyed descriptions in the yaml and options init steps were neither updated nor reported as skipped with a reason.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.33278,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:04:20.801180+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.266998,
+ "replay_cost_usd_label": 1.266998,
+ "session_id": "577ed3dc-7989-4a56-9caa-6f4964143170",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.72,
+   "verdict": "fail"
+  }
+ ]
+}

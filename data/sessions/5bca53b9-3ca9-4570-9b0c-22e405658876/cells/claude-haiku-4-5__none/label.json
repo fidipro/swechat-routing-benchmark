@@ -1,0 +1,75 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "TopicNode becomes clickable when schema+messageType present and opens SchemaModal rendering SchemaViewer (FlowView.tsx diff); topology Topic gained MessageType/Schema fields injected from .intropy/schemas.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "SchemaViewer.tsx parses JSON Schema into Field rows showing name, type, 'required' badge and expandable nested objects/array items — no C# source; nested-object required-ness is hardcoded false though, a weakness.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Topic.MessageType names the POCO type, schema file `.intropy/schemas/<MessageType>.json` is attached to that topic; MESSAGE_CONTRACTS.md documents exporter generating schema from the .NET type (exporter itself deferred to .NET repo, as in the original).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Connector gained Schema; injectSchemas attaches `.intropy/schemas/<connectorName>.json`; ExternalNode shows badge and opens the schema modal; MESSAGE_CONTRACTS.md describes it for SFTP/flat files; TestConnectorSchemasInjected added.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "`go test ./... -v` output shows only PASS/ok lines incl. dashboard and topology packages with new tests.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Replay fixed TS errors in SchemaViewer and reported 'npm build: Succeeds with 31.5 KB CSS + 360.9 KB JS' (no build failure in record).",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers a clickable topic/external-node schema inspector rendering a JSON-Schema field tree with required badges, keyed by message type for internal events and by connector name for external messages, with go tests and npm build reported green. Doubt remains because nested-object required-ness is never derived and the handler wiring calls injectSchemas with filepath.Dir of a relativized path, which tests bypass and may misresolve the schemas directory in practice.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.49437,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:52.279769+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.060076,
+ "replay_cost_usd_label": 1.080908,
+ "session_id": "5bca53b9-3ca9-4570-9b0c-22e405658876",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  }
+ ]
+}

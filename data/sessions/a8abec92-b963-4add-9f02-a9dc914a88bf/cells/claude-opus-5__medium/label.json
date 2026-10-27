@@ -1,0 +1,62 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "Turn 0 delivered a review of `main...HEAD`, commit 63f96bf with four findings; basis (local branch diff) stated, and gh/remote unavailability confirmed in turn 2 rather than in the review itself.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Diff reorders fence check before comment scan, resets codeTicks on blank line, adds lineImportsAgents for inline imports, and regenerates this repo's CLAUDE.md/AGENTS.md (finding 4).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "go build, go vet ./internal/cli, go test ./internal/cli and go test ./... all reported ok; mise not mentioned.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: headless `claude -p` (Claude Code 2.1.304) in fixture reported COUNT_A = 1, GUIDE = YES, SENTINEL, plus pre-fix binary comparison.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: empty commit aa8f683 created on ashtom/readme-refersh; push reported impossible because clone has no remote.",
+    "id": "c5",
+    "met": true
+   }
+  ],
+  "reason": "All four review findings were fixed with regression tests, checks are green, a real claude -p verification was run and reported, and the empty commit was created with the push failure disclosed. Doubt remains on c1 because the review named its local-diff basis but only noted gh/remote unavailability in a later turn.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.21787,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:58.687377+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.383332,
+ "replay_cost_usd_label": 2.383332,
+ "session_id": "a8abec92-b963-4add-9f02-a9dc914a88bf",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "pass"
+  }
+ ]
+}

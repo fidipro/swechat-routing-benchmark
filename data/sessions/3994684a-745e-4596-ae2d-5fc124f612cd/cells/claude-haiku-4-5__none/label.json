@@ -1,0 +1,67 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.92,
+  "criteria": [
+   {
+    "evidence": "Diff shows AGENTS.md deleted as regular file and recreated with mode 120000 containing 'CLAUDE.md'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'Done. Committed: AGENTS.md is now a symlink to CLAUDE.md.'",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply explains line 1 is a redundant filename heading and line 3 is generic description that tools infer from filename/location; neither adds actionable guidance.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes '# CLAUDE.md' and 'This file provides guidance to AI agents when working with code in this repository.' from CLAUDE.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff hunk @@ -1,8 +1,3 @@ only removes header lines; '## Project Overview' onward is context, unchanged (matches original diff blob 6bde9bb).",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reply: 'Done. Stripped the boilerplate and committed.'",
+    "id": "c5",
+    "met": true
+   }
+  ],
+  "reason": "The replay created the AGENTS.md symlink, committed it, gave a reasoned answer on the header lines, removed them, and committed again, with a final diff identical in content to the original. Commits are only evidenced by the model's statements, which introduces slight uncertainty.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.06517,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:22.807908+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.066538,
+ "replay_cost_usd_label": 0.066538,
+ "session_id": "3994684a-745e-4596-ae2d-5fc124f612cd",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.92,
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-08-15T16:43:45.022Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-opus-4-8",
+  "models_seen": [
+   "claude-opus-4-8"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.224",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 21.688704
+ },
+ "repo_id": "faucet-hq/faucet-stream",
+ "repo_url": "https://github.com/faucet-hq/faucet-stream",
+ "session_id": "dff9240c-9ee1-4a01-90dd-b61775dcc773",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "test/cleanup-coverage",
+  "commit": "8c8a0898ca1dccaa2cfa380075880ebd835760d2",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-08-15T15:34:31.615Z",
+ "user_turns": 3
+}

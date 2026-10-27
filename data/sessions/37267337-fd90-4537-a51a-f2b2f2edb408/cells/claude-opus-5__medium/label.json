@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 proposal includes a scenario matrix (hand removal, deleted /opt path, apt.conf.d CHANGE mark, snap removed by snapd, legacy block entries, manager moves) beyond the fortunes collateral case.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'No gh, no git remote, no credentials, and no network ... so I can't file it myself'; issue text drafted at 02-ISSUE-stale-machine-specific-marks.md with title/body and a gh command to file it.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Sweep re-run on target after converge loop; tests `test_apt_collateral:TestConsentingToCollateralRetractsTheMarkItDestroyed::test_the_mark_on_the_destroyed_package_is_forgotten` and `TestThisRunsOwnChangesAreSweptToo::test_a_mark_the_runs_own_collateral_destroyed_is_forgotten` pass in the final suite run.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final reply covers plan-time sweep in `_load_plan_decisions`, post-converge re-sweep for same-run drop, guard rails (unknown≠absent, dry-run, ProbeFailed keeps marks), re-review of unmarked items, and updates to conformance criteria, ADR-020 D-08b, coverage matrix H181+, system spec and runbook; two deviations explicitly reported with reasons.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "New tests in test_package_sync_core.py, test_stale_marks.py (20 tests), test_apt_collateral.py, test_package_state.py; matrix rows H181–H199/G117 cite them and test_scenario_coverage_matrix.py passes.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Final run: ruff 'All checks passed!', format clean, codespell clean, basedpyright '0 errors', pytest '1 failed, 4599 passed' where the sole failure is `FileNotFoundError: 'rsync'` in an untouched test file — environmental, not caused by the diff.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Runbook diff: §4 bullet now reads 'Answering `<y>` takes the mark with the package'; pc2 check adds `grep -c fortunes ~/.config/pc-switcher/apt.decisions.yaml  # 0 — the mark went with the package` and prose says the mark is gone from pc2's decision file.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a general proposal, an unfileable-but-drafted issue with the network limitation stated, and a full implementation with sweep-on-load plus post-converge re-sweep, per-manager presence oracles, docs/ADR/matrix/runbook updates, and extensive tests; all static checks pass and the only pytest failure is a missing rsync binary in an untouched test. Doubt remains because the diff is truncated and the pre-existing nature of the rsync failure was asserted rather than cleanly demonstrated via stash.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.53458,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:36.149873+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 30.097076,
+ "replay_cost_usd_label": 30.172481,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

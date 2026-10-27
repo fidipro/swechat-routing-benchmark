@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "blob_gc.rs collects `failed_dids` on reconcile Err and phase 2 does `if failed_dids.contains(&did) { continue; }`; test asserts A's ownership row, blobs row and file all survive.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "`gc_spares_blobs_of_an_account_whose_reconcile_fails`: A's repo_root_cid corrupted so collect_referenced_blob_cids errors, both A and B have expired orphan blobs, asserts stats.errors==1, A's row/blob/file survive, B's gone; test passes.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "errors>0 now logs `tracing::warn!(... \"blob GC pass completed with errors\")` instead of info 'pass complete'; adds `blob_gc_errors_total` counter and `errors` field on SweepRun/SweepState in /v1/admin/health.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay reports `cargo fmt --all -- --check`, `cargo clippy -p pds --tests -- -D warnings`, ticket-ref-check and changelog-check pass; blob_gc/sweep_status/metrics/admin_health test modules pass (full `cargo test -p pds` and audit not shown, but clippy --tests compiles all tests and diff touches only these modules).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "New changelog.d/mm-472.fixed.md and changelog.d/mm-472.added.md describing the fail-closed fix and observability surface.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Script entry 1 skipped: no PR/CI exists in replay (no remote); replay ran local fmt, clippy -D warnings and tests, all passing.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Script entry 2 skipped: no PR/CodeRabbit review exists in replay environment; nothing in replay called for it.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "metrics.rs test adds `metrics.blob_gc_errors.add(1, &[]);` and `assert!(rendered.contains(\"blob_gc_errors_total{\"), ...)`.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "AGENTS.md row: \"`errors` is a mix of per-account reconcile failures (one per failed account, regardless of how many blobs it owns ...) and individual expired-owner-row sweep failures (one per failed CID); not a per-blob skip count\"; admin_health SweepState::errors doc says the same.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "names::BLOB_GC_ERRORS doc: \"a mix of per-account reconcile failures ... and individual expired-owner-row sweep failures (one per failed CID). Not a per-blob skip count.\" (describes sweep_expired_owner failures without naming the fn).",
+    "id": "c10",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements the fail-closed DID exclusion, adds the A/B regression test, makes errors>0 observable via warn log, metric counter, and health field, adds MM-472 changelog entries, and addresses the three doc/test nits. Doubt remains because the full `just ci-pds` gate (complete `cargo test -p pds`, audit) was not shown run, only fmt/clippy/ticket-ref/changelog and the touched test modules.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.43479,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:04.649853+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.308462,
+ "replay_cost_usd_label": 4.364847,
+ "session_id": "f91fc39e-8a46-45f9-96a5-b3f69bd06389",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0: \"Bug 1 — the Daily CARs did throw it off\" — explains the 5-most-recent-workouts window pushed Session A out so it was never passed to the matcher.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "performSync now uses getWorkoutsSince (30-day window, paged); matchCompletions test \"matches an older session even when newer workouts come first\" covers Session A buried behind four CARs and Session B; 110 tests pass.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "computeSkippedItems + batchMarkQueueItemsSkipped wired into performSync and manual-complete; test \"skips pending items leapfrogged by an out-of-order completion\" (C pending, D completed → C skipped, E next).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay ran `npx vitest run`: 9 files, 110 tests passed; model reports `tsc --noEmit` clean.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 presented both fixes (date-window fetch + skip-ahead) already implemented, plus repeat-performance matching and daily-detection fix; all present in diff.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: \"Commit: done — d5bc3aa on main, 9 files, 232 insertions.\"",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: push failed, \"This clone has no git remote configured at all\" — reported with reason and commands to finish.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "not observable",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: deploy failed, needs CLOUDFLARE_API_TOKEN; user told to run `wrangler deploy --env production` from an authenticated shell.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No migrations added; Turn 1: \"No D1 migration is needed for this change — 'skipped' is a new value in an existing unconstrained status column.\"",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay diagnosed both bugs, explained the Daily CARs burial, implemented a 30-day paged fetch and skip-ahead logic with passing tests and typecheck, and committed on main. Push and deploy were impossible in the environment and were reported with clear reasons and next steps; commit message wording is not observable.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.26133,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:24.473068+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.059422,
+ "replay_cost_usd_label": 2.134828,
+ "session_id": "2afd116d-8d5a-4c41-9f4a-80420ea5b601",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "pass"
+  }
+ ]
+}

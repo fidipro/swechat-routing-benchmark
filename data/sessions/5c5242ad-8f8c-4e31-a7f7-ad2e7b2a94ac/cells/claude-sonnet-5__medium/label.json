@@ -1,0 +1,132 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": ".github/workflows/pr-review.yml added with `on: pull_request: types: [opened, synchronize, reopened]`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Prompt: 'Use the pr-reviewer subagent to review this pull request' and `--allowedTools \"Task,...\"` so the subagent can be dispatched.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Prompt instructs `gh pr comment <n> --body-file`, with `GH_TOKEN` env and `pull-requests: write` permission.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'gh secret set ANTHROPIC_API_KEY' with interactive-prompt guidance and warning against --body in shell history.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'I won't run this myself since it requires the actual key value — that's yours to paste.' Never asked for the key in chat.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'The commit is made locally on branch `ci/pr-review-agent` (`cb5382f`).'",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: reported no remote/gh and gave `git push -u origin ci/pr-review-agent` + `gh pr create ...`.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "not observable (commit messages not in record; model referenced matching other commits' format in turn 10).",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 before committing: 'Nothing from this session qualifies for DEVELOPMENT.md/TROUBLESHOOTING.md ... Committing now.' No entries added.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Diff shows `id-token: write` under permissions; turn 4 committed fix (4198a17) and asked user to push since no remote.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5 explained most likely cause (Task tool missing from --allowedTools so subagent/comment never ran) consistent with the workflow as written, and asked for logs it couldn't reach.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: reported push/log check could not be done ('no configured git remote and no gh CLI') and gave the exact commands.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 8/9: verify branch created and merged locally; model reported 'no GitHub PR was ever actually opened or merged, since this sandbox has no remote/gh'.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds docs/adr/0000-template.md.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Frontmatter title/status/date/audience; sections Context → Decision → (optional Alternatives considered) → Consequences → (optional Implementation) → Sources, matching the structure the model found across ADRs.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 9 message: consistent frontmatter and Context→Decision→Consequences→Sources order; optional Alternatives/Implementation; 0012 outlier phrasing; H1 present in ~half (11/20 omit).",
+    "id": "n10",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a pull_request-triggered workflow using the ANTHROPIC_API_KEY secret with id-token: write, Task-enabled invocation of the pr-reviewer subagent, and gh-based PR commenting, committed on a branch with remote steps deferred and reported due to no remote. It also gave the gh secret command without requesting the key, explained the missing-comment cause consistently with the workflow, and derived an ADR template with a reported structural assessment; residual doubt is from unobservable commit message format and the Implementation section placement.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.35716,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:41.350514+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.768632,
+ "replay_cost_usd_label": 0.768632,
+ "session_id": "5c5242ad-8f8c-4e31-a7f7-ad2e7b2a94ac",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

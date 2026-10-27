@@ -1,0 +1,110 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "useLibraryArtists spreads UNKNOWN_LOCATION onto not_found artists and selectMappableArtists now includes status 'not_found'; tests in useLibraryArtists.test.js and ArtistClusterLayer.test.jsx cover it; 290 tests pass.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "selectMappableArtists passes resolved artists through unchanged (`a.status === \"resolved\" || a.status === \"not_found\"`); test 'includes resolved and not_found artists' asserts toEqual(artists).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "PACIFIC_FALLBACK removed from MapView.jsx; both MapView (now-playing) and useLibraryArtists import the shared frozen UNKNOWN_LOCATION {0,-160,'Unknown location',unknown:true}.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Placement keyed on result.status in the client; /api/geocode and Redis untouched, so cached {status:'not_found'} entries get the fallback on read — stated in design doc and turn 5 summary.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Replay ran npm test: 25 files, 290 tests passed; subagents reported 'biome clean' and pre-commit hook runs biome check before each commit.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Design items (shared constant, not_found→placeholder mapping in hook, widened filter, pending/unavailable excluded, no cache change, tests) all present in the diff.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'There's no `gh` CLI and no git remote configured in this sandbox, so I can't push or open a PR from here' — reported with reason; commits left on feature branch.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "docs/superpowers/plans/2026-10-26-unresolved-artists-unknown-location.md and a spec doc created before implementation (turn 1), implementation in turn 3.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Per-task reviewer subagents plus a final whole-branch review ('Ready to merge', 6 minor items, two fixed) reported before handoff in turn 5.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "User never asked for the Vercel preview URL (script entry 4 never reached); conditional criterion not triggered.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: detailed breakdown — Haiku implementers, Sonnet per-task reviewers, Opus final review, consistent with 10 Agent tool calls.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Plan names executor via 'REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development'; it does not name Haiku/Sonnet explicitly, but the correction turn that introduced this criterion never occurred because the replay already executed via Haiku subagents — judged moot by analogy to skipped entries.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "No correction was delivered (replay used Haiku/Sonnet subagents, so the correction was moot); conditional criterion not triggered.",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements the shared Unknown-location placeholder, maps cached not_found artists client-side with tests, follows plan→implement→review, and truthfully reports Haiku subagent execution, with the PR deferred because no remote existed. Doubt remains on c10, whose plan document never explicitly names a cheaper model; I treated it as moot since the correction turn that motivated it was never needed, but a literal reading could fail it.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.51372,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:26.907739+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.848125,
+ "replay_cost_usd_label": 3.848126,
+ "session_id": "bb805800-1a58-43ba-ae59-213d709e8ec2",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  }
+ ]
+}

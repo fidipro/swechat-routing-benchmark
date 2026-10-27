@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 1 inspected repo state, reported no dispatches in flight, listed #26/#29-31 as filed discoveries and the last CI baseline; user accepted and work proceeded on #31.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "friction-log.md gains '## UNANNOUNCED CHAOS-MONKEY DRILL (07-23, mid-session: external spend-limit hard stop)' and 'The checkpoint mechanism itself held up'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 9: 'Playwright is test infrastructure, not shipped product... No policy reversals, just sensible test tooling'; 33-car-brief frames it as a dev dependency, no retraction written.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "docs/setup.md untouched and still truthful (no package.json or Playwright actually added); brief/CLAUDE.md speak of Playwright only as a dev-only/test dependency.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md: 'When reality collides with spec: escalate to the owner for adjudication... do NOT infer... do NOT project... do NOT assume... ask the owner explicitly for a case-by-case ruling' (sharpen/loosen wording absent).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turns 11 and 16 only agree in chat ('The gate gets sharper'); no doctrine, reviewer template or tracked item in the diff records the point.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "CLAUDE.md dispatch rules: 'Ticket citations on every code addition. Every new file and every substantive change must cite its ticket (#<issue>)'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 17 reply only says 'new code gets citations from here forward' in chat; no no-backfill clause or demarcation line appears in CLAUDE.md or any file in the diff.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "No scar/lesson about the standard existing unwritten until now is written anywhere in the diff; only chat ('The scar stays visible').",
+    "id": "n2",
+    "met": false
+   },
+   {
+    "evidence": "No CI run was ever reported; turn 15 reply 'Standing by' neither cited run evidence nor stated CI was unreachable, and the earlier 'CI baseline' was read from old checkpoint notes, not a run.",
+    "id": "c8",
+    "met": false
+   }
+  ],
+  "reason": "The replay recorded the chaos-monkey drill, the reality-vs-spec rule and the ticket-citation standard in CLAUDE.md and the brief template, but the no-backfill/forward-only ruling, its visible scar, and the reviewer-tooling point were left only in chat. It also never reported CI results with evidence (or stated CI was unreachable), and never actually merged #31 or dispatched #33, so several criteria are unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.52088,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:56.448065+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.35795,
+ "replay_cost_usd_label": 3.378782,
+ "session_id": "e92f5a0b-1b9e-4913-98b3-c319b4d5e90b",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

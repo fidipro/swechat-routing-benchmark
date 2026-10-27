@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 1 recommends verifying the MLflow switch (commits 2a9eb41/3d2700d), fixing deploy.sh path flagged in CLAUDE.md, or picking a v2 item from .planning/STATE.md.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2/3 plan: Pi runs capture + pluggable cross-correlation trigger, publishes PCM clip chunks over MQTT QoS 1, stage 2 subscribes, reassembles, runs XGBoost and publishes to doorbell/detected.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 plan adopts two-stage Pi trigger (pluggable), MQTT end-to-end via existing broker, and host-agnostic stage 2 with placement undecided, matching the user's answers.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds new file .planning/STREAMING-PLAN.md.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "STREAMING-PLAN.md contains the same design as turn 3 (stage 1 pluggable trigger + MQTT burst, wire format, env conventions, stage 2 portable subscriber, deferred items) with concrete script names, env vars, and clip lengths.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only the new .planning/STREAMING-PLAN.md; no existing files modified.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Tests not shown run in replay, but only a markdown file was added so the test suite is unaffected; no code changed.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay surveyed the repo with grounded next-step suggestions, sketched and refined a two-stage MQTT streaming plan consistent with the user's answers, and persisted that plan to a new markdown file with no other changes. The only uncertainty is that the test suite was not explicitly run, though the diff contains no code changes that could affect it.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.16864,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:31.019087+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.188363,
+ "replay_cost_usd_label": 0.244748,
+ "session_id": "9aa0343f-7308-4e65-a069-4e5d0e94b2cf",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "pass"
+  }
+ ]
+}

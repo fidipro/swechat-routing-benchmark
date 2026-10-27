@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-08-29T14:41:31.354Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-opus-5",
+  "models_seen": [
+   "claude-opus-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.246",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 32.137667
+ },
+ "repo_id": "yazidears/glia",
+ "repo_url": "https://github.com/yazidears/glia",
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "claude/pin-rail-generate-ea20be",
+  "commit": "ae38db99bb6c7fc60c4c470b4f4074162d8ab4bf",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-08-29T13:49:32.779Z",
+ "user_turns": 3
+}

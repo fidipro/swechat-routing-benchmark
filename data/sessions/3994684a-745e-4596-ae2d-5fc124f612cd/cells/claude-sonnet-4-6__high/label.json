@@ -1,0 +1,67 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-4-6",
+  "effort": "high",
+  "model": "claude-sonnet-4-6"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.93,
+  "criteria": [
+   {
+    "evidence": "Diff shows AGENTS.md deleted as regular file and recreated with mode 120000 containing 'CLAUDE.md'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'Committed as `ce43a37`.'",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'No, they're not useful. Line 1 just restates the filename, and line 3 states the obvious — I already know this file is for me.'",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes '# CLAUDE.md' and 'This file provides guidance to AI agents when working with code in this repository.' lines from CLAUDE.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff hunk @@ -1,7 +1,3 @@ only removes the header lines (one blank line remains before '## Project Overview'); content from '## Project Overview' onward untouched.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reply: 'Committed as `e0ed8e3`.'",
+    "id": "c5",
+    "met": true
+   }
+  ],
+  "reason": "The replay converted AGENTS.md to a symlink to CLAUDE.md, committed it, answered the user's question with reasoning, removed the redundant header lines, and committed again. The remaining CLAUDE.md content is unchanged apart from a leading blank line that was already present, which does not affect the substantive content.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.06324,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:23.942041+00:00",
+ "name": "claude-sonnet-4-6__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.181058,
+ "replay_cost_usd_label": 0.181058,
+ "session_id": "3994684a-745e-4596-ae2d-5fc124f612cd",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.93,
+   "verdict": "pass"
+  }
+ ]
+}

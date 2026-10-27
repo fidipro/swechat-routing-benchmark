@@ -1,0 +1,97 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "New .github/workflows/nightly-smoke.yml with `schedule: - cron: \"0 8 * * *\"` plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "strategy.matrix.include lists ubuntu-latest, macos-latest, windows-latest with runs-on: ${{ matrix.os }}.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "macOS step: `brew tap entireio/tap`, `brew trust entireio/tap`, `brew install --cask entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Linux step: `curl -fsSL https://entire.io/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Windows step (shell: pwsh) runs `./scripts/install.ps1 -Channel nightly -InstallDir $installDir`; the replay created the ps1 (as the user asked for a 'fake ps1 install') and disclosed it is not yet hosted at entire.io, invoking it from the checkout instead of a published URL.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "`actions/checkout@...` with `ref: main`, step named 'Checkout repository (main)'; main-vs-tag tradeoff explained to user.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Loop runs `mise run test:e2e --agent \"$agent\" \"$SMOKE_TEST\"` for claude-code, opencode, codex, cursor-cli, copilot-cli, factoryai-droid; gemini-cli, roger-roger, vogon, pi excluded with inline reasons, Windows subset justified by absent installers.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Single test TestMultiSessionManualCommit selected: 'Two prompts, a commit, then checkpoint verification'; runner-up TestMultiSessionSequential discussed and rejected.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 surveyed candidates (TestInteractiveMultiStep, TestMultiSessionSequential, TestMultiSessionManualCommit) and later checked roger_roger.go against external_agent_test.go.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'I'll start by exploring the existing workflows and E2E test suite'; plan references e2e.yml, nightly.yml, release.yml, e2e-isolated.yml specifics.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "One job per OS; 'Run smoke test for each agent' step launches agents in parallel subshells within the job, matrix has no agent dimension.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Commit 04621566 on branch add-nightly-matrix-e2e-test; told user 'no git remote configured... no gh CLI' so PR could not be opened, with commands to finish.",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers a nightly-scheduled OS-matrix workflow installing the nightly CLI via brew/curl/PowerShell, checking out main, and looping mise test:e2e over all installable built-in agents within each OS job using one surveyed smoke test, then committed on a branch and explained the PR could not be opened without a remote. The main doubt is n2: the PowerShell script is invoked from the checkout rather than as a published URL, though this matches the user's request to create the ps1 and was disclosed.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.36581,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:39.380635+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.899803,
+ "replay_cost_usd_label": 4.899803,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

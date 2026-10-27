@@ -1,0 +1,205 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Model summary: stores/session.ts gains `pinned: PinnedRef[]` with togglePin/clearPins; idea-board.tsx 'stickers now push into the shared pin store (imageUrl: null) instead of local state'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Backend PinnedRef { id, title, lane, image_url: str|None, source_url: str|None }; use-generate.ts converts camelCase store PinnedRef to wire contract; board pins with imageUrl: null.",
+    "id": "c14",
+    "met": true
+   },
+   {
+    "evidence": "pin-rail.tsx described as full-width bottom rail with '\"N pins · conditioning input\" label' and thumbnails; CSS in index.css in neutral palette (#f1f0ec).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "pin-rail.tsx: 'Generate button with idle/generating/error states'.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "pin-rail.tsx: 'absent at zero pins'.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "'index.css — new rail/result styles reusing the existing workspace-enter/sticker-enter curves'; no dependency added (uv.lock/pnpm lock untouched).",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "api.py adds POST /v1/generate with GenerateRequest{session_id,transcript,pins} and GenerateResponse{image_url,prompt,model,reference_count} as Pydantic StrictModels; smoke-tested via curl in fixture mode.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "synthesis.py SynthesizedPrompt only has Field(min_length=1, max_length=600); the 80-word bound is only in the instruction/description, not validated — a 90-word prompt under 600 chars would not be a validation error.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "fal.generate(prompt=prompt, reference_urls=...) — arguments = {'prompt': prompt} (+image_urls); transcript never passed.",
+    "id": "c18",
+    "met": true
+   },
+   {
+    "evidence": "fal.py _submit POSTs to https://queue.fal.run/{model} with 'X-Fal-Store-IO': '0', then _await_completion polls status_url; no webhook.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "_POLL_BUDGET_SECONDS = 45.0 with deadline check raising FalGenerationTimedOut; route returns 504 problem code 'generation_timed_out'.",
+    "id": "c19",
+    "met": true
+   },
+   {
+    "evidence": "_submit does a single client.post with X-Fal-No-Retry: 1 and raises FalUpstreamError on any failure; no retry loop.",
+    "id": "c20",
+    "met": true
+   },
+   {
+    "evidence": "httpx.Timeout(10.0) on submit, Timeout(5.0) on poll and result fetch; OpenAI client created with timeout=openai_request_timeout_seconds and wait_for wrapper.",
+    "id": "c21",
+    "met": true
+   },
+   {
+    "evidence": "fal.py uses plain httpx; `uv sync --frozen` succeeded with no lockfile drift.",
+    "id": "c22",
+    "met": true
+   },
+   {
+    "evidence": "_reference_urls filters https:// pins capped at settings.fal_max_reference_images; FalClient.generate picks fal_reference_model if reference_urls else fal_fallback_model, adding image_urls only when present.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "pin_titles=[pin.title for pin in payload.pins] passed to synthesize_prompt; reference_count=len(reference_urls); generation-result.tsx renders 'no reference images' when 0.",
+    "id": "c23",
+    "met": true
+   },
+   {
+    "evidence": "FalClient.begin raises FalAlreadyGenerating under a lock; route returns 409 problem code 'generation_in_progress'; lru_cache single client.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "config.py adds fal_key, fal_reference_model='fal-ai/flux-pro/kontext/max/multi', fal_fallback_model='fal-ai/flux/schnell', fal_max_reference_images=4 matching .env.example.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "demo_mode == 'fixture' short-circuits to _fixture_generate with embedded data-URI PNG; curl smoke test 'no network'.",
+    "id": "c24",
+    "met": true
+   },
+   {
+    "evidence": "generation-result.tsx renders <img> and the verbatim prompt with model id and reference count; wired into workpane.tsx.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "PinRail is a fixed bottom rail rendered in session-screen.tsx whenever pins exist, independent of workpane content.",
+    "id": "c25",
+    "met": true
+   },
+   {
+    "evidence": "Model: 'Generate button with idle/generating/error states and a correlation id on failure'.",
+    "id": "c26",
+    "met": true
+   },
+   {
+    "evidence": "'No key names in dist/' after grep; OpenAI and fal calls live in apps/api only.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "ruff 'All checks passed!', mypy 'no issues found in 23 source files', pytest 33 passed, pnpm typecheck/lint/build reported passing on merged main.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Typecheck passed under exactOptionalPropertyTypes; model fixed `className?: string | undefined`; no `any`/`!` visible in shown TS.",
+    "id": "c27",
+    "met": true
+   },
+   {
+    "evidence": "synthesis.py uses `except Exception as error`, fal.py uses typed httpx/ValueError excepts; no bare except.",
+    "id": "c28",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches .env.example, apps/api, apps/web, packages/api-client only; no README.md or docs/ changes.",
+    "id": "c29",
+    "met": true
+   },
+   {
+    "evidence": "`uv run pytest -q` → 33 passed after changes.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "session-screen.tsx: PinRail moved after the mic in markup; mic lifted via data-above-rail translateY(--mic-lift) so rail sits below it at the viewport bottom.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "'.pin-rail is now a solid light banner (#f1f0ec, no blur)'.",
+    "id": "c30",
+    "met": true
+   },
+   {
+    "evidence": "'.pin-rail-unpin: the X unpin icon is now permanently visible on each thumbnail' and unpins on click.",
+    "id": "c31",
+    "met": true
+   },
+   {
+    "evidence": "Committed b3de91f on branch, `git merge --no-ff` into local main → 2172c52, checks re-run green, reported nothing pushed (no remote).",
+    "id": "c13",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered the pin rail, store lift, /v1/generate with fal queue client, fixture mode, result view, repositioned banner rail with X unpin, and merged locally into main with all checks green. It falls short on c4: the synthesis Pydantic schema only caps characters at 600 and does not enforce the under-80-word bound, so an over-length prompt is not a validation error as the criterion requires.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.7723,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:16:47.510961+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.338222,
+ "replay_cost_usd_label": 6.394607,
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.72,
+   "verdict": "fail"
+  }
+ ]
+}

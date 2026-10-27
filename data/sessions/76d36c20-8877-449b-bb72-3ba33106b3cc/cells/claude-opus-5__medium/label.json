@@ -1,0 +1,107 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": "Turn 1 reply lists six divergences with file:line evidence (e.g. `Makefile:66` for missing agent-doctor, `detect_changed_surfaces.py:305-316` for the 'executable form' claim) plus verified-sound items.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3/4: describes 223bf0e as the workflow-asset install (.agents/**, .claude/**) and explains adopt.sh/agent-workflow-skills belong to the external agent-skills installer, citing scripts/check_agent_docs.py:55; entry 2 skipped as never called for.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Script entry 2 skipped as moot ('replay never mentioned a skills refresh'); no turn in the replay called for it.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff of PULL_REQUEST_TEMPLATE.md fixes all reported issues: 'validation matrix'→'Verification Map', reviewer stages deferred to triage track, quick-ci-changed asks for its output line, conditionals moved out of Required.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Post-merge: 'Ran 223 tests OK', verify_docs.py and check_agent_docs.py passed; make ci unrunnable (no mise/venv) and stated; missing web/chat checks cannot be affected by a markdown template.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply: 'The commit is local on scottdensmore/docs/consolidate-agent-guide'; merge only reported in turn 3 after 'Go ahead and merge'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'Merged and the branch is gone. main: 1aaf2c1 docs(agents): correct the guide ... align the PR template' (fast-forward, no remote to push to).",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'the branch is gone ... branch deletion was verified safe first'; no remote exists, stated explicitly.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'adopt.sh is not in this repo, and never has been ... The repo only references it in two comments' (scripts/check_agent_docs.py:55, tests/scripts/test_check_agent_docs.py:91); no separate memory note claimed.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Entry 6 skipped: model found no adopt.sh memory note; reply reports adopt.sh exists only as external-tool references in comments.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Nothing was removed, so no index/backlink could dangle; n/a in effect.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: codeql.yml added to RUNTIME_PATTERNS with test, Verification Map row rewritten; .mjs/config fallback gap and Notes/PYTHON_BASE restore explicitly deferred with reasons.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: 'Committed 69dcae0 on scottdensmore/fix/route-codeql-workflow, branched off main at 1aaf2c1.'",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Detector suite 30/30, 224 guard tests, verify_docs/check_agent_docs green; make ci unrunnable and stated; diff touches only Python script/test and AGENTS.md prose.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "The replay reviewed AGENTS.md with file-level evidence, rewrote the PR template fixing every reported issue, merged only after approval, deleted the branch, and put the codeql routing and Verification Map fixes on a fresh branch off main with the runnable gates green and make ci's unavailability disclosed. Doubt remains on c2/c7 since the agent-skills explanation and the adopt.sh answer addressed repository references rather than an explicit account of the assistant's own notes or a skills refresh.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.4259,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:41:11.648134+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 7.836548,
+ "replay_cost_usd_label": 7.911953,
+ "session_id": "76d36c20-8877-449b-bb72-3ba33106b3cc",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.7,
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,125 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.62,
+  "criteria": [
+   {
+    "evidence": "Turn 0: the second revision dir is a 'stray fixture' proving the mirror scopes ~/snap/hello by what pc2's snapd holds, tied to §6's 'no second revision directory' check.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turns 3-4: 'There's no ssh binary anywhere on this machine... exit 127 on every attempt'; verdict then grounded in ADR-020 measurements, flatpak_sync.py and the unit test (turn 1 initially asked the user to run commands, but the final investigation was from the repository).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'not a pc-switcher bug, it's the runbook step itself' — an allow-only filter narrows nothing, so remote-ls still lists sopwith and the check correctly does not fire.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff §3: printf 'deny *\\nallow org.freedesktop.*\\n' > /home/testuser/uat.filter (pc2.filter also fixed and disclosed).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: 'This one's a real bug, not a runbook issue — and I fixed the code this time'.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Replay chose to change behaviour: registry loaded at top of plan() before capture_source_items(), regression test added and shown to fail on old ordering; choice stated in turn 6 ('No runbook change needed... the code just didn't deliver it').",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "§4 now reads 'the collateral question \"remove fortunes-min from pc2, so fortunes is removed as well\"' — the on-screen hint, with reply naming key `y`/`remove`; 'go ahead' removed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "§4: 'the repository deletion `<s>` — apt's own second review round, asked once the first round's answers are in, still before snap_sync starts'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "§5 bullet 'snap_sync asks `Install snap packages` first, for `hello-world` alone... starts applied... needing only a confirm'; §4 places it after repo deletion and before hello's change (§4's '`<x>` left at install' wording is a bit confusing).",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "§5 bullet 'flatpak_sync asks `Install flatpak applications` for `io.github.fragglet.sdl_sopwith` alone... needing only a confirm'; §4 places it after hello's change and before the /opt/pcsw-uat-vendor question.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10: shape is undecidable from the layout; 'pick \"one application\" not because it's more correct, but to stay consistent with the rest of the script' (§4/§5/§6 assume a single finding).",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "§4: 'answered \"one application\" while still planning; then its review presents `/opt/pcsw-uat-app` first, answered `<y>`..., and `/opt/pcsw-uat-vendor` second, answered `<x>`'.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 12-13: 'I don't have live access to pc1/pc2'; explains _hold_snap_autorefresh is skipped in --dry-run so snapd's auto-refresh moved pc2's hello back to pc1's revision.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 14 adds and describes the remedy: re-pin hello on pc2 with `sudo snap refresh --revision=<that second revision> hello` before every invocation, with a `snap changes` fallback check.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "§4 new paragraph: 'Re-pin `hello` on pc2 before every invocation of either command above, dry run or real, first time or a repeat' with the ssh/snap refresh command.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Full unit suite 4354 passed, 1 pre-existing failure from missing rsync binary; reply states ruff/format and basedpyright clean on touched files; codespell run not observable in record.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "Every criterion is addressed: the filter fix, collateral/second-round wording, missing hello-world and sdl_sopwith screens, review ordering, 'one application' justification and the re-pin instruction are all in the runbook diff, and the unreachable VMs were explicitly acknowledged with code-based reasoning. Doubt remains over §4's confusing '`<x>` left at install' phrasing for the two install rows, the unverified codespell run, and the replay's choice to fix check 3 in code (a defensible but unconfirmed reading of the runbook's intent).",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.56989,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:36:15.842349+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.892205,
+ "replay_cost_usd_label": 4.948589,
+ "session_id": "f444b812-0e31-4e12-ac62-f7711c77970d",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.62,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  }
+ ]
+}

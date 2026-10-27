@@ -1,0 +1,67 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.95,
+  "criteria": [
+   {
+    "evidence": "Replay's final message: 'Not yet done... the dashboard handler that resolves a topic's contract name to its generated schema file, and the React panel rendering the tree.' No dashboard inspection exists.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Only a Go Field tree model and JSON Schema converter were added; no web/ UI renders fields, nesting or required-ness.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Topic.Contract string left as-is; no handler associates a derived contract with a topic/channel, only a converter function with no caller.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Connector gained an optional Contract field, but nothing surfaces it in the dashboard (no handler, no web change).",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Replay ran only `go test ./internal/contract/... ./internal/topology/...`, not `go test ./...`.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "No `npm run build` in web/ was run; no web changes were made.",
+    "id": "c6",
+    "met": false
+   }
+  ],
+  "reason": "The replay hit the turn cap after producing only a Go data model and JSON Schema converter, explicitly stating the dashboard handler and React panel were not done. No dashboard inspection of internal or external contracts exists, and the full test suite and web build were not run.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.25414,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:14.690911+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.294652,
+ "replay_cost_usd_label": 0.351036,
+ "session_id": "5bca53b9-3ca9-4570-9b0c-22e405658876",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.95,
+   "verdict": "fail"
+  }
+ ]
+}

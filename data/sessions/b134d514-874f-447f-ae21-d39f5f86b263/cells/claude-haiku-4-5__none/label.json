@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Diff adds '## Testing' section with 'Run tests with `uv run pytest -q`.'",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Added text claims tests 'compare output against `examples/`' and check 'same file hashes' for full-pipeline determinism; the actual suite asserts invariants and does not diff against examples/ (per reference), and the vague area descriptions (e.g. 'dimension chains and symbols position as expected') do not match tests/test_pipeline.py.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "'[poc/ifc-detailing 1129091] Add testing section to README — 1 file changed, 12 insertions(+)'",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "'there's no remote configured for this repository' — push reported impossible with reason.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Cherry-pick onto main conflicted and was resolved by 'keeping the clean version with the testing section and discarding the junk', i.e. replacing main's README with the feature branch's full README rather than applying only this commit's change — carries feature-branch content beyond the single commit.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "No remote exists; user had already accepted 'No remote, that's fine, local is ok' before the main step.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "'The testing section is now on both main and your branch' — user told main was used (user had specified main if default).",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay added a Testing section and committed only README.md, but the section's content misdescribes the suite (claiming diffs against examples/ and full-pipeline hash determinism, contrary to tests/test_pipeline.py). The cherry-pick onto main also resolved the conflict by overwriting main's README with the feature branch's whole README, carrying content beyond the single commit.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.14645,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:24.319401+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.085105,
+ "replay_cost_usd_label": 0.105937,
+ "session_id": "b134d514-874f-447f-ae21-d39f5f86b263",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

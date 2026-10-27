@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.82,
+  "criteria": [
+   {
+    "evidence": "`## [Unreleased]` became `## [0.9.0] - 2026-08-28`, but the replay inserted a new `## [Unreleased]` heading mid-file, splitting the AllowEmptySource bullet's final paragraph (\"One thing does change for every v2 caller...\") and the Vulnerability Scan bullet out of the release section, so the Unreleased content was not kept under the new heading.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Within the delimited 0.9.0 section every bullet ends with `([#N](https://github.com/entireio/git-sync/pull/N))` with no preceding period; the orphaned Vulnerability Scan bullet has no link but sits under the stray Unreleased heading.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Replay said `gh` is not available and used git log; #104 is cited, but #105 (the go-git bump) is only cited on \"Bumped x-crypto to `0.52.0` ([#104], [#105])\" — a misattributed entry that does not describe #105, and the go-git bullet cites #104/#106 instead; #109, #110, #111 are not cited at all.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Final diff touches only CHANGELOG.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security section reduced from 14 long bullets to 6 short grouped bullets (\"Dependency updates\", \"Credentials and URLs\", etc.).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "All prior Security topics (go-git, toolchain, credentials, ref validation, packfile, SSH quoting, redaction, materialized limit, advertisement bounds, spill, sanitize, TLS, provenance, permissions) survive in grouped form with links #104/#106/#107/#108/#112; pre-compression link set not observable.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "After turn 3 go-git appears only in the Security \"Dependency updates\" bullet; Housekeeping bullet now reads \"Bumped x-crypto to `0.52.0`\".",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "#105 is cited on the Housekeeping bullet and #106 on the Security dependency bullet, so both remain in the release section (though #105 is attached to the wrong change).",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay renamed the heading and compressed Security, but it left a stray `## [Unreleased]` heading in the middle of a bullet, pushing part of the Added content and the Vulnerability Scan entry out of the release section, and it misattributed #105 to the x-crypto bump while omitting #109–#111 entirely. The file is structurally broken and the PR back-fill is incomplete/incorrect, so c1 and c3 fail.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.34883,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:56.713211+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.19593,
+ "replay_cost_usd_label": 0.216762,
+ "session_id": "4f52aadb-0279-46a2-862d-a06fbfff0106",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.82,
+   "verdict": "fail"
+  }
+ ]
+}

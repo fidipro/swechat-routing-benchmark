@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 posed five quiz questions on DIDDocumentScreen pile, grouping, multi-identity, settings; Turn 1 proposal built Security/Hosting/Danger-zone mapping directly from the answers and excluded multi-identity/settings per the user.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "User asked to 'apply any impeccable skills'; replay never invoked a skill nor stated that none applied — no mention of skills anywhere in the transcript.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Diff adds docs/design-plans/2026-10-25-wallet-did-detail-ia.md covering only the wallet's DIDDocumentScreen regrouping; the second app is never addressed and wallet coverage is limited to one screen.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 3-5: 'There's no Linear MCP tool actually available in this session' and Turn 4 listed the 5 issues 'ready to paste into Linear yourself (team MM, project ezpds)'.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'I launched a subagent to try creating the 5 Linear issues' and reported it hit the same wall.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5 after '/mcp looks connected': 'Retrying with a fresh agent... Same result on retry — no Linear tool reachable'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: 'The commit itself is done locally (`ad64e523` on `claude/identity-wallet-ia-35c861`)'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: 'No git remote is configured... Opening the actual PR needs to happen from an environment with push access... do you have a remote URL I should add?'",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay ran a genuine interactive brainstorm, handled the Linear connector failures with subagent retries and ready-to-paste drafts, and committed the doc while correctly explaining the PR could not be opened. However the design doc addresses only one wallet screen and ignores the second app entirely, and the assistant never invoked or dismissed the skills the user explicitly asked for.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.28545,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:27.748051+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.472206,
+ "replay_cost_usd_label": 1.528591,
+ "session_id": "28276c31-4ff2-42af-a8bc-3ffbfac3ac44",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

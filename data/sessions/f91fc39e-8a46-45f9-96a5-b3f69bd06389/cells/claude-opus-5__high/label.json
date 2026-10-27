@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "blob_gc.rs collects failed-reconcile DIDs into `unreconciled: HashSet` and the sweep skips expired rows for those DIDs (counted as `withheld`); regression test asserting A's ownership row, blobs row and file survive passes.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "`gc_withholds_blobs_of_an_account_whose_reconcile_failed` seeds A (reconcile broken via invalid repo_root_cid) and healthy B each with an expired unreferenced blob; asserts A's survive, B's collected; test passes in `cargo test -p pds blob_gc`.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "errors>0 pass logs WARN 'blob GC pass completed with errors' instead of info 'pass complete', increments new `blob_gc_errors_total` counter, and records `errors`/`withheld` on SweepRun surfaced via /v1/admin/health (test `health_reports_a_degraded_blob_gc_pass_distinctly` passes).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "`cargo fmt --all`, `cargo clippy -p pds --all-targets -- -D warnings` (Finished, no errors), `cargo test -p pds` 2210 passed, ticket-ref-check and docs-check green; changelog fragments present. cargo audit not shown (network-dependent).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "New `changelog.d/mm-472.fixed.md` describes the fail-closed fix; `changelog.d/mm-472.added.md` describes the observability additions.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Script entry skipped: no PR/CI exists in replay (no remote); replay stated no remote and ran local fmt/clippy/test gates, all passing.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Script entry skipped: no PR exists in replay so no CodeRabbit review; nothing in the replay called for it.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply: `metrics.blob_gc_errors.add(1, &[])` at metrics.rs:360 and `blob_gc_errors_total` assertion at :390 inside `rendered_names_match_prometheus_conventions`; `cargo test -p pds metrics` 11 passed (diff truncated, so taken from the replay's statement).",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "AGENTS.md metrics row: '`errors` counts **failures, not blobs** — one per account whose reconcile failed ... plus one per individual ownership row whose sweep failed'; admin_health row and SweepState docs reworded likewise; `GcStats::errors` doc tightened.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 quotes the new `names::BLOB_GC_ERRORS` doc: 'Two kinds are mixed in: one per account whose reconcile failed ... and one per ownership row whose `sweep_expired_owner` failed ... not a count of blobs skipped.'",
+    "id": "c10",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements the fail-closed per-account sweep with the regression test, adds a WARN log, `blob_gc_errors_total` metric and health-endpoint `errors`/`withheld` fields, and tightens the docs as requested, with fmt/clippy/full test suite passing. Residual doubt: the final diff is truncated so metrics.rs/admin_health.rs changes are judged from the replay's statements, the test breaks reconcile via an unparseable root CID rather than a missing block, and cargo audit was not shown; the extra console changes were disclosed and accepted by the user.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.49287,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:03.170538+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 13.192757,
+ "replay_cost_usd_label": 13.192757,
+ "session_id": "f91fc39e-8a46-45f9-96a5-b3f69bd06389",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

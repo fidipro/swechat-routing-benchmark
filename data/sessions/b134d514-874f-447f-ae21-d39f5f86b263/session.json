@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-08-22T12:57:03.682Z",
+ "hand_picked": {
+  "effort": "xhigh",
+  "efforts_seen": [
+   "xhigh"
+  ],
+  "model": "claude-fable-5",
+  "models_seen": [
+   "claude-fable-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.239",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 1.515286
+ },
+ "repo_id": "0-uddeshya-0/Recognition",
+ "repo_url": "https://github.com/0-uddeshya-0/Recognition",
+ "session_id": "b134d514-874f-447f-ae21-d39f5f86b263",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "poc/ifc-detailing",
+  "commit": "b405db3e420a4a5f2af4727a291cbd8512f99476",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-08-22T12:53:34.028Z",
+ "user_turns": 3
+}

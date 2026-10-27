@@ -1,0 +1,72 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-4-6",
+  "effort": "medium",
+  "model": "claude-sonnet-4-6"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0 recommended RFC 0004 pipelining (plus alternatives) with justification from the repo's RFCs, pipeline loop, and CI coverage gate; tracker unreachability was only stated later, not at turn 0.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'No remotes are configured... can't reach GitHub' and provided full proposed roadmap text with shipped items checked off, connector counts, RFC statuses.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 closing: 'The main changes from whatever was there before: scoped cleanup, range partitioning, the coverage gate, and all 13 conformance checks are marked done; RFC statuses are accurate; connector count is confirmed at 66.'",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds pub fn validate() to csv, duckdb, elasticsearch, gcs, graphql configs rejecting empty required fields and batch_size via validate_batch_size with FaucetError::Config; disclosed signature change for CsvSource/GraphqlStream::new.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "validate() is called first in each source's new(); unit tests cover empty fields and MAX_BATCH_SIZE+1 per config — but the replay only confirmed compilation, never ran cargo test.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Replay only ran a compile check ('compile without errors'); no cargo test, clippy, docs, semver-checks (CsvSource::new/GraphqlStream::new -> Result is a breaking API change), schema check or coverage run.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Final message: 'Ready to open a PR whenever you say the word.' — no PR opened/attempted, no branch/push, turn cap hit despite user saying 'drive it to merge'.",
+    "id": "c6",
+    "met": false
+   }
+  ],
+  "reason": "The replay drafted the #38 update and implemented validate() on all five configs, but it stopped at a compile check without running tests, clippy, semver-checks or other CI gates, and introduced a breaking constructor signature change. It also never opened or attempted a PR, asking for permission instead, and hit the turn cap with c5 and c6 unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.41609,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:25.015459+00:00",
+ "name": "claude-sonnet-4-6__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.319665,
+ "replay_cost_usd_label": 4.319665,
+ "session_id": "dff9240c-9ee1-4a01-90dd-b61775dcc773",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

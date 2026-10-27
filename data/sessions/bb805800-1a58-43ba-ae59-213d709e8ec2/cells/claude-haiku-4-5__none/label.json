@@ -1,0 +1,102 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "New ArtistClusterLayer test 'includes not_found artists and enriches with unknown location' asserts data-lat 0 / data-lng -160 / unknown true; npm test 297/297 passing.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Test 'clusters resolved artists at their locations and not_found at unknown' checks marker-1 at (40,-74) and marker-3 at (51.5,-0.1) unchanged.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Placeholder is {lat:0,lng:-160,placeName:'Unknown location',unknown:true} matching MapView's PACIFIC_FALLBACK; final review fix 'extracted to shared constant' per turn 6 messages.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Client-side reinterpretation of not_found status; no changes to api/geocode, kv or cache keys, so cached negatives render without a flush.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "npm test run shows 24 files / 297 tests passed; assistant reports 'Linting passes (Biome)' / 'Linting clean' (biome output itself not in record).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Design items (reuse PACIFIC_FALLBACK, include resolved+not_found, exclude unavailable, no cache change, tests) all implemented; the duplicated constant was later extracted to a shared module.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: attempted push, reported 'No GitHub remote' and no gh CLI, gave exact push/gh pr create commands.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "docs/superpowers/plans/2026-10-26-unfound-artists-explore.md created and committed at turn 4 before subagent dispatch at turn 5.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Task 2 reviewer dispatched with findings reported; final whole-branch review dispatched, findings (duplication, red commits, skipped task 3) reported and duplication fixed.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 8: 'There's no preview deploy in this sandbox environment' and explains Vercel will comment the URL on the PR once pushed.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 9 gives per-task breakdown: sonnet for implementers/reviewer/fixes, opus for final review; truthfulness of subagent model selection not observable.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Plan doc contains only the boilerplate 'REQUIRED SUB-SKILL' header and Co-Authored-By lines; no statement naming a cheaper model/executor to carry out the tasks.",
+    "id": "c10",
+    "met": false
+   },
+   {
+    "evidence": "Script entry 4 (the correction about cheaper-model execution) was never reached because the turn cap was hit; no acknowledgement occurred.",
+    "id": "n3",
+    "met": false
+   }
+  ],
+  "reason": "The core feature, tests, plan/spec docs, review and PR-attempt criteria are met, with the shared placeholder extracted and 297/297 tests passing. However the replay hit the turn cap before the correction turn, so the plan document never states which cheaper model should execute it (c10) and the acknowledgement (n3) never happened, leaving two criteria unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.48679,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:34.662391+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.688943,
+ "replay_cost_usd_label": 3.688943,
+ "session_id": "bb805800-1a58-43ba-ae59-213d709e8ec2",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

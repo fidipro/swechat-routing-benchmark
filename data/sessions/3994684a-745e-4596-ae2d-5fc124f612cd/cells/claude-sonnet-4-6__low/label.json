@@ -1,0 +1,67 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-4-6",
+  "effort": "low",
+  "model": "claude-sonnet-4-6"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.93,
+  "criteria": [
+   {
+    "evidence": "Diff shows AGENTS.md deleted as regular file and recreated with mode 120000 containing 'CLAUDE.md'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'Committed.' after user said 'commit'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'No, both are useless to Claude. The filename is already in the system context, and the \"provides guidance\" line states the obvious.'",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes '# CLAUDE.md' and 'This file provides guidance to AI agents...' lines from CLAUDE.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff hunk shows only header lines removed; '## Project Overview' onward unchanged (blob hash 6bde9bb matches original).",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reply: 'Committed.' after dropping header lines.",
+    "id": "c5",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a diff identical to the original (symlink plus header removal), answered the usefulness question with a reason, and reported committing at both steps. Commit evidence is only from the assistant's statements, but nothing contradicts them.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.06056,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:22.132972+00:00",
+ "name": "claude-sonnet-4-6__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.211975,
+ "replay_cost_usd_label": 0.211975,
+ "session_id": "3994684a-745e-4596-ae2d-5fc124f612cd",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.93,
+   "verdict": "pass"
+  }
+ ]
+}

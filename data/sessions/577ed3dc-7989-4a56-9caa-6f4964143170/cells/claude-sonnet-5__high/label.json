@@ -1,0 +1,77 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Turn 2: replay stated it could not reach the issue, noted `{slot_num}` only lives in issues/exceptions sections, but concluded 'this was very likely a real bug introduced by the 7cadf02 rewrite... I can't find a live instance' — it never explained the reporter's MISSING_VALUE as stale pre-5.0.0 translation strings/cache against 5.x code.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 4: 'code_slot.data: entity_id → condition', 'yaml.data: slots → users', 'options.step.init.data: slots → users ... each rendered as a raw key in the frontend'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff renames entity_id→condition, slots→users (yaml and options init) in both strings.json and translations/en.json.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "tests/test_config_flow.py adds test_config_flow_step_data_keys_match_strings driving user/ui/code_slot/yaml/options init and asserting `{str(key) for key in result['data_schema'].schema} == set(labels)`; no schema refactor.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4 reply: 'I could not actually run pytest to execute the new test' — no red/green demonstration; the environment allowed package installs but the replay did not attempt one.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "No pytest run at all ('you should run it once in an environment with deps installed'); test suite status unverified.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "'I did not post anything to the GitHub issue, per your instruction.' and no network access.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff updates yaml description to 'key is the user's name' and options init to 'the configured users' in both files; disclosed in turn 5.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay fixed the three label keys, added an Option B guard test, and updated the stale descriptions, but it never ran the test suite or demonstrated the guard going red-then-green, and its investigation did not attribute the reporter's slot_num/MISSING_VALUE error to stale pre-5.0.0 translations. With c1, c5 and n1 unmet the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.33388,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:04:04.286022+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.521521,
+ "replay_cost_usd_label": 2.521521,
+ "session_id": "577ed3dc-7989-4a56-9caa-6f4964143170",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

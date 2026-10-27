@@ -1,0 +1,67 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-4-6",
+  "effort": "medium",
+  "model": "claude-sonnet-4-6"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.92,
+  "criteria": [
+   {
+    "evidence": "Diff shows AGENTS.md deleted as regular file and recreated with mode 120000 containing 'CLAUDE.md'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'Committed as `e990ca0`.'",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply: 'No, neither is useful. Line 1 (`# CLAUDE.md`) just restates the filename, and line 3 is self-evident to any agent reading it.'",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes '# CLAUDE.md' and 'This file provides guidance to AI agents...' lines from CLAUDE.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff hunk @@ -1,7 +1,3 @@ only removes header lines; a leading blank line remains before '## Project Overview' but content from that heading onward is unchanged.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reply: 'Done. `f8df5f3`.' after dropping the lines.",
+    "id": "c5",
+    "met": true
+   }
+  ],
+  "reason": "The replay replaced AGENTS.md with a symlink to CLAUDE.md, committed it, answered the usefulness question with reasons, removed the two header lines and committed again. The only deviation is one leftover blank line before '## Project Overview', which does not alter the content from that heading onward.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.06257,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:22.414565+00:00",
+ "name": "claude-sonnet-4-6__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.176961,
+ "replay_cost_usd_label": 0.176961,
+ "session_id": "3994684a-745e-4596-ae2d-5fc124f612cd",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.92,
+   "verdict": "pass"
+  }
+ ]
+}

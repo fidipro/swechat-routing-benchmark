@@ -1,0 +1,102 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "selectPlaceableArtists maps status not_found to { ...a, ...UNKNOWN_LOCATION }; test 'places not_found artists at the Pacific unknown-location fallback' passes.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "resolved artists pass through unchanged; test 'keeps resolved artists at their own coordinates' passes.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "New src/unknownLocation.js UNKNOWN_LOCATION imported by both MapView.jsx (replacing PACIFIC_FALLBACK) and ArtistClusterLayer.jsx.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Change is purely client-side on the not_found status the API already returns; replay states 'existing cached not_found entries work as-is'.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Replay: 'All 290 tests pass and biome check is clean'; test run shows 24 files / 290 tests passed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Design items (shared constant, not_found→UNKNOWN_LOCATION in ArtistClusterLayer, click unchanged, no cache change) all implemented; tests added.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'no git remote configured and gh isn't available... can't push a branch or open a PR from here.'",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Final diff contains no docs/superpowers/ plan document; the replay went straight from brainstorm to implementation.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "No review step was performed or reported before the work was handed back in turn 1; only tests/biome were run.",
+    "id": "n2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 4: 'There's no PR or deploy here... You'd get the preview link from Vercel once you push this branch and open the PR yourself.'",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'I did this directly myself — no subagent delegation. I'm Claude Sonnet 5.'",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "No implementation plan document exists in the diff, so nothing states which executor should carry out the tasks.",
+    "id": "c10",
+    "met": false
+   },
+   {
+    "evidence": "Turn 3: 'Fair feedback... I should have spelled out in the plan that implementation would be handed to a subagent (even a same-model or cheaper one like Haiku)'; clarification that it already is Sonnet is factual rather than a dispute.",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The code change itself is correct, tested, and lint/test clean, and remote-dependent criteria were handled appropriately. However the replay skipped the required plan→review workflow: no docs/superpowers plan document was written (so c7 and c10 fail) and no review of the implementation was performed before handing back (n2).",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.30097,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:21.326861+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.852396,
+ "replay_cost_usd_label": 0.852396,
+ "session_id": "bb805800-1a58-43ba-ae59-213d709e8ec2",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

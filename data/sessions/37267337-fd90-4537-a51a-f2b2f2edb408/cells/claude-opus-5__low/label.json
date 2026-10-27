@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Turn 0 proposal covers collateral, hand removal between runs, CHANGE/overwrite marks, apt-mark auto, flatpak scope mismatch, derived classes, with a general existence-probe rule.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Replay said `gh` isn't installed and no remote; wrote issue text to .planning/.../02-ISSUE-stale-machine-specific-marks.md with a `gh issue create` command to file it.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "New tests `test_a_mark_this_run_removed_is_forgotten_in_the_same_run` and `TestTheUatCaseEndToEnd::test_the_mark_does_not_outlive_the_collateral_removal` pass in final run (4609 passed).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final message reports DecisionFile.forget, load_live_decisions at plan time, post-converge target re-probe, dry-run/fail-closed/derived-class guards, docs (requirements, conformance article, ADR D-43, matrix H181–H212, runbook) all implemented; user doc states item becomes an ordinary difference again.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "tests/unit/jobs/test_mark_forgetting.py with 35 tests mapped to matrix rows H181–H212 covering every scenario; test_scenario_coverage_matrix.py passes.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "ruff check/format, codespell, basedpyright clean; pytest 4609 passed with the only failure an rsync-missing FileNotFoundError in test_apt_etc_apt.py, unrelated to the diff and explained as environmental.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Runbook diff adds `grep -c fortunes ... # 0 — the mark did not outlive the package` on pc2 and rewrites the §4 setup/§6 prose to say pc2's record of fortunes is gone with the package.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a general proposal, an issue draft when GitHub was unreachable, and implemented the full rule with per-manager probes, guards, docs and 35 scenario tests, with all repo checks clean except one pre-existing rsync-missing test it identified as environmental. Minor doubt remains over a small deviation from the proposal's edge-case list (bogus-id entries kept rather than pruned) that was not called out explicitly, though it is outside the parts c4 names.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.50737,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:43.882562+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 17.498629,
+ "replay_cost_usd_label": 17.574035,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

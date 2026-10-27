@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'NovaDevice._nova_api ... lazily creates a brand-new ApiGateway (and its own aiohttp ClientSession) per Controller ... Nothing ever closes it: ... finally block only calls self._nova.close()'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Proposed and implemented threading the Cell's ApiGateway into Controller (api_gateway=self._api_client) with ownership-tracked close; also offered to run start_here.py against a NOVA instance.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'branch fix/trajectory-completion-level-detection, 3 files modified, nothing staged, nothing committed' listing cell.py, controller.py, gateway.py and noting the reverted uv.lock drift.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'New branch fix/unclosed-controller-aiohttp-session created off main, with one commit (5062b1b) containing the fix in nova/cell/cell.py, nova/cell/controller.py, and nova/core/gateway.py.'",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Commit was made only on the newly created branch off main; nothing indicates any commit to fix/trajectory-completion-level-detection (not fully observable).",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "not observable",
+    "id": "n4",
+    "met": true
+   }
+  ],
+  "reason": "The replay correctly identified the leaked per-Controller ApiGateway/ClientSession as the cause, implemented the shared-gateway fix with ownership-aware close, ran the full test suite and lint/type checks cleanly, accurately reported git state, and committed on a new branch off main. The commit message wording and the untouched state of the feature branch are not directly observable in the record, which lowers confidence slightly.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.17675,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:30.934572+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.366311,
+ "replay_cost_usd_label": 1.366311,
+ "session_id": "c7f3b6f5-178e-4782-b323-50743067fab3",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "pass"
+  }
+ ]
+}

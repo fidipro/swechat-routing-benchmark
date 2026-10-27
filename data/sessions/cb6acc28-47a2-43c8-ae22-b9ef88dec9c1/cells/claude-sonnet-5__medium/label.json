@@ -1,0 +1,130 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "secureDestPath Lstat's every component and refuses symlinks; TestApplyStagedRefusesSymlinkAtFinalComponent and TestApplyStagedRefusesSymlinkedParentDirectory PASS.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "secureDestPath only rejects symlinks per component via filepath.Join(cur, seg); there is no containment check (no filepath.IsLocal/Rel or os.Root) that the resolved parent stays beneath destRoot, and a rel containing '..' would escape unchecked; no test covers it.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "writeFileNoFollow opens with os.O_WRONLY|os.O_CREATE|os.O_TRUNC|syscall.O_NOFOLLOW.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "scaffold_test.go adds a final-component symlink test and a symlinked-parent-directory test, both passing.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Repository.refresh calls verifyOrigin using sameRepository and wipes/re-clones on mismatch; TestOpenRecreatesCheckoutWhenCachedOriginDoesNotMatch PASS.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "publish.go/init.go call repo.VerifyPushDestination then print 'pushing to %s (%s)' before Push; TestVerifyPushDestination* PASS.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Client.Isolated adds -c core.hooksPath=/dev/null; gitops cache client sets Isolated: true; TestCommitPathsIgnoresPreCommitHookWhenIsolated PASS.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "ExecRunner sets GIT_TERMINAL_PROMPT=0 and GIT_EDITOR=true for git subprocesses (no dedicated test added, though).",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "CommitPaths compares `diff --cached --name-only` against expected set before Commit; TestCommitPathsRefusesWhenSomethingElseIsAlreadyStaged PASS and HEAD does not move.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "CommitPaths checks `diff-tree --name-only HEAD` after commit and hard-resets on mismatch, before any push; covered by hook/exact-path tests.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "identity.go keeps port in repoIdentity; TestSameRepositoryDifferentPortsAreDifferent and related port tests PASS.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "isolationArgs applied only when Client.Isolated is true; only gitops.Repository's client sets it; TestUnisolatedClientStillRunsHooks PASS.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "release/create.go and deploy/resolve.go use plain git.Client{}; TestUnisolatedClientStillRunsHooks shows hooks run; internal/release tests pass.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "VerifyPushDestination strips a repo-local remote.origin.pushurl and rechecks, else fails closed; TestVerifyPushDestinationStripsAnUnexpectedLocalPushurl and ...FailsClosedOnAPushInsteadOfRedirect PASS.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Final reply: 'it fails closed with an error naming both URLs — no warning-only path remains.'",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "go vet ./... and go test ./... ran clean including deploy, git, gitops, release, source.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "go build ./... succeeded and go test ./... shows ok for every package.",
+    "id": "n8",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements and tests the symlink refusal, origin verification, port-aware identity, scoped hook isolation, exact staged/committed path checks and fail-closed push destination, with all checks passing. However, the explicitly requested verification that the resolved parent path remains beneath the repository root (n1) was never implemented or tested—the code only rejects symlinks per component and would not catch a '..' traversal—so one criterion is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.79117,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:39.009348+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.329047,
+ "replay_cost_usd_label": 3.385431,
+ "session_id": "cb6acc28-47a2-43c8-ae22-b9ef88dec9c1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

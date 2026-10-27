@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'I can't retrieve PR 111 — nothing in this environment can reach it'; Turn 1 assesses: 'there is no $LASTEXITCODE anywhere in the working tree... release.yml:49... uses throw on checksum mismatch'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Replay stated no remote access, worked from user-supplied comment, and assessed it as valid: 'gated the (weak, below N) clause on the raw comparison, so a raw 11.96 printed as top score 12.0 (weak, below 12)'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff: 'shown := math.Round(assessment.TopScore*10) / 10' used for both text and gate; new test asserts 11.96 yields 'top score 12.0 and top results agree on nothing' with no 'below 12'; go test ./internal/cli passed.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay ran 'go build ./... && go test ./internal/cli/ ./internal/sem/' only; go vet was never run and the full 'go test ./...' suite was not executed, though both were available.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Diff touches only internal/cli/search.go and search_confidence_test.go; Turn 2: 'leaving .github/workflows/release.yml untouched'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No remote access; no replies posted. Replay only offered: 'Paste the diff hunk or the comment's quoted line and I'll fix it.'",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Replay reported no remote ('no git remote configured') and left fix in working tree, offering to commit; user explicitly said 'no need to commit, that's all'.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The PR 112 rounding fix is correct and tested, PR 111 was assessed and left untouched, and no comments were posted. However the replay never ran go vet or the full go test ./... suite despite both being runnable, so c5 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.14864,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:25.749884+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.839183,
+ "replay_cost_usd_label": 0.914588,
+ "session_id": "80bcc7be-ba2a-4ba6-9982-ed61a0f6d010",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  }
+ ]
+}

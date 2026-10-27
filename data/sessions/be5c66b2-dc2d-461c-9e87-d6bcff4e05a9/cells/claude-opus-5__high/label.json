@@ -1,0 +1,115 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply audits checkpoint/resume/slurm/data pipeline, lists hardening items (NCCL env, logs, install storm, output_dir), missing items (health gate, signals), finds the double-striping bug, then proposes sequencing.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 proposes time-based cadence; plan adds `save_every_minutes` with default tied to Task 4's measured checkpoint cost and `--signal` grace period.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Plan Task 2: model + optimizer state via get_state_dict, 'schedulers and RNG in a single Stateful app-state object', trainer_state.json with step/epoch/samples/tokens/cursor; Phase 2 adds seekable data cursor and deterministic masks.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Design covers `--signal=B:USR1@N`, `--open-mode=append`, `scontrol requeue`, `--chain`, `oplm slurm supervise`, health gate/node exclusion, auto-resume injected by the Slurm renderer.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply (start truncated in record) reasons about state sizes ('At 12B that's 20 GB/GPU of states; comfortable enough', 8 B/param math, DDP fine for ≤6B); memory-fit answer appears to be in the truncated opening.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 recommends DCP now, distributed Muon on FSDP2 next, defer FSDP switch for ≤6B, HSDP shard_size 8 for larger; plan Phase 1 (DCP) and Phase 8 (distributed Muon) reflect it.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 answers directly; plan Architecture: 'Auto-resume is opt-in by value and switched on by the Slurm renderer, never by the library.'",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 verifies no SLURM_* reads in trainer, flags `/mnt/home` hardcode and mandatory Pyxis for removal; plan adds invariant and guard test (Task 19), optional container block and `home_mount`.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Plan only shows a step-based `save_milestone_every` knob; no hours-based retention equivalent appears anywhere in the replay's design or plan.",
+    "id": "c6",
+    "met": false
+   },
+   {
+    "evidence": "Milestone retention is described as permanent ('milestone retention, HF-export-on-milestone-only') separate from rotation; exemption from save_total_limit is implied though not explicitly visible.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Plan Phase 2 / `tests/data/sequence/test_striping.py`: 'The striping fix lands before the cursor work... test... run through accelerator.prepare'; loaders.py 'Stop double-striping through prepare'.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Spec written to docs/superpowers/specs/2026-10-26-long-run-resilience-design.md encoding hard-error collision guard, clean break, optional container block.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "TODOS.md replaced with resilience plan; '**Spec:** [docs/superpowers/specs/2026-10-26-long-run-resilience-design.md]' and docs-link test passes.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Plan has 9 phases/20 tasks mapping to the spec's Changes (Phase 1 DCP, Phase 2 data, Phase 5 detection, Phase 7 chaining, Phase 8 Muon) which the user approved with 'Looks good'.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered a grounded audit, answered the memory/FSDP/auto-resume/portability questions, and wrote a spec plus a TODOS.md plan referencing it with the double-striping fix and DCP-based complete checkpoint state. However, the retention design shows only a single step-based milestone knob with no hours-based equivalent, so c6 is not evidenced; the truncated turn 0/1 replies also leave some doubt about the memory-fit answer.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.86856,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:54.906661+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 8.769055,
+ "replay_cost_usd_label": 8.769055,
+ "session_id": "be5c66b2-dc2d-461c-9e87-d6bcff4e05a9",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

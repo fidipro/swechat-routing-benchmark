@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 proposal has parts A (same-run collateral), B (general reconcile against holder on every run, hand removals/upstream disappearance/CHANGE marks), C (unmarkable classes); issue file tabulates five staleness scenarios beyond fortunes.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'I can't reach GitHub from this environment — gh isn't installed, there's no git remote' and wrote full issue body to 02-ISSUE-stale-machine-specific-marks.md with a ready `gh issue create` command.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Collateral.marks_consented_away()/AptSyncJob._withdraw_overrun_marks() plus DecisionFile.forget(); tests TestAConsentedCollateralRemovalWithdrawsTheMark::test_the_mark_is_withdrawn_in_the_same_run and TestStaleMarksAreWithdrawn pass in the 4589-pass run.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final reply reports A (same-run withdrawal), B (plan-time _note_stale_marks against positive held sets, apply-time write under dry-run/non-interactive guards, inconclusive keeps), C, items becoming live again (integration test, flagged unverified), and the conformance/user-requirements/system/coverage-matrix/runbook updates; deviations (ls -d probe instead of test -e, one new article plus amendments) disclosed.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "60 new tests across package_state, apt collateral/job, snap, flatpak, manual_installs, sync_core; coverage rows D95–D101 and H180–H194 added and test_scenario_coverage_matrix reciprocity check passes.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Final check: 'All checks passed!', '164 files already formatted', basedpyright '0 errors', codespell clean, pytest '1 failed, 4589 passed' — the one failure is FileNotFoundError 'rsync' in test_apt_etc_apt.py, an environment gap the replay disclosed as pre-existing; test_mutates_audit.py and test_scenario_coverage_matrix.py pass.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Runbook diff: §4 note now says 'letting the collateral question go ahead retires that mark'; pc2 checks add `grep -c fortunes ... # 0 — the collateral answer retired the mark with the package`.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay proposed and implemented a general stale-mark withdrawal (same-run collateral case plus per-run reconciliation with keep-on-uncertainty guards), documented it across requirements, system doc, coverage matrix and runbook, and covered it with tests; GitHub was unreachable so the issue text was written ready to file. Remaining doubt comes from the single pytest failure caused by rsync being absent in the sandbox (disclosed as pre-existing but not cleanly re-verified on a stash) and an integration test the replay itself flagged as never run.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.59402,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:45.067515+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 32.454827,
+ "replay_cost_usd_label": 32.530233,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

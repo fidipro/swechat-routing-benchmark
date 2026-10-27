@@ -1,0 +1,62 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.9,
+  "criteria": [
+   {
+    "evidence": "The attachment was absent in the replay; after the user named PR #1915 the assistant continued investigating the branch and the cross-repo explain code without asking the task to be re-explained.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply: '**https://github.com/entireio/cli/pull/1915**'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "FetchCheckpointRefTemporary still fetches '+ref:ref' into the cwd repo (canonical refs/entire/checkpoints/<shard>/<id>) and only deletes the ref afterwards; objects stay in the cwd object store, the checkpoint counts as local during the run, and the fetch-on-miss and local-commit fallbacks in explain_export.go are unchanged.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "TestCrossRepoExplain_FetchAndRender passes only because the ref is stored in the cwd repo and read via the normal local flow; no 'lookup without storing locally' exists and the --json/--transcript cross-repo path is untested.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "go build succeeded, but `go test ./cmd/entire/cli` reported many FAILs (TestEnableCmd_*, TestSetupAgentHooks*, TestRunUninstall_*) that the replay did not investigate or show as pre-existing; `mise run test` and golangci-lint were never run.",
+    "id": "c7",
+    "met": false
+   }
+  ],
+  "reason": "The replay kept the fetch-into-cwd-repo design and merely deletes the ref afterwards, so the foreign checkpoint still enters the local namespace and its objects remain, and the fallback paths that re-fetch into the cwd repo were untouched. Required checks (full test suite, lint) were not run and the package test run showed unexplained failures.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.40708,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:28.090492+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.047484,
+ "replay_cost_usd_label": 1.068317,
+ "session_id": "67eaf5ea-dfc8-4fc2-8178-e105d043132e",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.9,
+   "verdict": "fail"
+  }
+ ]
+}

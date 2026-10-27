@@ -1,0 +1,77 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.9,
+  "criteria": [
+   {
+    "evidence": "The replay never itself attributed the reporter's MISSING_VALUE error to a stale translation cache; its final summary instead claims the label-key mismatch 'caus[ed] Home Assistant to display missing field labels or MISSING_VALUE placeholders', conflating the two.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 5 summary lists all three mismatches: code_slot 'entity_id'→'condition', yaml 'slots'→'users', options init 'slots'→'users'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff renames entity_id→condition and slots→users (yaml and options init) in both strings.json and translations/en.json.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Added test_config_flow_schema_keys_match_strings compares strings.json against hardcoded key lists; it never drives a flow or inspects a returned data_schema (the _get_schema_keys helper is unused).",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Test was never executed: 'python -m pytest ... No module named pytest'; the replay did not install pytest, and the test relies on json/Path imports whose presence was not verified.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "No test suite was run; pytest was missing and the replay did not install it despite package installs being available.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "No GitHub access; no comment posted.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Yaml description changed to 'key is the user name' and options init description to 'user configurations'; titles/labels also updated.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The label-key renames and description refresh are correct, but the regression guard does not follow Option B (it asserts hardcoded lists against strings.json rather than the flow's returned data_schema), no tests were run at all, and the replay never gave the stale-cache root-cause explanation for the reporter's error, instead misattributing MISSING_VALUE to the label bug. Multiple core criteria are unmet so the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.3335,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:03:36.912748+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.115209,
+ "replay_cost_usd_label": 1.115209,
+ "session_id": "577ed3dc-7989-4a56-9caa-6f4964143170",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.9,
+   "verdict": "fail"
+  }
+ ]
+}

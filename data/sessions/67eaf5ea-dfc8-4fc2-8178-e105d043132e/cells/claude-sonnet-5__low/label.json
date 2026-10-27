@@ -1,0 +1,70 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Attachment was absent in the replay env; after the user's one-line pointer ('PR #1915 - cross-repo explain --repo') the replay inspected the branch commits and proceeded without further re-explanation.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 and turn 4: 'https://github.com/entireio/cli/pull/1915'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "openForeignCheckpointLookup does git init in os.MkdirTemp dir and calls FetchCheckpointRefFromIntoDir(ctx, scratchDir, ...); export path short-circuits via foreignLookup/foreignID so no prefix/remote/commit fallback runs against cwd; test asserts show-ref fails in local repo.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "TestCrossRepoExplain_FetchAndRender passes rendering 'do the foreign thing' via runExplainCheckpointWithLookup; --json/--transcript routed through runExplainExport with foreignLookup (no JSON test added; NoFilter not forced, so real-URL filtered fetches are an unverified risk).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "go build and package tests ran (remaining failures pre-existing on stash), but golangci-lint/mise were not run; the diff adds a large inline block to the already maintidx-capped newExplainCmd RunE (the original had to extract it to stay under the cap) and uses `defer lookup.Close()` ignoring the error in non-test code, both likely lint failures.",
+    "id": "c7",
+    "met": false
+   }
+  ],
+  "reason": "The replay restructured cross-repo explain into a scratch-repo pure lookup that leaves the cwd namespace untouched and the cross-repo tests pass, and it provided the PR link. However lint could not be run and the diff shows probable golangci-lint defects (maintidx growth in newExplainCmd's RunE, unchecked Close in a defer), so the repository-checks criterion is not met.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.63446,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:01.420637+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.488322,
+ "replay_cost_usd_label": 3.544706,
+ "session_id": "67eaf5ea-dfc8-4fc2-8178-e105d043132e",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

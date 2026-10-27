@@ -1,0 +1,67 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "Turn 2 reply: clicking a topic opens ContractPanel which 'renders the CloudEvents envelope as a fixed frame ... with the contract's structure as data beneath it'; FlowView topic nodes are clickable (turn 1).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "internal/contract resolves the topology-named message type by parsing the C# POCO sources into JSON Schema; GET /api/contracts?type=… is requested for the types the topics declare and shown on the topic node's panel.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: developers write contracts/<name>.yaml (apiVersion contract.intropy.io/v1, connector, encoding, fields, notes); loaded by internal/contract/external.go, served via API, rendered on the external node (badge) and in the panel with Encoding/Documentation sections; documented in README.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Final check `gofmt -l internal/; go vet ./... && go test ./... 2>&1 | grep -v \"^ok\\|no test files\"` produced no output (all packages ok); earlier targeted runs show internal/contract and internal/dashboard ok.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'tsc -b clean, vite build clean (dist placeholder restored via make web-clean)'; turn 3 reports 'tsc -b clean' and the real binary (embedding the built SPA) was run end-to-end; no explicit `npm run build` output in the record.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers internal contract inspection derived from the .NET message type (rendered as a field tree with required markers), a YAML descriptor mechanism for external messages shown on the external node, and a green full Go test suite. The web build is reported clean by the model (tsc + vite in turn 1, tsc in turn 3) and the embedded dashboard ran end-to-end, though the final `npm run build` output is not directly visible in the record, which tempers confidence.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.43263,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:26.021987+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 15.626891,
+ "replay_cost_usd_label": 15.702296,
+ "session_id": "5bca53b9-3ca9-4570-9b0c-22e405658876",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "pass"
+  }
+ ]
+}

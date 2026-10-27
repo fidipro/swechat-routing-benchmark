@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-08-07T15:34:07.732Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-opus-5",
+  "models_seen": [
+   "claude-opus-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.224",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 14.00659
+ },
+ "repo_id": "ebridges/wakil",
+ "repo_url": "https://github.com/ebridges/wakil",
+ "session_id": "adf7939a-e09b-4b9b-a1a7-7ec227ebe313",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "docs/adr-template",
+  "commit": "1b35098436595f07c7c1b5555d4d22e0d1a1a391",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-08-07T13:00:56.218Z",
+ "user_turns": 8
+}

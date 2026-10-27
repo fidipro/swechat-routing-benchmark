@@ -1,0 +1,107 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply audits checkpointing/resume/Slurm/data with 'Missing entirely' section (resumable data iteration, watchdog, chained jobs, auto-resume, bad-node handling, resume test) and a hardening list before any design.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: rolling checkpoints at wall-clock ~1–2 h, `save_every` + `save_every_seconds` whichever first, aligned to optimizer-step; spec includes Young/Daly interval derivation.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 targets 'exact-state resume (model/optimizer/scheduler/counters/data-position exact)', flags worker RNG for dynamic masking; Turn 3/4 add trainer_state.json topology, wandb_run_id, `{epoch, data_position}` cursor; Turn 4 counter-based masking fixes RNG gap.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: three failure classes mapped to `--requeue`, chained `--array=0-N%1`, watchdog → `scontrol requeue`; `--signal=SIGTERM@600`, `--kill-on-bad-exit`, crash-loop budget via SLURM_RESTART_COUNT.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 pushes back on memory math (Muon fp32 state), gives DDP/HSDP per-GPU tables and 'Treat ~8B as the practical DDP ceiling' at seq 512.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'yes, FSDP from the jump — but specifically HSDP' covering 6B–30B; design/spec Change 2 and plan Phase 5 implement HSDP + DCP.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'No, local runs won't be impaired — but only if we make three specific choices' (auto not default, SIGTERM-only, watchdog gated on SLURM_JOB_ID); spec Change 11 local-run invariants and plan Task 24 assert it.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 identifies pyxis/_HOME_MOUNT/env_file hardcodings and fixes; plan moves `configs/scaling.yaml` to `configs/examples/coreweave-sunk.yaml` with placeholders, adds `.env.example`, pluggable container runtime; trainer must not import oplm.slurm.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 design adopts `keep_every_n_steps` and `keep_every_n_hours` with KEEP sentinel; plan Task 10 covers them.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 rotation algorithm: `rolling = sorted(d for d in sealed if not (d/\"KEEP\").exists())` culled to save_total_limit; 'archives are exempt'.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Replay verified bug empirically (coverage 1/W), landed fix on branch with tests/training/test_dataloader_sharding.py (3 passed); TODOS.md Phase 1 records it complete.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: `docs/superpowers/specs/2026-10-25-training-resilience-design.md`, 716 lines, Changes 1–11 incl. dataloader fix, HSDP, reshard_after_forward=False/warn-and-adapt, retention, signals, portability, local-run invariants.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff: TODOS.md `**Spec:** [docs/superpowers/specs/2026-10-25-training-resilience-design.md](...)`; docs link test passes.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Plan phases follow spec build order (Phase 1 dataloader complete, Phase 2 cheap scheduler resilience, Phase 3 oracle, Phase 4/4b Muon, Phase 5 HSDP...); spec listed 13 phases vs plan '14 phases' (4b split), substantively matching.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "The replay audited the codebase, answered every design question (B200 fit, HSDP from the start, local-run safety, portability, retention rules), verified and fixed the double-sharding bug, and wrote both the spec under docs/superpowers/specs/ and a phased TODOS.md that references it. Minor doubt remains on the 13-vs-14 phase count between spec and plan and on how explicitly RNG state is enumerated in the checkpoint contents.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.68817,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:45.125166+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 11.212148,
+ "replay_cost_usd_label": 11.287553,
+ "session_id": "be5c66b2-dc2d-461c-9e87-d6bcff4e05a9",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

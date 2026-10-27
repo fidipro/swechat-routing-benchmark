@@ -1,0 +1,80 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.65,
+  "criteria": [
+   {
+    "evidence": "Turn 0 proposal names both 'in-run collateral' and 'out-of-band drift' (apt autoremove, snap remove, flatpak uninstall, rm -rf) and proposes a manager-agnostic reconciliation pass in the shared base class.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'No network access and no gh CLI or GitHub token... I'll draft the issue content for you to file' followed by title and body.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds DecisionFile.prune and PackageSyncJob._reconcile_decisions after the converge loop with per-manager _live_item_ids; runbook now expects `grep -c fortunes ... # 0` on pc2; summary cites a test for 'the exact collateral-mid-run scenario'.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "The turn-0 proposal listed an ADR-020 addendum ('worth stating explicitly'), but the final diff touches no docs/adr file and the summary neither mentions ADR-020 nor gives a reason for skipping it; the dry-run 'still compute and log what would be dropped' part is also not evidenced.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "New TestDecisionFilePrune/TestReconcileDecisions in test_package_state.py, TestLiveItemIds for apt/snap/flatpak/manual all pass; J185 row added and scenario coverage matrix test passes (2493 passed).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "'All checks passed! / 0 errors, 0 warnings, 0 notes' for ruff, codespell, basedpyright; pytest 4472 passed with 1 failure (missing rsync binary) shown failing before the changes via git stash; test_mutates_audit and test_scenario_coverage_matrix pass.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Runbook diff: pc2 checks add `grep -c fortunes ~/.config/pc-switcher/apt.decisions.yaml # 0 — the §2 fixture mark is gone with the package it named` and prose says the mark is dropped.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered a general proposal, a ready-to-file issue text, a working post-converge reconciliation with prune across all four managers, passing checks, and the runbook/requirements/conformance/coverage-matrix updates. However the proposal's listed ADR-020 addendum was neither implemented nor reported as skipped, so c4 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.71445,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:56.719929+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 13.428208,
+ "replay_cost_usd_label": 13.484592,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.65,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.65,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

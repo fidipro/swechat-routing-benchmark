@@ -1,0 +1,180 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "git_hardening_test.go contains TestGitSubprocessesDisableRepositoryFsmonitorHook; #134 head 24bf7643 was absent from the local object store so it was re-implemented rather than carried forward, which the replay disclosed",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "git_hardening_test.go contains TestGitLogSubprocessesDisableRepositorySignatureVerification (re-implemented, disclosed, since 24bf7643 was 'Not a valid object name' locally)",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "TestWorktreeSnapshotCacheProbeDoesNotRunGitFilters with t.Run(\"filter.evil.\"+driver) over clean and process",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff to search_cache_worktree_test.go is pure addition at end of file; replay confirms five post-#132 tests retained",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only git_hardening_test.go (new) and search_cache_worktree_test.go",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "'Both tests -count=1 -v → PASS' and sem test PASS with both subtests",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "'-race → PASS' for the named tests in each package",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "go test ./internal/gitutil ./internal/sem -count=1 ok; mise not installed so its task graph was run directly (fmt, vet, build, statusline, race) all green",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "No gh/remote/network; reported and PR body prepared at /tmp/pr-body-134-successor.md with described contents (verification, platform, SHAs, CI provenance, Entire status, Windows limitation)",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No remote to fetch (reported); primary worktree already on main e31e255; branch tests/carry-forward-134 cut from it",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "'Nothing pushed, nothing merged' — stopped for sign-off",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "No #134 ref exists locally; nothing of it created or modified",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "No GitHub access; no comments posted",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Clean tree at start; work done in /tmp/wt134; main untouched",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "entire CLI not installed; no lifecycle commands run",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Windows t.Skip on all three tests disclosed in report and PR body (POSIX #!/bin/sh fixtures)",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Could not run graph diff against 24bf7643 because the object is absent from the clone; reported explicitly after sweeping all 926 commit objects",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "'entire graph diff --base main --head tests/carry-forward-134' run with binary built from source",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Checking open PRs listed as not done due to no network/gh",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "'no Entire trail or checkpoint, because the entire CLI isn't installed here' reported",
+    "id": "n10",
+    "met": true
+   },
+   {
+    "evidence": "Re-fetching main reported as impossible (no remote)",
+    "id": "n11",
+    "met": true
+   },
+   {
+    "evidence": "Replay states it followed AGENTS.md (located code with graph tool); .entire/graph-agent.md reading not observable",
+    "id": "n12",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 inspected repo state (clean main, no stashes, no branches) before any change",
+    "id": "n13",
+    "met": true
+   },
+   {
+    "evidence": "Live main SHA e31e255 recorded; #134 pin check impossible without remote, reported",
+    "id": "n14",
+    "met": true
+   },
+   {
+    "evidence": "Inspected .github/workflows/test.yml (ubuntu/macOS/windows), skips inspected; CI unreachable reported",
+    "id": "n15",
+    "met": true
+   },
+   {
+    "evidence": "No Claude Opus 5 or Cursor CLI review was obtained and their unavailability was never reported anywhere in the replay",
+    "id": "n16",
+    "met": false
+   },
+   {
+    "evidence": "Worktree /tmp/wt134 used for all implementation and verification",
+    "id": "c11",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a test-only branch with all three named tests passing under the required verification and disclosed the remote-dependent steps it could not perform, though the tests were re-implemented rather than carried forward because the #134 commit was absent from the clone. It never addressed the independent Opus 5 / Cursor CLI reviews or reported their unavailability, so n16 is unmet and the verdict is fail.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.19949,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:35:42.996681+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.086434,
+ "replay_cost_usd_label": 6.086434,
+ "session_id": "f0df9bf4-e1f7-4ba8-ae9e-a0fd0eb5af49",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

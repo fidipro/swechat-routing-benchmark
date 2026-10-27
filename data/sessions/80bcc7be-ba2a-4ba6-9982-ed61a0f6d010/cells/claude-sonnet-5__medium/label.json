@@ -1,0 +1,80 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Turn 0/1: stated gh and remote unavailable, then assessed PR 111's $LASTEXITCODE comment ('plausible but the stated reasoning is backwards'), noting no matching code in repo.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'PR 112 — rounding bug: real, confirmed' with walkthrough of search.go:1297-1312 and the 11.96 → '12.0 (weak, below 12)' case.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff rounds TopScore to one decimal via math.Round and gates the suffix on the rounded value; new test TestSearchLowConfidenceNoticeRoundingDoesNotCrossCeiling with 11.96 passes.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Ran 'go vet ./... && go test ./internal/cli/... ./internal/sem/...' only; the full 'go test ./...' suite named by the criterion was never run though it could have been.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Final diff touches only internal/cli/search.go and search_confidence_test.go; release.yml untouched.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No gh/remote access; no replies posted and none mentioned.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Final reply says only 'Fixed.' — no mention of committing, PR 112's branch, pushing, or inability to push; fix appears applied on the current checkout ('current main').",
+    "id": "n2",
+    "met": false
+   }
+  ],
+  "reason": "The replay correctly assessed both PR comments and implemented a working fix with a regression test, leaving release.yml untouched. However it did not run the full go test ./... suite the criteria require, and it never addressed committing to PR 112's branch or reporting that it could not push.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.54692,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:20.754590+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.411704,
+ "replay_cost_usd_label": 0.468088,
+ "session_id": "80bcc7be-ba2a-4ba6-9982-ed61a0f6d010",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  }
+ ]
+}

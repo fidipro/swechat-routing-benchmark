@@ -1,0 +1,95 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.65,
+  "criteria": [
+   {
+    "evidence": "run_blob_gc collects failed DIDs into `unreconciled` HashSet and the sweep `continue`s for rows whose did is in it; test asserts owner row, blobs row and file of the failed account survive.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Test `gc_protects_blobs_of_an_account_whose_reconcile_failed`: did_bad's root set to 'not-a-cid' so reconcile errors; asserts bad_cid row/blob/file survive and ok_cid blob+file collected (errors=1, expired=1, deleted=1).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "errors>0 now logs tracing::warn! \"blob GC pass incomplete...\" instead of info \"pass complete\"; adds `blob_gc_errors_total` counter and `errors` field on SweepRun/SweepState in /v1/admin/health.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay reports `cargo test -p pds` 2209+1 passed, clippy -D warnings clean, fmt --check clean, ticket-ref-check and changelog-check pass; test output shows 0 failed.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Changelog file is `changelog.d/blob-gc-reconcile-failure.fixed.md` and its body never mentions MM-472 (original used `mm-472.fixed.md`); no MM-472 reference in the entry.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Script entry skipped: no origin/PR so no CI run existed; replay stated no remote and ran fmt, clippy and tests locally, all passing.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Script entry skipped: no PR, so no CodeRabbit review; replay stated nothing was pushed and no PR exists.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "metrics.rs test adds `metrics.blob_gc_errors.add(1, &[]);` and `assert!(rendered.contains(\"blob_gc_errors_total\"), ...)`.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "AGENTS.md metrics row and admin_health.rs row plus SweepState/SweepRun docs reworded to 'one per account whose reconcile failed — not one per blob — plus one per individual sweep error'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "names::BLOB_GC_ERRORS doc: 'mixing both of the pass's two failure modes — one per account whose reconcile errored ... plus one per ownership row `sweep_expired_owner` itself failed on'.",
+    "id": "c10",
+    "met": true
+   }
+  ],
+  "reason": "The code fix, regression test, observability counter, health field, and documentation items all match the criteria and the pds tests/clippy/fmt pass locally. However the changelog.d entry (`blob-gc-reconcile-failure.fixed.md`) neither names nor mentions MM-472 anywhere, so c5's literal requirement of an entry referencing MM-472 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.27346,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:35:08.975533+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 5.330605,
+ "replay_cost_usd_label": 5.40601,
+ "session_id": "f91fc39e-8a46-45f9-96a5-b3f69bd06389",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.65,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

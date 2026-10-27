@@ -1,0 +1,122 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": "secureMkdirAll Lstat-walks each component and secureWriteFile refuses a symlinked leaf; TestApplyStagedRefusesSymlinkAtDestination/InParentDirectory pass.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "secureMkdirAll computes filepath.Rel(root, dir), rejects '..' escapes, and verifies every component is a real directory (no symlink) so the parent stays under destRoot.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "secureWriteFile opens with os.O_WRONLY|os.O_CREATE|os.O_TRUNC|syscall.O_NOFOLLOW (unconditional; may not compile on Windows, but builds here).",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "scaffold_test.go adds TestApplyStagedRefusesSymlinkAtDestination and TestApplyStagedRefusesSymlinkInParentDirectory, both PASS.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "refresh reads origin via RemoteURL, compares with sameRepository and repairs via SetRemoteURL before fetch/reset; TestRefreshCorrectsATamperedOrigin passes (repair rather than fail/re-clone, as the original also did).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "repo.ResolvePushDestination(ctx) resolves `git remote get-url --push` and Publish/publishScaffold print 'pushing to %s (%s)' before Push.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Managed client prepends -c core.hooksPath=/dev/null etc.; TestCommitDisablesHooksForAManagedClient passes and gitops.Open sets Managed: true per the reply.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "managedArgs only cover core.hooksPath, commit.gpgsign, tag.gpgsign; nothing in the diff or replies sets GIT_TERMINAL_PROMPT=0 or otherwise disables interactive prompting for cache git invocations.",
+    "id": "n4",
+    "met": false
+   },
+   {
+    "evidence": "verifyStaged(ctx, repo.Git, []string{rel}) called after Add and before Commit in Publish and publishScaffold; StagedPaths tested, though no direct refusal integration test.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "verifyCommitted(ctx, repo.Git, head, expected) runs after Commit and before Push in both paths; CommittedPaths tested.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "identity.go keeps effective port; TestSameRepositoryDistinguishesPorts PASS.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Hook/signing -c flags applied only when Client.Managed is true; only gitops.Open sets it.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "TestPushRunsHooksForAnUnmanagedClient PASS (user pre-push hook fires for unmanaged client).",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "ResolvePushDestination returns an error on pushurl/pushInsteadOf mismatch and Publish/publishScaffold return it before Push; TestResolvePushDestinationFailsOnAPushurlOverride/PushInsteadOfRewrite and deploy-level abort tests pass.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Mismatch yields a returned error aborting the push; redirect only accepted when the resolved URL names the configured repo.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Replay reports ok for deploy, git, gitops, release, source and clean go vet on all five packages.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "`go build ./... && go test ./...` run shows ok for every package.",
+    "id": "n8",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements and tests the symlink guard, origin verification, scoped hook hardening, port-aware identity, exact-path verification and fail-closed push destination, with the full suite and vet passing. However it never disables interactive git prompting for the managed cache (no GIT_TERMINAL_PROMPT or equivalent), so n4 is unmet; minor doubt also remains over the repair-in-place reading of c3 and the unconditional syscall.O_NOFOLLOW.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.63002,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:12.349163+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.544762,
+ "replay_cost_usd_label": 4.601147,
+ "session_id": "cb6acc28-47a2-43c8-ae22-b9ef88dec9c1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  }
+ ]
+}

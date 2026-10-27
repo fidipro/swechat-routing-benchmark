@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Replay said gh was unavailable but then asserted 'no $LASTEXITCODE usage visible in this repo's workflows' after only reading test.yml (release.yml has the pwsh workflow), and gave no verdict on validity ('I can't determine if the counter-argument is sufficient').",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1 assessment was wrong: it marked PR 112 '✅ FIXED', quoted the still-buggy raw-score gate and claimed it 'guarantees logical consistency'; the user was told the comment's claim was already addressed when it was not.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Fix rounds TopScore to 1 decimal before the ceiling check; TestSearchLowConfidenceNoticeRoundingConsistency with 11.96 passes showing 'top score 12.0 and top results agree on nothing' with no 'below 12'.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "go test ./... all ok; model states 'go vet ./... passes with no output' (vet run not shown in record).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches only internal/cli/search.go and search_confidence_test.go; release.yml untouched.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No gh access; no comments posted on either PR.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Replay never identified or checked out PR 112's branch, never mentioned committing, pushing, or being unable to push; final reply says only 'Done. The PR 112 issue is fixed.'",
+    "id": "n2",
+    "met": false
+   }
+  ],
+  "reason": "The code fix itself is correct and tested, but the PR 112 assessment delivered to the user was wrong (declared the bug already fixed by quoting the buggy code), the PR 111 assessment rested on reading the wrong workflow file and reached no verdict, and the fix was neither placed on PR 112's branch nor reported as committed/unpushable. Multiple judge criteria are unmet, so the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.21137,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:35.366856+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.281607,
+ "replay_cost_usd_label": 0.302439,
+ "session_id": "80bcc7be-ba2a-4ba6-9982-ed61a0f6d010",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

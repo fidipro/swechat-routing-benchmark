@@ -1,0 +1,97 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "New .github/workflows/nightly-e2e-smoke.yml with `schedule: - cron: \"0 7 * * *\"` plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "`matrix: os: [ubuntu-latest, macos-latest, windows-latest]` with `runs-on: ${{ matrix.os }}`.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "macOS step: `brew tap entireio/tap && brew trust entireio/tap && brew install --cask entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Linux step: `curl -fsSL https://entire.io/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Windows step fetches https://entire.io/install.ps1 via Invoke-RestMethod and runs it with `-Channel nightly`; a stub scripts/install.ps1 was also added and disclosed as not yet hosted.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "`actions/checkout@...v7.0.1` with no ref override, so scheduled runs check out the default branch (main).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Loop runs `mise run test:e2e --agent \"$agent\" TestMultiSessionManualCommit` over claude-code opencode factoryai-droid cursor-cli copilot-cli codex (Linux/macOS); gemini-cli/roger-roger/pi excluded with reasons in comments; Windows limited to claude-code with stated reason (mirrors e2e-windows.yml).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Single test TestMultiSessionManualCommit chosen: 2 prompts (red.md, blue.md), a commit, asserts checkpoint advanced/trailer/exists.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'Now let's find the ideal candidate test...' and cites e2e/tests/multi_session_test.go:15, compares against TestMultiSessionSequential.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 reply summarises e2e.yml, e2e-isolated.yml, e2e-windows.yml, nightly.yml before presenting the plan.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Per-agent runs happen in a sequential bash for-loop inside the single per-OS `smoke` job; no agent matrix.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Commit made locally on add-nightly-matrix-e2e-test (781100b1); told user no remote/gh available so PR could not be opened and gave the commands.",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The replay surveyed workflows and tests, chose one 2-prompt commit/checkpoint test, and produced a nightly OS-matrix workflow installing the nightly CLI via brew/curl/PowerShell and looping mise run test:e2e over the built-in agents within each OS job, with exclusions explained. It committed locally and clearly reported that pushing/opening the draft PR was impossible in the sandbox; minor doubt remains about the Windows leg being limited to claude-code and the unverified bootstrap invocation.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.27357,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:33.619204+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.714673,
+ "replay_cost_usd_label": 0.771058,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

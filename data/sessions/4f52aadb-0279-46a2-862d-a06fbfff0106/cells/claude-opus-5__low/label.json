@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Diff: `-## [Unreleased]` / `+## [0.9.0] - 2026-08-28`, with Security/Added content kept beneath it.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Two bullets keep a period before the link: \"...both empty and therefore already agree. ([#114](...))\" and \"...until someone happens to open a PR. ([#106](...))\"; the #114 link also sits at the end of the lead paragraph rather than the end of the multi-paragraph bullet.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "New Housekeeping bullet cites #104 and #105; Security go-git bullet cites #105 and #106; replay noted no tags and used the 0.8.0 release PR as boundary.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only CHANGELOG.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets visibly cut (replay reports ~12,400 -> ~7,800 chars); e.g. the credential-binding and object-limit bullets lose several sentences each.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "All 14 Security bullets from Unreleased are still present, each ending in a PR link (#105/#106, #106, #108, #112, #107...).",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "go-git appears only in the Security bullet; Housekeeping bullet now covers only golang.org/x bumps.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Security go-git bullet ends with `([#105](...), [#106](...))`.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The release heading, back-filled links, missing PRs, compression and go-git consolidation are all handled, but c2 literally requires no period before the PR link and two bullets in the Added section (#114, #106) retain a trailing period before the link. Everything else meets the criteria, so the failure rests on that formatting defect.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.29139,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:32.539930+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.966199,
+ "replay_cost_usd_label": 1.041604,
+ "session_id": "4f52aadb-0279-46a2-862d-a06fbfff0106",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

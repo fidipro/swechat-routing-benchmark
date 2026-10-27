@@ -1,0 +1,80 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Diff adds a new '## Testing' section with 'uv run pytest -q' run instructions.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Added text says 'regenerate examples/ ... and let the tests catch any unintended diff', implying the suite diffs against examples/, which the reference analysis found it does not; also claims PDF rendering and W-nn tags are tested and that the test is 'referenced throughout AGENTS.md' with no evidence pytest was run to verify commands.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1: 'Only README.md is modified. Committing and pushing.' — commit created on poc/ifc-detailing (98b2f40); .codex/ not mentioned as included.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'there's no remote configured so I can't push — there's no origin set up'.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: cherry-picked the single README commit onto main as a768dcc; conflict resolution took full README content (disclosed), no other commits brought over.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'Not pushed, per earlier instruction' (user said no remote, don't worry about pushing).",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'There's no master branch — only main. I'll cherry-pick the README commit onto main.'",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The Testing section was added, committed alone, and cherry-picked onto main with the missing-master and no-remote situations reported. However the added text contains claims not accurate to the repository (tests catching diffs against examples/, PDF/W-nn coverage) and there is no evidence the documented command was actually run, so c2 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.46661,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:29.990270+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.165344,
+ "replay_cost_usd_label": 0.221728,
+ "session_id": "b134d514-874f-447f-ae21-d39f5f86b263",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

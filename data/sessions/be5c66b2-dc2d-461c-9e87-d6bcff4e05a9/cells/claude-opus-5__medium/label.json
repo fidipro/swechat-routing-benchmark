@@ -1,0 +1,115 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.62,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply walks the codebase with file:line refs, grouping findings into works / needs hardening (items 1-9) / 'Missing entirely' (A-G) before proposing a 'Suggested order'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: DCP parallel writes 'lets you checkpoint every 30 minutes instead of every 3 hours — the single biggest lever on lost work per failure'; plan Task 18 measures write cost and sets cadence from sqrt(2·MTBF·cost); spec motivating evidence includes failure-rate math.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 defines the resume contract (identical data order and masks, no sample duplicated/skipped, exact optimizer/scheduler trajectory, world-size-invariant stream); spec has a 'resume contract' section with five properties plus seekable data stream, seeded masks, trainer_state counters, config.yaml — full spec text not visible so some doubt.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Design/plan include --requeue, --signal=B:USR1, --kill-on-bad-exit, chaining past 7-day limit with restart ceiling and poison-pill guard, run ledger, stall watchdog (Phases 4-8, src/oplm/slurm/chain.py, ledger.py).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply does the memory math ('For 12B that's ~22 GB of sharded state per GPU… For 30B, 8-way gets you to ~45 GB/GPU') and the spec records a 'B200 memory table'; the opening of the reply is truncated in the record so the explicit yes/no is partly inferred.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 recommends DCP + distributed state-dict now on DDP, HSDP next, validate at scale; spec Change 8 and plan Phase 11/12 reflect this.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 answers directly, flags the output_dir collision footgun, and the plan's Global Constraints require 'a working no-process-group, no-scheduler code path' for every feature; auto_resume gated by config hash.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 identifies _HOME_MOUNT and Pyxis coupling; plan adds launcher: pyxis|apptainer|bare, moves home mount into schema, SLURM_* reads confined to environment.py, configs/example.yaml portable.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Plan adds src/oplm/training/retention.py 'Rotating-window vs archival checkpoint retention' with tests for 'dual cadence' (Phase 9 retention split); exact option name not visible in the excerpt.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Retention is split into rotating-window vs archival checkpoints (Phase 9 'Retention split'), with archival checkpoints outside the rotation window.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'Task 14 Step 3 resolves the Accelerate double-shard question before touching striping… record the finding… if real'; also spec Open question #2.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "docs/superpowers/specs/2026-10-25-long-run-resilience-design.md written (541 lines) capturing audit, DCP/HSDP sequencing, one-off run protection and portability from turns 1-2.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "TODOS.md rewritten with '**Spec:** [docs/superpowers/specs/2026-10-25-long-run-resilience-design.md]'; doc-link test passes (103).",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Plan has Phases 1-14 with a 'Sequencing rationale' putting cheap wins (spec Changes 1-3, 7) before DCP, matching the user's turn 4 instruction.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "The replay audited the codebase, answered the memory/FSDP/one-off/portability questions, and produced both a spec and a phased TODOS.md referencing it, with the double-sharding check and a retention split included. Doubt remains because the spec text and the exact keep_every_n_steps option are not visible in the record, and parts of the turn 1 reply are truncated.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.79867,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:32.551567+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.959761,
+ "replay_cost_usd_label": 6.959761,
+ "session_id": "be5c66b2-dc2d-461c-9e87-d6bcff4e05a9",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.62,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.68,
+   "verdict": "pass"
+  }
+ ]
+}

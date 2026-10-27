@@ -1,0 +1,107 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply categorizes 'What's already solid', 'Kinda there, needs work', and 'Missing entirely' across checkpointing, resume, Slurm requeue tooling, dataloader, before any design.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 flags step-only interval and suggests a time-based fallback, but no interval/cadence recommendation appears in the spec design sections or the 13-task plan (no time-based save task); only passing mentions like 'checkpointing every 30 min being free'.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Spec baseline lists model/optimizer/scheduler/RNG + global_step/epoch/samples_seen/tokens_seen; §2 adds per-source {epoch,row_index} data position; Task 2 Step 4 explicitly requires RNG/grad-scaler capture; W&B run id added.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Design covers --requeue, generalized auto-resume in Trainer, --signal=B:SIGTERM@grace in render.py, coordinated shutdown, NCCL timeout with non-zero exit so requeue triggers.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: '~16 bytes/param... 6B: ~96GB... workable with gradient checkpointing; 12B: ~192GB — already over the 180GB budget' with memory reasoning.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 recommends FSDP2 + DCP from the start given 6-30B range; spec 'Context: why FSDP2' and Task 1 pin FSDP2+DCP.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 answers 'Only if we design it carelessly'; spec §1: clean output_dir is a no-op, explicit resume_from wins, escape hatch provided; plan Global Constraints require zero behavior change for clean dirs.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Plan Global Constraints: 'No CoreWeave- or SUNK-specific APIs anywhere in src/oplm/training/'; replication URI, grace period, timeouts are config fields.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Task 3 Step 5: 'Add train.keep_every_n_steps: int = 0 and train.keep_every_n_hours: float = 0 config fields'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Task 3 Step 6: 'exclude permanently-tagged checkpoints from both the rolling count and the deletion candidates, so save_total_limit governs only the untagged rolling set.'",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "No task in the plan mentions verifying or fixing the accelerate dataloader double-sharding issue.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "docs/superpowers/specs/2026-10-25-fault-tolerant-training-design.md written covering the six agreed sections plus FSDP2/DCP rationale and retention exemptions.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Plan written to docs/superpowers/plans/2026-10-25-fault-tolerant-training.md; TODOS.md was not touched in the diff.",
+    "id": "c9",
+    "met": false
+   },
+   {
+    "evidence": "Plan is a flat list of Tasks 1-13 with no phase divisions.",
+    "id": "n5",
+    "met": false
+   }
+  ],
+  "reason": "The replay audited the codebase, answered the memory/FSDP/one-off questions, and produced a spec plus retention options, but the plan was written to docs/superpowers/plans rather than TODOS.md, has no phase structure, and omits the dataloader double-sharding verification task. It also dropped any concrete checkpoint cadence/time-based interval from the design after flagging it in the audit.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.64772,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:52.270270+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.315967,
+ "replay_cost_usd_label": 1.315967,
+ "session_id": "be5c66b2-dc2d-461c-9e87-d6bcff4e05a9",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

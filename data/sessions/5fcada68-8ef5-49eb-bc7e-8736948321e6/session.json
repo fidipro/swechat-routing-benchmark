@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-07-20T11:25:55.507Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-opus-4-8",
+  "models_seen": [
+   "claude-opus-4-8"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.212",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 5.86801
+ },
+ "repo_id": "entireio/cli",
+ "repo_url": "https://github.com/entireio/cli",
+ "session_id": "5fcada68-8ef5-49eb-bc7e-8736948321e6",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "merge-mirror-list-show-available",
+  "commit": "eb93ef1a1ad92c5327236a6ebc2e3bc1050da0f1",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-07-20T10:47:31.559Z",
+ "user_turns": 4
+}

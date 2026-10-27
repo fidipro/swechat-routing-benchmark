@@ -1,0 +1,197 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply: 'pins lifted to `pinned: PinnedRef[]` with `togglePin`/`clearPins`'; idea-board updated to use store pins; typecheck/lint green.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "PinnedRef {id,title,lane,image_url: str|None,source_url: str|None} in contracts.py; stickers pin with null image_url; single shape for both lanes. Field names are snake_case (disclosed, generated from OpenAPI per repo rule) rather than camelCase.",
+    "id": "c14",
+    "met": true
+   },
+   {
+    "evidence": "Rail described as full-width, borderless, `N pins · conditioning input`, 48px thumbs; later wrapped in #fcfcfb banner with hairline/shadow, which the user accepted ('exactly it').",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "pin-rail.tsx has the idle/generating/error Generate button on the rail.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 reply: rail 'absent at zero pins'; `--pin-rail-height: 0px` when nothing pinned.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "CSS added to index.css; 'Lockfiles unchanged; no new dependencies' — animation keyframes not visible in truncated diff.",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "api.py: `@router.post(\"/v1/generate\", response_model=GenerateResponse)` with GenerateRequest{session_id,transcript,pins} and GenerateResponse{image_url,prompt,model,reference_count,...} Pydantic models.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "synthesiser.synthesise(transcript, intent, pin_titles) on openai_synthesis_model; SynthesisedPrompt validates ≤79 words → 422 on invalid; test asserts calls == [(TRANSCRIPT, intent, titles)].",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "'The raw transcript never goes to fal (a test asserts it is absent from the submit body)'.",
+    "id": "c18",
+    "met": true
+   },
+   {
+    "evidence": "fal.py: `X-Fal-Store-IO: 0` header, POST queue.fal.run/{model}, GET /status poll; docstring 'Queue, polled — no webhook'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "fal_poll_timeout_seconds=45.0; FalTimeout → _problem 504 code generate_timeout.",
+    "id": "c19",
+    "met": true
+   },
+   {
+    "evidence": "fal.py: 'this module retries nothing at all'; _send raises on HTTPError without retry.",
+    "id": "c20",
+    "met": true
+   },
+   {
+    "evidence": "httpx.Timeout(connect/read/write/pool) on fal client; openai_synthesis_timeout_seconds=20 setting.",
+    "id": "c21",
+    "met": true
+   },
+   {
+    "evidence": "Plain httpx in fal.py, no SDK; 'Lockfiles untouched'; uv sync --frozen succeeds.",
+    "id": "c22",
+    "met": true
+   },
+   {
+    "evidence": "public_reference_urls caps at fal_max_reference_images; model = reference_model if references else fallback_model; image_urls set only with references; live run flipped to kontext/max/multi with reference_count 1.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Pin titles always passed to synthesis; reference_count from actual URLs; UI reads 'no reference images · pins steered the prompt'.",
+    "id": "c23",
+    "met": true
+   },
+   {
+    "evidence": "SessionGenerationLock.acquire → 409 `generate_already_running` problem, released in finally.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "config.py adds fal_key, fal_reference_model, fal_fallback_model, fal_max_reference_images with values matching .env.example.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "FixtureImageGenerator returns data: URI; 'A test monkeypatches httpx.AsyncClient to fail if fixture mode opens a client'.",
+    "id": "c24",
+    "met": true
+   },
+   {
+    "evidence": "generated-result.tsx: 'image takes the workpane, prompt verbatim in muted type with model id and reference count'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Rail is a persistent bottom band driven by pin count; generated pane padding subtracts --pin-rail-height so rail remains visible.",
+    "id": "c25",
+    "met": true
+   },
+   {
+    "evidence": "'idle/generating-pulse/error+correlation-id button' in pin-rail.tsx.",
+    "id": "c26",
+    "met": true
+   },
+   {
+    "evidence": "Final grep of dist: FAL_KEY/fal_key/fal-ai/queue.fal.run/sk-proj all 'none'; OpenAI and fal calls in apps/api only.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "pnpm lint 0 errors, typecheck successful, build '✓ built in 2.56s', ruff 'All checks passed!', mypy 'no issues found in 24 source files'.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Biome lint and tsc strict pass on 30 files; no `any`/`!` visible.",
+    "id": "c27",
+    "met": true
+   },
+   {
+    "evidence": "All excepts in fal.py/api.py are typed (ValidationError, ValueError, httpx.HTTPError, custom exceptions).",
+    "id": "c28",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 reply: '`README.md` and `docs/` untouched'.",
+    "id": "c29",
+    "met": true
+   },
+   {
+    "evidence": "'61 passed, 1 warning in 1.83s' on final run.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: rail is a bottom band; docked mic transform offset by --pin-rail-height so it sits 28px above the band.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "'Full-width banner on `#fcfcfb` — one shade lighter than the canvas'.",
+    "id": "c30",
+    "met": true
+   },
+   {
+    "evidence": "'An X on every thumbnail, always visible' — 17px dark X chip at tile top-right that unpins.",
+    "id": "c31",
+    "met": true
+   },
+   {
+    "evidence": "No git remote; merged main into branch then `git merge --ff-only` into main at 725da07; reported nothing pushed and why.",
+    "id": "c13",
+    "met": true
+   }
+  ],
+  "reason": "The replay implemented the full Generate beat with store-lifted pins, the typed /v1/generate route (fixture mode, 45s typed timeout, one-in-flight, no retry, httpx queue polling), the bottom banner rail with X unpin, and landed the work on local main with all checks green and the remote limitation disclosed. Residual doubt is over the snake_case PinnedRef field names (disclosed, repo-rule driven) and the rail animation classes not visible in the truncated diff.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.5858,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:14:16.219168+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 16.131541,
+ "replay_cost_usd_label": 16.206947,
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Turn 0 review cites specific repo findings: unused isbot/web-vitals, dead src/constants/sentry.tsx with DSN, regex sanitizeHtml at src/utils/markdown.ts:9-19.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 ran vp outdated, judged React/TanStack/Tailwind/nitro current, flagged ai/@ai-sdk/groq cadence, and proposed replacing the hand-rolled sanitizer with isomorphic-dompurify.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'Does that change my conclusion? No — if anything it confirms it' with reasons from git history (Bun.markdown adopted Feb, removed Apr) and Node dev/test vs Bun prod runtime.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "WebFetch attempted 3 times; turn 1 states 'Web fetching is blocked in this sandbox' and bases re-evaluation on repo git history and Dockerfile.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 presents a 6-row table with File/Issue/Action/Priority.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reports rows 1–4 done with a status table; row 5 was 'No change' by design and row 6 was pre-marked 'not urgent now' in the list itself (not re-addressed in turn 3, slight doubt).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Row 5 reason: dev/test run under Node, only prod under Bun; row 6: 'not urgent now', periodic check only.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'vp check and vp test run both pass clean', 17 tests pass; the explicit coverage run was not shown, doubt reflected in confidence.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "The replay never ran `vp build` at any turn despite adding isomorphic-dompurify to the SSR path; no build verification was attempted or disclosed.",
+    "id": "n3",
+    "met": false
+   },
+   {
+    "evidence": "n/a",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches only markdown.ts sanitizer, package.json deps, sentry.tsx deletion, bun.lock deletion; no styling/design changes.",
+    "id": "c12",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered a grounded review, explicitly re-evaluated against Bun 1.4 after web fetching was blocked, presented a table, implemented all listed changes, committed locally, and ran vp check/vp test. However it never ran the production build (`vp build`), a check it could have run after introducing isomorphic-dompurify into the SSR bundle, so n3 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.83593,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:42:12.345371+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.631424,
+ "replay_cost_usd_label": 0.687809,
+ "session_id": "bf6b3c30-fa1c-4524-8f6f-e932d797f9e0",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.68,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

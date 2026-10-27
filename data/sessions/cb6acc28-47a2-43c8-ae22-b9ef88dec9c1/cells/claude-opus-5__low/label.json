@@ -1,0 +1,122 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "walkDestPath Lstat's every component and returns errSymlinkInDest on any symlink; TestScaffoldRefusesASymlinkedDestinationFile / ...ParentDirectory pass.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "walkDestPath rejects empty/./.. segments and only creates real directories via os.Mkdir, so the parent path cannot leave destRoot; applyStaged uses makeDestDir.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "writeNoFollow opens with os.O_WRONLY|os.O_CREATE|os.O_TRUNC|syscall.O_NOFOLLOW.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "TestScaffoldRefusesASymlinkedDestinationFile and TestScaffoldRefusesASymlinkedParentDirectory added in scaffold_test.go.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'refresh reads remote.origin.url ... compares with SameRepository ... A mismatch ... discards the directory and re-clones'; repointed-origin re-clone test; gitops tests pass.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "repo.VerifyPushURL resolves `git remote get-url --push` and Publish/publishScaffold print 'pushing %s to %s'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "hardeningConfig core.hooksPath=/dev/null applied in runRaw when Managed; gitops.Open uses ManagedClient; TestCommitDoesNotRunHooksOnAManagedCheckout.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "hardeningEnv sets GIT_TERMINAL_PROMPT=0, GIT_ASKPASS=, SSH_ASKPASS= via EnvRunner for managed invocations.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "CommitExactly checks StagedPaths against allowed before Commit and returns UnexpectedPathsError on extras (tolerates subset, disclosed); TestCommitExactlyRefusesAnUnexpectedStagedPath.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "CommitExactly re-reads CommitPaths(HEAD) after commit and errors on extras before the caller pushes; TestPublish-level hook tests described and passing.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: normalizeURL keeps non-default port; TestSameRepository table covers 8443 vs 9443 differing.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Client.Managed gates hardeningConfig/env; Clone is plain, CloneManaged for cache; only gitops.Open constructs ManagedClient.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "TestCommitRunsHooksOnAnUnmanagedCheckout; release/source use unmanaged Client, 'release create ... unaffected'.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "VerifyPushURL strips --local remote.origin.pushurl, re-resolves, and hard-fails on any remaining redirect (pushInsteadOf); tests for strip-and-revalidate and fail-closed.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Error guidance: 'an intentional redirect means configuring that repository as the GitOps repo'; mismatch returns an error, no warn-and-continue path.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "go vet ./... && go test on deploy, git, gitops, release, source: all 'ok'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "go test ./... produced no failures (filtered output empty); go vet ./... passed implying build succeeds.",
+    "id": "n8",
+    "met": true
+   }
+  ],
+  "reason": "The replay implemented symlink-safe scaffold writes with O_NOFOLLOW, origin-URL verification with re-clone, port-preserving identity, managed-only hook hardening, before/after commit path verification, and fail-closed push-destination handling with local pushurl self-heal, all with tests and a green suite. The only soft spot is CommitExactly tolerating fewer-than-expected staged paths rather than strict set equality, which was disclosed and does not weaken the anti-widening guarantee.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.50313,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:51.985785+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.585824,
+ "replay_cost_usd_label": 3.66123,
+ "session_id": "cb6acc28-47a2-43c8-ae22-b9ef88dec9c1",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

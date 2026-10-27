@@ -1,0 +1,175 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Final diff adds internal/gitutil/git_hardening_test.go with TestGitSubprocessesDisableRepositoryFsmonitorHook; #134 head unreachable (no remote), reconstructed per user's instruction and disclosed.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Same file contains TestGitLogSubprocessesDisableRepositorySignatureVerification; reconstructed since pull/134/head could not be fetched, disclosed.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "search_cache_worktree_test.go diff adds TestWorktreeSnapshotCacheProbeDoesNotRunGitFilters iterating filter.evil.clean and filter.evil.process subtests.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff to search_cache_worktree_test.go is additive only (imports + appended test); replay reports 'func Test count 5→6', 8 pre-existing worktree-cache tests still pass.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only git_hardening_test.go and search_cache_worktree_test.go; 'git.go identical to main: yes'.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "go test -count=1 -v -run for the three named tests: all PASS in gitutil and sem.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "'=== -race three tests ===' run shows all three PASS.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "go test ./internal/gitutil ./internal/sem -count=1 ok; mise not installed, replay ran gofmt/vet/build/statusline/race constituents and disclosed it.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "PR body artifact /tmp/pr-body-supersede-134.md prepared with verification table, skips, SHAs, limitations table; GitHub unreachable reported.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No remote so fetch impossible and reported; /work stays clean on main; fresh branch created from recorded main e31e255 in temp worktree.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "'Not merged, not pushed. Do you approve merging?' and holds on user's answer.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "'the #134 branch was not touched'; no remote so no alteration possible.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "No gh available; no comments posted anywhere.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "'/work is still clean on main'; work done in /tmp/wt-134-supersede.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "No entire CLI present; no session lifecycle/stop commands run.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Report states all three skip on runtime.GOOS == windows because fixtures are POSIX sh scripts; disclosed in report and PR body.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Impossible: no #134 head and no entire CLI; replay reported inability and later ran graph diff via built binary on the final branch.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "'entire graph diff ran via the entire-graph binary built from the tree' against base e31e255 on final branch.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "'No gh, so ... open PRs weren't inspected for overlap' reported; local overlap scan done instead.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "'No entire CLI, so no trail/checkpoint was created' reported.",
+    "id": "n10",
+    "met": true
+   },
+   {
+    "evidence": "'No remote exists, so I couldn't re-fetch main to confirm it hasn't advanced' reported.",
+    "id": "n11",
+    "met": true
+   },
+   {
+    "evidence": "Replay references AGENTS.md's graph workflow and ran graph diff; .entire/graph-agent.md reading not observable.",
+    "id": "n12",
+    "met": true
+   },
+   {
+    "evidence": "Not observable beyond repo state check at turn 1 (clean on main, single ref).",
+    "id": "n13",
+    "met": true
+   },
+   {
+    "evidence": "Main SHA e31e255 recorded; #134 pin confirmation impossible and reported.",
+    "id": "n14",
+    "met": true
+   },
+   {
+    "evidence": "CI unreachable reported; skip guards inspected and disclosed.",
+    "id": "n15",
+    "met": true
+   },
+   {
+    "evidence": "Replay never mentioned Claude Opus 5 or Cursor CLI reviews nor reported their unavailability.",
+    "id": "n16",
+    "met": false
+   }
+  ],
+  "reason": "The replay produced the three correctly named test-only additions, verified them with -v, -race, full-package and check equivalents, disclosed Windows skips, prepared a PR body, and stopped for merge approval, with remote steps reported as unavailable. However, it never obtained or reported the unavailability of the independent Opus/Cursor reviews (n16), and the replay was turn-capped, so the verdict is fail despite most criteria being met.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.46371,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:35:34.745497+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.396741,
+ "replay_cost_usd_label": 6.461682,
+ "session_id": "f0df9bf4-e1f7-4ba8-ae9e-a0fd0eb5af49",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

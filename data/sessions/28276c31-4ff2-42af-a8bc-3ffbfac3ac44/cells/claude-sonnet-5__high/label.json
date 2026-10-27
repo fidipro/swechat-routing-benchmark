@@ -1,0 +1,85 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.5,
+  "criteria": [
+   {
+    "evidence": "Turn 0 lists five pain points and asks which land; turn 1 offers Fork 1/Fork 2 alternatives; user picks B/A and the merge, which shape the §2 decisions table in the doc.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "The user asked to apply impeccable skills; the model only said it would 'run it through `/impeccable apps/identity-wallet`' later for markup, never invoked any skill during the brainstorm/design-doc work, and never stated that none apply.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "docs/design-plans/2026-10-25-identity-hub-ia-cleanup.md covers the wallet in depth (§1–§5) and addresses admin-companion only via the scope note that principles carry over, matching the user's instruction to keep scope to identity-wallet.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turns 5–7: 'This session doesn't actually have Linear access' and §5 of the doc holds two issues 'written up ready to file rather than filed.'",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: 'Confirmed via a fresh subagent too — no Linear MCP tool is reachable' (Agent tool used once).",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: 'Still nothing — same result as before, even after the restart... a completely fresh subagent came up empty too.'",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 8: 'Committed (`6cb060d0`) on the current branch `claude/identity-wallet-ia-35c861`.'",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 8: 'I can't open the PR from here... no `origin` remote configured and no `gh`/`hub` CLI installed... if you can tell me how this environment is supposed to reach your remote (a URL to add, a token, etc.), I can try.'",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay quizzed the user, produced a committed design doc with drafted Linear issues, retried Linear via a subagent, and correctly reported that the PR could not be opened without a remote. It did not, however, invoke any skill or state that none applied despite the user's explicit request to apply impeccable skills, only deferring the skill to an implementation pass that never happened, so n1 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.11479,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:41.787512+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.925748,
+ "replay_cost_usd_label": 1.982132,
+ "session_id": "28276c31-4ff2-42af-a8bc-3ffbfac3ac44",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.5,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

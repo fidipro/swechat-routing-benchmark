@@ -1,0 +1,85 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.65,
+  "criteria": [
+   {
+    "evidence": "Diff adds `## [0.10.4] - 2026-10-25` immediately above `## [0.10.3] - 2026-08-27`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Entry uses ### Added, Changed, Security, Fixed, Housekeeping, Thanks matching existing entries.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Every bullet ends with one or more `[#NNNN](https://github.com/entireio/cli/pull/NNNN)` links.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Replay cites 36 PRs; PR #2158 (real-agent E2E fixes for Claude Code trust dialog / Copotil CLI v1.0.81), present in the reference's range, is absent and no note explains its omission.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Thanks section credits @suhaanthayyil, @MuskanPaliwal, @ChetanReddyC, @Solarthis; turn 0 reply states others were classified internal via `@entire.io` emails in git history (classification reasoning given, though @suhaanthayyil's external status is doubtful).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets state the change and condition only, e.g. 'The OAuth token-exchange POST now refuses a cross-host redirect', no attack scenarios.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "No alarmist/attacker wording remains; turn 1 reply confirms removal of 'could plant', 'malicious or compromised', etc.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Final bullets are single short sentences; turn 2 reply: 'Trimmed every bullet in the 0.10.4 entry down to one short sentence each'.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The entry is well-formed, sectioned, linked, neutral, and shortened as asked, but it omits PR #2158 from the set of merges since v0.10.3 without acknowledging the gap, so coverage is incomplete. Additionally the Thanks section's classification of @suhaanthayyil as external is questionable, though the replay did state its reasoning.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.63265,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:46.685869+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.853823,
+ "replay_cost_usd_label": 1.910208,
+ "session_id": "99ab2578-6e3b-4a89-95ec-c786c458b8a0",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.65,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.65,
+   "verdict": "fail"
+  }
+ ]
+}

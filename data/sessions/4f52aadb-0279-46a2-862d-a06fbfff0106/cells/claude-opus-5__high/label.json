@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Diff keeps `## [Unreleased]` (now empty) and inserts `## [0.9.0] - 2026-08-28` beneath it rather than replacing the heading; content is under the new heading but the Unreleased heading was not replaced/renamed.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Added section bullets end with a period before the link: `...gated on the policy. ([#114](...))` and `...happens to open a PR. ([#106](...))`; only Security bullets were normalized.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Housekeeping adds #104 (x/crypto) and #105 (IsolateGitConfig); Security cites #105/#106; replay noted gh unavailable and used merge history.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only CHANGELOG.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security section cut from 1,850 to 1,183 words; diff shows each long bullet substantially shortened.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "All 14 Security bullets remain in order with link sequence `106 106 108 112 107 107 107 112 107 107 112 112 112 107` preserved.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "go-git bump appears only in the Security bullet; Housekeeping now has x/crypto (#104) and the test-isolation bullet, which does not describe the bump.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Security go-git bullet ends with `([#105](.../105), [#106](.../106))`.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay compressed Security, consolidated the go-git bump, and preserved all PR attributions, but two Added bullets still carry a period before the PR link, violating c2. It also left an empty `## [Unreleased]` heading in place and inserted the release heading below it instead of replacing it, which does not literally satisfy c1.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.34264,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:44.895651+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.656549,
+ "replay_cost_usd_label": 2.731955,
+ "session_id": "4f52aadb-0279-46a2-862d-a06fbfff0106",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

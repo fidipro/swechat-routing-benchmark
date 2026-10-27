@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Diff adds `## [0.10.4] - 2026-09-02` immediately above `## [0.10.3] - 2026-08-27`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Entry uses ### Added, ### Changed, ### Security, ### Fixed, ### Housekeeping, ### Thanks.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Every bullet ends with one or more `[#n](https://github.com/entireio/cli/pull/n)` links.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Replay cites the same 37 PRs as the original (1926, 2119, 2140, 2142, 2151–2158, 2163, 2169–2174, 2178–2233 range), no merges missing.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Thanks attributes #2206 to '@gtrrz-victor (Michael Thom)' whereas the reference credits @Solarthis; the handle/name pairing looks fabricated, no classification reasoning was given, and the three-line PR-linked format departs from the single-paragraph Thanks convention.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Security bullets e.g. 'OAuth token-exchange POST requests now refuse cross-host redirects' state only the change, no attack scenarios.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets use plain 'no longer…/now requires…' wording with no alarmist or attacker framing.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply: 'Shortened each Security bullet to one tight clause.' — only Security bullets were shortened; the #2154 Added bullet and #2180 Changed bullet remain ~500+ characters, so the entry's bullets as a whole were not shortened as asked.",
+    "id": "c6",
+    "met": false
+   }
+  ],
+  "reason": "The replay produced a complete 0.10.4 entry with all 37 PRs linked and neutral Security bullets, but when asked to shorten the bullet points it only trimmed the Security section, leaving several very long bullets untouched. The Thanks section also credits #2206 to a contributor handle/name pairing that conflicts with the reference and gives no reasoning, so c4 and c6 are unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.21872,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:48.205431+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.617507,
+ "replay_cost_usd_label": 0.673892,
+ "session_id": "99ab2578-6e3b-4a89-95ec-c786c458b8a0",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

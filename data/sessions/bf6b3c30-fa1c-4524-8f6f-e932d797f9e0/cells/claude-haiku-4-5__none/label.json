@@ -1,0 +1,100 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Turn 0 review cites specific repo locations: sanitizeHtml regex in src/utils/markdown.ts, unused `_isLoaded` at index.tsx:13, regex at ai.functions.ts:147, unused `isbot` dependency.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 includes a dependency table (marked, react, tailwind, nitro beta, vitest, isbot removal) and proposes isomorphic-dompurify/clsx replacements.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 'Revised Code Review' states what changes ('Don't overthink markdown — Bun native is coming', recommends remark Option B) with reasons, though it wrongly claims Bun native markdown is 'Not available' yet.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Three WebFetch attempts; model told the user 'The web fetch is blocked' and based the re-evaluation on local project and its own knowledge.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 presents an 8-row Priority/Category/Current/Action table of recommended changes.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reports XSS, _isLoaded, isbot, ReDoS, cache TTL, vitest pin as fixed; tiny-invariant audited ('It's being used, so keep it'); marked/gray-matter kept per the table's KEEP option.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "tiny-invariant kept with reason 'is still needed'; marked/gray-matter kept with reason that Bun native markdown not yet usable / remark as future option.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Replay reports after changes: 'TypeScript: No errors, Tests: 17 passed, 85.13% coverage, Formatting: All files correct, Linting: Clean' — claims only, no raw output visible.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "No `vp build` was ever run or mentioned in the replay despite adding Nitro server routes (sitemap.ts, feed.ts), strict tsconfig flags and a Suspense-based blog loader change.",
+    "id": "n3",
+    "met": false
+   },
+   {
+    "evidence": "n/a",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c12",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered the review, re-evaluation, table and implemented/reported every listed item, and claims lint/type/test/coverage pass. However it never ran the production build (`vp build`) after adding new Nitro routes, strict TypeScript flags and loader changes, so n3 is unmet and the overall verdict is fail.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.92594,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:42:11.324531+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.10302,
+ "replay_cost_usd_label": 1.123852,
+ "session_id": "bf6b3c30-fa1c-4524-8f6f-e932d797f9e0",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.72,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  }
+ ]
+}

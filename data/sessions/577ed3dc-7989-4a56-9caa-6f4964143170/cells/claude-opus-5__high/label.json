@@ -1,0 +1,85 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Turn 1 correctly reported the issue was unreachable, but turn 2 attributed the slot_num/MISSING_VALUE error to a real current-code bug (repairs fix flow lacking placeholders); the stale-translation-cache explanation came from the emulated user in turn 3 and the replay's final message never restated or explained it, only saying 'Scope kept to #2'.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 2 section 2: 'CODE_SLOT_SCHEMA uses CONF_CONDITION → field name condition ... config.step.code_slot.data still defines a label for entity_id'; 'config.step.yaml.data defines slots; the schema field is users'; 'options.step.init.data defines locks + slots; the schema is locks + users'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff renames entity_id→condition (code_slot), slots→users (config yaml and options init) in both strings.json and translations/en.json.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds _assert_fields_are_labelled comparing result['data_schema'].schema keys to STRINGS[flow]['step'][step_id]['data'], called from existing helpers/tests (_start_config_flow, _start_ui_config_flow, _start_yaml_config_flow, _start_options_flow, error paths); no schemas refactored into constants.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Final message: 'restoring the old strings.json makes the guard fire on exactly the three real mismatches ... With the fix in place all six steps agree'; test_config_flow.py 75 passed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Full suite '2162 passed, 3 skipped'; 2 errors in tests/test_migration_history.py shown pre-existing via git stash run on clean tree.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "No GitHub access in environment; final message: 'nothing posted anywhere'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff changes yaml description to 'where the key is the user's name. Lock Code Manager picks the slot numbers itself' and options init description to 'user configurations'.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The fix, regression guard, mutation check, test run and description updates all meet their criteria. However, the replay's own investigation misattributed the reporter's slot_num error to a repairs-flow code bug, and the stale-translation explanation required by c1 was supplied by the user and never articulated by the replay, so c1 is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.11319,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:04:38.913907+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.282306,
+ "replay_cost_usd_label": 6.357711,
+ "session_id": "577ed3dc-7989-4a56-9caa-6f4964143170",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

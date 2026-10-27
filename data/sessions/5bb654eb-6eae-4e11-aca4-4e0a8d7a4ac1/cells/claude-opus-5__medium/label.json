@@ -1,0 +1,197 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.72,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply: 'pins moved to the session store as the generated PinnedRef'; board now reads from the store (frontend diff truncated, accepted on model's report plus passing typecheck).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Replay deliberately used `image_url`/`source_url` on the frontend ('I used the wire shape image_url/source_url rather than camelCase') rather than the specified `imageUrl`/`sourceUrl` fields; nullability and single pin path are present but the named shape is not.",
+    "id": "c14",
+    "met": false
+   },
+   {
+    "evidence": "Turn 0/1: rail full width, labelled `N pins · conditioning input`, thumbnails on the left, neutral `#f6f6f4` palette.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Rail described as 'label + thumbnails + Generate' as a single band with Generate on the right.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'the rail is bottom-fixed, absent at zero pins'.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: rail 'animating through `workspace-enter`'; no motion dependency added (pnpm install --frozen-lockfile clean).",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "Diff: `@router.post(\"/v1/generate\", response_model=GenerateResponse)` with GenerateRequest {session_id, transcript, pins} and GenerateResponse {image_url, prompt, model, reference_count} as StrictModel.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "generation.py sets `_PROMPT_WORD_CEILING: Final = 110` ('This is the refusal line rather than the target'); SynthesisedPrompt only bounds characters (12–900), so a 90–110 word prompt is accepted — the under-80-word constraint is not enforced.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Route synthesises `prompt` then calls `service.generator.generate(prompt, references)`; transcript only goes to synthesiser.",
+    "id": "c18",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'fal REST queue over plain httpx... One submit with `X-Fal-Store-IO: 0`... Poll capped'; module docstring 'No webhook'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "`fal_poll_budget_seconds` default 45.0; FalTimedOut → 504 `generation_timeout` problem response; test test_fal_poll_stops_at_the_budget_with_a_typed_timeout.",
+    "id": "c19",
+    "met": true
+   },
+   {
+    "evidence": "Docstring 'The submit is never retried'; test test_fal_submits_once_polls_the_queue_and_returns_the_image passes.",
+    "id": "c20",
+    "met": true
+   },
+   {
+    "evidence": "openai_synthesis_timeout_seconds, fal_connect_timeout_seconds, fal_request_timeout_seconds in config and OpenAI client created with `timeout=`.",
+    "id": "c21",
+    "met": true
+   },
+   {
+    "evidence": "generation.py imports httpx only; no new dependency; `pnpm install --frozen-lockfile` clean and uv sync showed no lock change.",
+    "id": "c22",
+    "met": true
+   },
+   {
+    "evidence": "`reference_urls(pins, max_reference_images)` with is_public_https; Turn 0: public https → FAL_REFERENCE_MODEL capped, none → FAL_FALLBACK_MODEL text-only.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Pin titles passed to synthesise; reference_count = len(references) (0 when none); live fixture run showed 'pin titles visible in the prompt'.",
+    "id": "c23",
+    "met": true
+   },
+   {
+    "evidence": "InFlightGuard.hold raises GenerationInFlight → 409 `generation_in_flight`; test test_a_second_request_while_one_runs_is_refused_with_409.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "config.py adds fal_key, fal_reference_model 'fal-ai/flux-pro/kontext/max/multi', fal_fallback_model 'fal-ai/flux/schnell', fal_max_reference_images 4, matching .env.example.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "FixtureImageGenerator with data-URI image and FixturePromptSynthesiser; test test_fixture_mode_returns_a_canned_result_without_a_network passes after fix.",
+    "id": "c24",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'the result takes the workpane with the exact prompt, model id and reference count beneath it'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Rail is bottom-fixed and independent of workpane content; Turn 1 added bottom room to the workpane so the rail coexists with the result.",
+    "id": "c25",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 refers to 'the rail, pulse and result view' and RFC 9457 errors with correlation id surfaced to the client; not visible in truncated diff.",
+    "id": "c26",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0/2: 'dist/ contains no FAL_KEY, OpenAI key, secret-shaped string, fal model id or queue.fal.run'; calls are in the FastAPI backend.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Final run: pnpm lint/typecheck/build successful, 'All checks passed!', 'Success: no issues found in 22 source files', 50 passed.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "pnpm typecheck/lint pass; no `any` or `!` reported; frontend diff truncated.",
+    "id": "c27",
+    "met": true
+   },
+   {
+    "evidence": "generation.py uses `except Exception as error`, `except ValidationError`, `except TimeoutError` — no bare except.",
+    "id": "c28",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches .env.example, apps/api, apps/web; no README.md or docs/ changes shown.",
+    "id": "c29",
+    "met": true
+   },
+   {
+    "evidence": "'50 passed, 1 warning in 1.80s'.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'Rail at the very bottom. `bottom: 0`... the docked mic now lifts above it'.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'One solid very light surface (`#f6f6f4`...) so label + thumbnails + Generate read as a single band'.",
+    "id": "c30",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'X on every thumbnail, always... accessible name is still `Unpin <title>`'.",
+    "id": "c31",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'Merged into `main` locally. There's no git remote configured in this repo, so nothing was pushed'.",
+    "id": "c13",
+    "met": true
+   }
+  ],
+  "reason": "The replay built a working generate beat, repositioned the rail, and merged to main locally with all checks green, but it knowingly relaxed the synthesis validation to a 110-word ceiling instead of enforcing under 80 words, so c4 is unmet. It also renamed the PinnedRef fields to image_url/source_url rather than the specified imageUrl/sourceUrl, which a literal reading of c14 does not accept.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.59424,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:14:30.974322+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 12.547204,
+ "replay_cost_usd_label": 12.622609,
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.72,
+   "verdict": "fail"
+  }
+ ]
+}

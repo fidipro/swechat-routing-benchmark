@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 1: \"it's only fetching 5 workouts per page... if you have several Daily CAR workouts, they'll quickly bury an older session\" — answers that the CARs did affect it (turn 0 explanation was speculative/inaccurate).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Diff: getRecentWorkouts pageSize 5→50 and performSync loops up to 3 pages, so Session A buried behind several Daily CARs + Session B is within the fetch window and matched.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "No change marks skipped items or alters getNextRoutine; C stays 'pending' so getNextRoutine still returns C after D completes — the matchCompletions refactor only affects duplicate-routine matching, not queue advancement.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "vitest passed (103 tests) but `npx tsc --noEmit` was never run; diff introduces `typeof (await client.getRecentWorkouts())` in a type position, which is not a valid TypeScript type query.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Both 'fixes' the model described in turn 0 (ordered matchCompletions, first-match-wins nameToRoutineId) appear in the diff, plus the fetch-window widening.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: \"Committed to main: c29cf4a with the fixes\".",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: \"No remote is configured\" and instructs user to push to GitHub.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "not observable",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: deployment blocked on missing CLOUDFLARE_API_TOKEN; tells user to run `wrangler deploy --env production` with the token set.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No migrations added in the diff; nothing required.",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay widened the fetch window and committed locally, but it never implemented the out-of-order skip behaviour, so a skipped Session C would still be shown as next after doing D. It also never ran tsc, and the diff contains a likely type-level error (`typeof (await ...)`), leaving the repository checks unverified.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.26598,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:31.669617+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.28976,
+ "replay_cost_usd_label": 0.28976,
+ "session_id": "2afd116d-8d5a-4c41-9f4a-80420ea5b601",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

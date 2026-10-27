@@ -1,0 +1,107 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.75,
+  "criteria": [
+   {
+    "evidence": "Turn 0 audits checkpoint.py, trainer.py, dataset.py, slurm/ and sweep/run.py and sorts findings into 'Works already', 'Half-built', 'Missing entirely' before any design.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "No turn discusses what checkpoint interval/cadence is appropriate for weekly or every-few-days failures; the design only says checkpoints are 'written every `save_every` steps' and the plan never sets or reasons about cadence.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 0 lists model/optimizer/scheduler/RNG + step/epoch/samples/tokens, but data position is left out: Turn 8 says 'Mid-epoch resume granularity ... flagged as out of scope / follow-up', so resume is epoch-granular, not exact.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 0 notes unconditional `--requeue` and the sweep auto-resume pattern; design adds opt-in `auto_resume`, SIGTERM/SIGUSR1 drain checkpointing, `--signal=B:USR1@N` docs and a stall watchdog so requeue leads to resume (bad-node exclusion deferred).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 gives the ~18 bytes/param DDP table: 6B ~108GB tight, 12B ~216GB does not fit, 24-30B impossible without sharding.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'Recommendation: yes, build FSDP in from the start'; Turns 2-3 lock full FSDP sharding uniformly and plan Task 5 implements the FSDP+DCP format.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4 answers with five guardrails (FSDP as accelerate config, DDP keeps inline export, auto_resume escape hatch, no SIGINT trapping, watchdog gated); Turn 5 flips `auto_resume` default to False; plan Global Constraints enforce it.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: only sbatch/squeue subprocess calls, no CoreWeave API; plan constraint 'No CoreWeave-/SUNK-specific calls anywhere'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 designs `keep_every_n_steps`/`keep_every_n_hours` pinning; plan Task 2 'Pinned retention' and config fields in File Map.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: rotation 'only ever culls down to save_total_limit within the rolling set — pinned ones are invisible to the count entirely'.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Neither the transcript nor the TODOS.md plan mentions the accelerate dataloader double-sharding issue or any step to verify/fix it.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "Turn 8 reports spec written to docs/superpowers/specs/2026-10-25-training-resilience-design.md covering FSDP+DCP, pinning, auto_resume=False, full-state pinned checkpoints; TODOS.md links it (spec body not visible in truncated diff).",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff shows TODOS.md replaced with the plan and '**Spec:** [docs/superpowers/specs/2026-10-25-training-resilience-design.md]'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "No phasing was presented in the design before the spec; the plan is a flat 7-task build order rather than a phase-divided plan matching an approved phasing.",
+    "id": "n5",
+    "met": false
+   }
+  ],
+  "reason": "The replay audits well and answers the memory, FSDP, portability and retention questions correctly, writing a spec and a TODOS.md plan. It fails on checkpoint cadence (never addressed), on data position being deferred out of scope so resume is not exact, on omitting the double-sharding verification from the plan, and on delivering a task list rather than a phase-divided plan.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.59354,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:50.232163+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.993051,
+ "replay_cost_usd_label": 2.049436,
+ "session_id": "be5c66b2-dc2d-461c-9e87-d6bcff4e05a9",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.75,
+   "verdict": "fail"
+  }
+ ]
+}

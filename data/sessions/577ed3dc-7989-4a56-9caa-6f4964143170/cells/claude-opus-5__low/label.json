@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Turn 2 reply: 'a literal {slot_num} or MISSING_VALUE on screen right after upgrading is the frontend holding the pre-upgrade translation for a step whose placeholders no longer exist'; turn 1 stated gh/WebFetch unreachable and reasoned from the repo.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 table: config.step.code_slot schema key `condition` labelled under `entity_id`; config.step.yaml and options.step.init key `users` labelled under `slots`, rendering as raw keys.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff renames `entity_id`->`condition` and `slots`->`users` in both strings.json and translations/en.json (byte-identical files).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "New `test_every_flow_field_has_a_label` in tests/test_config_flow.py drives user/ui/code_slot/yaml/init/reauth_confirm forms and asserts every data_schema key is in the step's `data` block; no schema refactoring into module constants.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Mutation check with strings.json reverted: 'AssertionError: config/code_slot asks for {'condition'} with no label'; after fix tests/test_config_flow.py 76 passed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Full suite: 2163 passed, 3 skipped, 2 errors in test_migration_history.py reproduced on stashed clean tree (NameError in HA recorder due to 3.14.0 interpreter); ruff format/check clean.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'Nothing was posted to the issue or anywhere else'; no network access to GitHub.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff updates yaml step description to 'key is the user's name...' and options init description to 'the users configured on them'.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay correctly diagnosed the stale-translation explanation for the reporter's slot_num error, identified the three unlabelled schema keys, renamed them in both string files, updated the stale descriptions, and added a flow-driving guard test in the existing config-flow test file that was shown red before and green after the fix. The full suite passed with only two pre-existing environmental errors confirmed on the baseline; slight doubt remains on whether a new test function counts as 'extending existing tests' and that the guard reads only strings.json.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.36883,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:03:52.618550+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.119765,
+ "replay_cost_usd_label": 4.195171,
+ "session_id": "577ed3dc-7989-4a56-9caa-6f4964143170",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

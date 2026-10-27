@@ -1,0 +1,117 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'deliberate test fixture ... boundary bait ... §6 later confirms uat-stray must not appear on pc2's copy' with the mirror-exclusion reasoning from line 29.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Replay investigated the apt hold check ('_refuse_holds_without_their_package', 'sl') rather than §3 check 2 (the flathub filter / flatpak_sync.py); it never reasoned from the flatpak check's code.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Verdict given was about the apt hold check ('hold never registered on pc2'), not about check 2's filter and the sopwith install question; no reference to flatpak_sync.py.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Final diff leaves §3 check-2 filter as 'allow org.freedesktop.*' only; no 'deny *' added to uat.filter.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Turn 7: 'Verdict: this is a real bug, not intended behavior' for the shape question preceding the registry abort.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Code changed: 'moved the SnippetRegistry(...).load() call ahead of capture_source_items()' so the check aborts before any question; choice stated and regression test added; §3 text left consistent.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'the collateral question `<y>` to remove `fortunes-min`'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'apt_sync re-plans — the fortunes-min removal just freed 99-pcsw-uat.sources ... a second round of apt_sync questions appears asking to delete it: answer <s>'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4/§5: 'Install snap packages first, for hello-world ... then Change snap packages for hello' — 'leave both applied'.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4/§5: 'flatpak_sync then asks Install flatpak applications for io.github.fragglet.sdl_sopwith — leave it applied too', placed after snap and before the manual shape question.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 12 reply and §4 text: 'one application ... the branch this run exercises, not a claim that it's the correct reading', tied to §6's single entry.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'review ... asks about each surviving item alphabetically, so /opt/pcsw-uat-app comes first — answer <y> ... and only then /opt/pcsw-uat-vendor, answered <x>'.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 14: dry-run leaves snapd refresh pause unset so 'pc2's own snapd free to auto-refresh hello'; turn 15 states SSH unreachable.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 15: 'updated §4 to require re-pinning hello to the second revision before every attempt (including repeats), with the restore command' (sudo snap refresh --revision=<that second revision> hello in §4).",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'Re-pin before every attempt, including a repeated dry run' with 'ssh testuser@\"$PC2\" sudo snap refresh --revision=<that second revision> hello'.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Only tests/unit/jobs/test_manual_installs_sync.py and ruff/basedpyright on two files were run; no 'uv run codespell' and no full 'uv run pytest' despite a source change.",
+    "id": "n5",
+    "met": false
+   }
+  ],
+  "reason": "The replay fixed most runbook divergences (collateral key, second round, snap/flatpak install screens, review order, hello re-pin) and changed the manual-installs check to abort before the shape question. However it misidentified §3 check 2 as the apt hold check, so the flathub filter was never diagnosed or corrected (c2, n1, c3 unmet), and it did not run codespell or the full test suite after changing source code.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.48443,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:08.422361+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.034566,
+ "replay_cost_usd_label": 3.09095,
+ "session_id": "f444b812-0e31-4e12-ac62-f7711c77970d",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

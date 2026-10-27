@@ -1,0 +1,97 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": ".github/workflows/nightly-smoke.yml added with `schedule: - cron: \"0 8 * * *\"` plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "`matrix: os: [ubuntu-latest, macos-latest, windows-latest]` in the smoke job.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "macOS step: `brew tap entireio/tap` ... `brew install --cask entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Linux step: `curl -fsSL https://entire.io/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Windows step runs `& \"$env:GITHUB_WORKSPACE\\.installer\\scripts\\install.ps1\" -Channel nightly` via pwsh; replay created scripts/install.ps1 and disclosed it is not yet hosted at entire.io/install.ps1 (ran from sparse checkout rather than a published URL — interpretation disclosed and accepted by user).",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Checkout step `ref: ${{ steps.nightly.outputs.tag }}`; deviation from main explained in turn 0 and user explicitly approved pinning to the nightly tag.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "`mise run test:e2e --agent \"${{ matrix.agent }}\" \"$E2E_TEST_FILTER\"` over claude-code, opencode, codex, cursor-cli, copilot-cli, factoryai-droid; gemini-cli (hooksPath) and pi (no installer) excluded with inline reasons; macOS/Windows subsets justified and user-approved.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Single test TestMultiSessionManualCommit (two prompts, harness commit, WaitForCheckpoint/AssertCheckpointAdvanced) used as default filter.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'read the existing workflows and the most relevant candidate tests', compared TestMultiSessionManualCommit vs TestMultiSessionSequential with file-level references.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 references e2e.yml matrix-setup, nightly.yml 06:00 tag, release.yml, e2e-windows.yml before proposing the plan.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "'Committed on `add-nightly-matrix-e2e-test` as `39cda1d8`. I could not ship the PR — this sandbox has no git remote, no gh, and no outbound network' with push/PR commands provided.",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers a nightly-scheduled OS-matrix workflow installing the nightly CLI via curl/brew/PowerShell script, pins the checkout to the installed nightly tag with user approval, runs one well-chosen two-prompt checkpoint test per built-in agent with stated exclusions, and committed on a branch while explaining the PR could not be opened. Residual doubt is on n2, since the PowerShell script is invoked from a repo checkout rather than as a published URL, though this was disclosed and accepted by the user.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.37817,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:36.000350+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 4.557177,
+ "replay_cost_usd_label": 4.632583,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

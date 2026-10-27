@@ -1,0 +1,130 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "Turn 1 reply: 7 numbered findings citing release.yml:234, release.yml:167, config/schema.cue:68, build.yml:59, etc.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: added `needs.setup.result == 'success'` to verify-published, update-description, record-image `if:` conditions (visible in final diff).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: new composite action .github/actions/emit-image-matrix/action.yml used by build.yml, release.yml, cleanup-pr-image.yml setup jobs.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: split `all` ({name}, used by verify-published) from new `described` ({name, shortDescription}, used by update-description).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: #521/#544 history comments removed from release.yml setup/update-description/record-image and cleanup-pr-image.yml setup.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Final diff removes build-image's 'This job used to run in parallel with it; the edge is the cost...' comment.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 12: 'Committed locally as `0797262`' covering the turn 10-11 edits; earlier commits 27d2efc and cfb6765.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Each commit turn reports 'no git remote configured... push fails' and leaves commits ready.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 rewrote comment to one sentence; turn 10 removed it, leaving only 'One leg per image that produces a handoff tag, from config/images.json.'",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10: removed the flutter-windows/prTag explanation because it is stated in config/schema.cue:63.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: removed release-linux target/name restatement, verify-published fail-fast comment, update-description 'every published image' comment.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Kept !cancelled() rationale, verify-published 'did it publish?' explanation, PATCH-semantics note, and added why setup gate is needed.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 8 assessed the #Image comment but kept it unchanged ('I'd leave it as is rather than trim it'); first paragraph still restates the conditional fields the definition and inline field comments already show.",
+    "id": "c10",
+    "met": false
+   },
+   {
+    "evidence": "Turn 10: 'build.yml: removed the stale cross-reference to release.yml's setup job'; final diff shows the comment gone.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Replay reported 'All four files parse as valid YAML' / 'All valid'; schema.cue and images.json were not modified so cue vet is unaffected.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "Comment edits in final diff only touch `#` lines; jobs, steps, needs, if and matrix keys unchanged apart from the requested gate/output changes.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10-11 review was scoped to 'everything this PR actually added'; pre-existing pure restatements such as '# Read-only permissions by default' above `permissions: contents: read` remain in release.yml (not touched in final diff).",
+    "id": "c13",
+    "met": false
+   }
+  ],
+  "reason": "The replay implemented the setup-result gate, the shared composite action, the shortDescription split, and most comment pruning, committing locally and reporting the missing remote. However it chose not to reduce the verbose #Image comment in config/schema.cue and limited its final release.yml comment sweep to PR-added lines, leaving pre-existing restating comments like 'Read-only permissions by default' in place, so c10 and c13 are unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.33359,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:43:48.233649+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 1,
+ "replay_cost_usd": 3.832025,
+ "replay_cost_usd_label": 3.832025,
+ "session_id": "995ab650-7750-4367-b96e-3e742feeb319",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.68,
+   "verdict": "pass"
+  }
+ ]
+}

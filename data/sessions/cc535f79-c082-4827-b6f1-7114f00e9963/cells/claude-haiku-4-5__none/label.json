@@ -1,0 +1,97 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0 said it could not access the GitHub URL and asked; after the user supplied details, turn 1 explained the false 'REVIEW NEEDED' from the double-quote-only regex.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 traced doctor.go checkCodexHookTrust, lifecycle.go SessionStart banner, trust.go HookTrustGaps and readCodexTrustedKeys/regex.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 presented implementation strategy (regex change) and testing strategy (unit tests, mise run test, canary e2e) and asked to proceed.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Edits appear only in turn 4 after 'yeah that works, go ahead'; turns 0-3 contain no Edit tool usage.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "TestHookTrustGaps_SingleQuotedKeys and TestHookTrustGaps_MixedQuotes PASS; regex now accepts [hooks.state.'...'] headers.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Regex still captures raw text of double-quoted keys (`C:\\\\repo\\\\...` stays escaped); no TOML unescaping added, no test for escaped backslash keys.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "go test ./cmd/entire/cli/agent/codex/... PASS and go test ./cmd/entire/cli -run Doctor PASS; full ./cmd/... not shown.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'I can't run Windows Docker containers on this Linux host' — honest, no claimed Windows execution.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No go build ./... or golangci-lint run shown in the replay; only tests were executed.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "Turn 5: 'gh CLI isn't installed. I can't create the PR automatically' with push/gh pr create commands supplied.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5 never addresses posting a comment on issue #1761; only the PR is discussed.",
+    "id": "n3",
+    "met": false
+   },
+   {
+    "evidence": "Turn 5 does not answer the user's question about whether it would be published under saiprasannasastry.",
+    "id": "n4",
+    "met": false
+   }
+  ],
+  "reason": "The replay fixed single-quoted keys with a regex alternation and tests pass, but it never unescapes double-quoted Windows paths (c4), did not run build/lint (c7), and ignored both the issue-comment request and the saiprasannasastry account question (n3, n4). Several core criteria are unmet, so the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.35702,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:06.594718+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.515626,
+ "replay_cost_usd_label": 0.536458,
+ "session_id": "cc535f79-c082-4827-b6f1-7114f00e9963",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

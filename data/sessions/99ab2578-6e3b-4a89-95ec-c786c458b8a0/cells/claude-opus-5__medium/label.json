@@ -1,0 +1,85 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": "Diff adds `## [0.10.4] - 2026-10-25` immediately above `## [0.10.3] - 2026-08-27`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Entry uses ### Added, Changed, Security, Fixed, Housekeeping, Thanks matching existing entries.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Every bullet ends with one or more `[#NNNN](https://github.com/entireio/cli/pull/NNNN)` links.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Replay states it covered PRs merged since fbf97d92b..HEAD from git history; the 37 unique PRs cited match the original's set exactly.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Thanks section names @suhaanthayyil, @MuskanPaliwal, @ChetanReddyC, @Solarthis; turn 0 explains classification (no @entire.io emails, prior Thanks appearances, computermode treated internal) and user confirmed.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets state the change and condition (e.g. 'no longer follow a redirect to a different host... a 307/308 would have sent the token'); only minor design-rationale aside on #2233 ('notice rather than a gate').",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "No 'malicious', 'attacker', 'leak', 'victim', 'planted' wording in Security bullets; turn 2 reply documents replacements like 'deleted the file at the far end'.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'Shortened every bullet in the 0.10.4 section — roughly 40% fewer words'; pre-shortening draft not observable in diff.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a 0.10.4 entry in the correct position with Keep-a-Changelog sections, PR links on every bullet, the same 37 PRs the original covered, a Thanks section with stated classification reasoning, and neutralized Security bullets. Doubt remains because the pre-shortening draft is not visible (final bullets are still fairly long) and one Security bullet keeps a brief design-rationale aside.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.80855,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:08.826541+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.991689,
+ "replay_cost_usd_label": 3.067095,
+ "session_id": "99ab2578-6e3b-4a89-95ec-c786c458b8a0",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.72,
+   "verdict": "pass"
+  }
+ ]
+}

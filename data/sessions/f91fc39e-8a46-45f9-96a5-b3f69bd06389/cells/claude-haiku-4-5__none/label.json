@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Sweep skips `(did, cid)` when `!reconciled_dids.contains(&did)` and continues; regression test `gc_preserves_blobs_of_accounts_whose_reconcile_failed` passes asserting A's file and ownership row survive.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Test seeds A and B with expired blobs, poisons A's `repo_root_cid` so reconcile fails, asserts `blob_file_exists(&state, &blob_a)`, A's owner row survives, and B's blob deleted (stats.deleted==1, file gone); passes in cargo test.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "errors>0 logs `tracing::warn!(... \"blob GC pass incomplete; accounts or blobs skipped due to errors\")`, adds to `blob_gc_errors` counter, and records `SweepRun::now_with_errors` exposed as `errors` in /v1/admin/health.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay never ran `just ci-pds`, rustfmt, clippy, audit, ticket-ref or changelog checks; no changelog.d entry exists and the new test contains >100-char lines (e.g. `assert!(blob_file_exists(&state, &blob_a), \"A's blob file must survive despite grace expiry\");`) that rustfmt would reject.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Final diff contains no `changelog.d/` file referencing MM-472.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Script entry skipped: no PR/CI run exists in the local replay, so the CI-failure trigger never held (though note local fmt/clippy were also not run).",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Script entry skipped: no PR/CodeRabbit review exists in the local replay, so the trigger never held.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "metrics.rs test adds `metrics.blob_gc_errors.add(1, &[]);` and `assert!(rendered.contains(\"blob_gc_errors_total\"), ...)`; `rendered_names_match_prometheus_conventions ... ok`.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "AGENTS.md and the health `errors` doc now say 'one per failed account in reconcile phase plus one per individual sweep failure', but the code does `stats.errors += 1` for every skipped expired blob row of an unreconciled account, so the wording does not match what the code counts and the tally was not changed either.",
+    "id": "c9",
+    "met": false
+   },
+   {
+    "evidence": "`names::BLOB_GC_ERRORS` doc: 'incremented once per failed account (reconcile failure) plus once per individual sweep failure. When > 0, the pass was partial' — states it mixes two failure kinds, not a pure skip count.",
+    "id": "c10",
+    "met": true
+   }
+  ],
+  "reason": "The core fail-closed fix, regression test, metric, health field and warn-level log are present and tests pass, but the replay never added a changelog.d entry for MM-472 and never ran the pds CI gate (fmt/clippy/changelog), with long lines that rustfmt would reject. Additionally the tightened `errors` documentation is inconsistent with the code, which still increments `errors` once per skipped blob of a failed account rather than once per account.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.48286,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:09.549801+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.752651,
+ "replay_cost_usd_label": 1.773483,
+ "session_id": "f91fc39e-8a46-45f9-96a5-b3f69bd06389",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

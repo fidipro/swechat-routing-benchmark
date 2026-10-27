@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-08-25T10:52:11.139Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-opus-5",
+  "models_seen": [
+   "claude-opus-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.243",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 6.135868
+ },
+ "repo_id": "wandelbotsgmbh/wandelbots-nova",
+ "repo_url": "https://github.com/wandelbotsgmbh/wandelbots-nova",
+ "session_id": "c7f3b6f5-178e-4782-b323-50743067fab3",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "fix/trajectory-completion-level-detection",
+  "commit": "a16cc3dc4b1896bfdf31acaa83a35c2c26f2104d",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-08-25T08:56:22.086Z",
+ "user_turns": 4
+}

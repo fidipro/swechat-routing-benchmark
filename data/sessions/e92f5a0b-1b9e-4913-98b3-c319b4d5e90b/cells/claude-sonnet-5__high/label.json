@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.72,
+  "criteria": [
+   {
+    "evidence": "Turn 0 ran the session-start retro, reported dev clean with #21 checkpoint drill passed and the fix-list (#26/#29/#30/#31) as next; turn 1 then drove #26/#30 through car+adversarial REJECT→fix→APPROVE and resolved #31 as a finding — continuation of checkpointed work, not unrelated new work (script entry 1 skipped as already satisfied).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'Recorded as DRILL #2 in the friction log, landed at e339c10 ... passed, but by circumstance' noting what checkpoint/resume did and didn't cover; friction-log hunk is beyond the truncated diff so judged from the reply.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: docs/setup.md row 'Provenance, not retraction ... D19 stands ... binds the shipped board/web runtime, never the test toolchain'; CLAUDE.md scar records the owner ruling as PROVENANCE.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'shipped board/web runtime still has zero npm dependency, D19 stands ... board/web/index.html loads identically whether or not Playwright's browser binaries are on the box'; CLAUDE.md diff: 'D19 is unchanged'.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md diff adds 'ADJUDICATE, DON'T ASSUME' section: owner ruling can SHARPEN, LOOSEN or HOLD, case by case, 'never assumed, inferred, or projected'; statute index row added.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: trigger-gated row in docs/setup.md (trigger '#33 MERGES') carrying the exact reviewer-brief line, plus friction-log 'needs a GitHub issue' entry — held per owner instruction, tracked durably.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md diff: 'CITE THE TICKET: ... Every new addition to the codebase - a changed function, a new file ... carries a comment citing the issue number'; statute index row added.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md diff: 'No backfill ... binds forward from the commit that landed it (`11a8c77`, 2026-10-26), never backward. Do not go hunting through pre-existing code to retrofit'.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md diff: 'the absence of a citation in old code is not a defect ... it is the fossil record showing the rule landed late ... a future bootstrap reads the demarcation line itself as the lesson'; scar notes the practice preceded the written rule.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10: 'No CI is going to fire here ... git remote -v zero output ... gh not found ... curl exit 56' — no green claim, local suite counts given as local-only evidence.",
+    "id": "c8",
+    "met": true
+   }
+  ],
+  "reason": "The replay resumed from the checkpoint, landed every owner ruling (chaos-monkey drill record, Playwright-as-provenance, adjudication rule, cite-the-ticket standard with forward-only no-backfill scar, reviewer-tooling tracking) and honestly refused a green CI claim with concrete evidence of unreachability. Doubt remains because the friction-log and docs/setup.md hunks fall outside the truncated diff so c2/n1 are judged from the model's statements, and the replay's #31 handling differed from the original's CSS fix.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.51523,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:58.776251+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 17.295021,
+ "replay_cost_usd_label": 17.295021,
+ "session_id": "e92f5a0b-1b9e-4913-98b3-c319b4d5e90b",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.72,
+   "verdict": "pass"
+  }
+ ]
+}

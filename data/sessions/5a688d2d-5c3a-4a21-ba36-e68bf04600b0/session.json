@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-07-30T06:02:22.337Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-sonnet-5",
+  "models_seen": [
+   "claude-sonnet-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.220",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 0.215159
+ },
+ "repo_id": "darthzen/fossa-mcp",
+ "repo_url": "https://github.com/darthzen/fossa-mcp",
+ "session_id": "5a688d2d-5c3a-4a21-ba36-e68bf04600b0",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "licensing-and-decisions",
+  "commit": "d43fbf9b0a7a240f6dd4453d07f382cb3c92b296",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-07-30T05:54:17.674Z",
+ "user_turns": 4
+}

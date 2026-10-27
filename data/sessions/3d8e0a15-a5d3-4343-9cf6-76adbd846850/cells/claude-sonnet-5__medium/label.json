@@ -1,0 +1,97 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": ".github/workflows/nightly-e2e-smoke.yml with `schedule: - cron: \"30 6 * * *\"` (daily) plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "`matrix: os: [ubuntu-latest, macos-latest, windows-latest]` with `runs-on: ${{ matrix.os }}`.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "macOS step: `brew tap entireio/tap && brew trust entireio/tap && brew install --cask entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Linux step: `curl -fsSL https://entire.io/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Windows leg runs a PowerShell install script `./scripts/install.ps1 -Channel nightly` (placeholder created, comment notes swap to `irm https://entire.io/install.ps1 | iex` once published); invoked from the repo rather than the published URL, disclosed and approved in the plan.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "`actions/checkout ... with: ref: main`.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Loop runs `mise run test:e2e --agent \"$agent\" \"$TEST_FILTER\"` for claude-code opencode gemini-cli codex cursor-cli factoryai-droid copilot-cli; Windows restricted to claude-code with stated reason (only one proven to install there).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Single test TestMultiSessionManualCommit chosen: '2 prompts → 1 commit → asserts checkpoint trailer exists, checkpoint object exists, checkpoint advanced'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'I compared all 2-prompt tests (TestMultiSessionManualCommit, TestMultiSessionSequential, TestExternalAgentMultipleTurnsManualCommit)'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 research summary covers nightly.yml, release.yml, e2e.yml, e2e-windows.yml, e2e-isolated.yml before the plan.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Single `smoke` job per OS with a sequential `for agent in $agents` loop; no agent matrix dimension.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "'The commit is made locally on add-nightly-matrix-e2e-test ... no origin exists, so I can't push or open a PR from here.'",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers a nightly-scheduled OS-matrix workflow installing the nightly CLI via brew/curl/PowerShell, checking out main, and sequentially running one checkpoint-verifying e2e test for the full e2e.yml agent set, committed on a branch with the PR blocker explained. Doubt remains over the Windows leg invoking a local placeholder script rather than a published URL and whether any additional in-tree agents (e.g. pi, vogon) count as omitted built-ins without a stated reason.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.28331,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:39.633955+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.01466,
+ "replay_cost_usd_label": 1.071044,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.7,
+   "verdict": "pass"
+  }
+ ]
+}

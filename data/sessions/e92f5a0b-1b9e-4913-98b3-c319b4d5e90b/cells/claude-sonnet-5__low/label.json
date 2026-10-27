@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Replay searched for dispatches (ListAgents, worktrees, branches), reported #31/#26/#33 as unreachable from the sandbox with no gh/remote, logged it per owner instruction, and started no new work.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "friction-log.md gains '2026-10-26 - the second, unannounced chaos-monkey drill' rows naming the external spend-limit interruption and stating the #21 checkpoint/resume machinery 're-derived cold with zero divergence' while not covering in-flight dispatch state.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "docs/setup.md row: 'Playwright (test tooling, not a browser dependency)... honors the spirit of the contract... it is NOT a posture reversal', gate-triggered on '#33 comes online'.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "setup.md row: 'board/web code is never shipped WITH Playwright in it... contract binds the BROWSER RUNTIME (board/web/'s shipped code stays plain, no bundler, no framework), never the tooling that drives or tests it from outside.'",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md section 'Reality-vs-spec gaps: adjudicated, never assumed' says the owner decides case by case, never inferred/projected, but omits that adjudication may sharpen or loosen the definition; it is framed only as 'never a precedent'.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Turns 5-6: 'I'll leave that as an observation... rather than act on it now' and 'No action taken — just confirming the read.' No doctrine, reviewer template, or tracked item in the diff carries the Playwright-for-reviewers point.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "CLAUDE.md gains 'Code standard: every addition cites its ticket' section plus statute-index row 'Every addition, including new files, carries a comment citing its ticket number'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md: 'Prospective only - no backfill. Everything already in the tree when this rule landed (`ad78998`, 2026-10-26) stays uncited.'",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "CLAUDE.md: 'Retrofitting citations onto old code would erase the one piece of evidence that the rule arrived late rather than from the start... The uncited code below this commit IS the fossil.'",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 9: 'this sandbox has no gh/remote to watch it myself, so I can't independently confirm green until the ping arrives'; no green claim made.",
+    "id": "c8",
+    "met": true
+   }
+  ],
+  "reason": "The replay recorded the chaos-monkey drill, the Playwright test-toolchain ruling, the citation standard with its forward-only demarcation and scar, and correctly withheld any CI green claim given no CI access. It fails because the owner's point that Playwright arms adversarial reviewers was explicitly left as chat-only ('No action taken'), and the reality-vs-spec rule omits the sharpen-or-loosen clause the criterion names.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.40487,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:58.154909+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.145878,
+ "replay_cost_usd_label": 1.202262,
+ "session_id": "e92f5a0b-1b9e-4913-98b3-c319b4d5e90b",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

@@ -1,0 +1,197 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": "idea-board.tsx diff removes `useState<Set<string>>` pinnedIds and reads `pinned`/`togglePin` from useSessionStore; summary: store gains `pinned: PinnedRef[]` with togglePin/clearPins.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "contracts.py PinnedRef {id,title,lane,image_url: str|None,source_url: str|None}; summary states stickers pin with imageUrl: null through the single store pin path.",
+    "id": "c14",
+    "met": true
+   },
+   {
+    "evidence": "Rail is full-width edge-to-edge in the page's neutral tone with 48px thumbnails and 'N pins · conditioning input' label; only a subtle 1px top border separates the banner the user requested.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "pin-rail.tsx described with a single Generate button; layout places it on the right of the rail.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "Summary: 'new bottom rail, absent at zero pins'.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "index.css .pin-rail rules reuse the existing workspace-enter animation curve and reduced-motion opt-out; no motion dependency added.",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "api.py adds @router.post('/v1/generate') with GenerateRequest {session_id, transcript, pins} and GenerateResponse {image_url, prompt, model, reference_count}; StrictModel Pydantic v2.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "synthesis.py: one chat.completions.create using settings.openai_synthesis_model with transcript, projected VisualIntent and pin titles; SynthesizedPrompt field_validator rejects >80 words.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "fal.generate(session_id, prompt, reference_urls) receives only the synthesised prompt; transcript never passed.",
+    "id": "c18",
+    "met": true
+   },
+   {
+    "evidence": "fal.py POSTs to https://queue.fal.run/{model} with X-Fal-Store-IO: 0 then polls /requests/{id}/status; module docstring says no webhook.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "_POLL_CAP_SECONDS = 45.0 deadline raises FalGenerationTimedOut → _problem(504, code='generation_timeout').",
+    "id": "c19",
+    "met": true
+   },
+   {
+    "evidence": "_submit makes a single client.post and raises FalUpstreamError on failure; no retry loop.",
+    "id": "c20",
+    "met": true
+   },
+   {
+    "evidence": "AsyncOpenAI(timeout=timeout_seconds), _SUBMIT_TIMEOUT and _POLL_TIMEOUT httpx.Timeout objects.",
+    "id": "c21",
+    "met": true
+   },
+   {
+    "evidence": "fal.py imports httpx only; replay confirmed 'uv.lock / pnpm-lock.yaml stayed frozen and clean'.",
+    "id": "c22",
+    "met": true
+   },
+   {
+    "evidence": "_select_model caps https URLs to fal_max_reference_images and uses fal_reference_model with image_urls, else fal_fallback_model with prompt only.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Pin titles go into _user_content for synthesis; fallback returns reference_count 0 with no URLs; GenerateResponse comment keeps the label honest.",
+    "id": "c23",
+    "met": true
+   },
+   {
+    "evidence": "FalClient._in_flight set guarded by asyncio.Lock raises FalAlreadyGenerating → 409 'generation_in_progress' problem.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "config.py adds fal_key, fal_reference_model='fal-ai/flux-pro/kontext/max/multi', fal_fallback_model='fal-ai/flux/schnell', fal_max_reference_images=4 matching .env.example.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Fixture path returns inline data-URL SVG and FixturePromptSynthesizer; replay curl-tested 'Fixture mode works end-to-end with zero network'.",
+    "id": "c24",
+    "met": true
+   },
+   {
+    "evidence": "Summary: workpane renders generated result (image + verbatim prompt + model + reference count) taking priority over board.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Rail lives in session-screen at bottom:0 independent of workpane content, so it remains during result view.",
+    "id": "c25",
+    "met": true
+   },
+   {
+    "evidence": "Summary: 'Generate button (idle/pulsing-disabled/error-with-correlation-id)'.",
+    "id": "c26",
+    "met": true
+   },
+   {
+    "evidence": "Replay grepped dist/ for FAL_KEY/OPENAI_API_KEY/key-shaped tokens: clean; both calls live in apps/api.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Replay ran ruff, mypy (strict, no issues), pytest 33 passed, pnpm lint/typecheck, build succeeded.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "tsc --noEmit and Biome lint pass on new TS; no `any` or `!` visible in the shown diff.",
+    "id": "c27",
+    "met": true
+   },
+   {
+    "evidence": "Python uses `except httpx.HTTPError`, `except Exception`, `except (ValueError, ValidationError)`; no bare except.",
+    "id": "c28",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches no README.md or docs/ files.",
+    "id": "c29",
+    "met": true
+   },
+   {
+    "evidence": "`uv run pytest -q` → 33 passed.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: '.pin-rail is now a true full-width banner flush at bottom: 0'; mic translateY raised so it floats above the banner.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "Banner styled with light background rgb(247 247 245 / 92%) edge-to-edge strip.",
+    "id": "c30",
+    "met": true
+   },
+   {
+    "evidence": "Each thumbnail shows an always-visible circular badge with X icon that unpins.",
+    "id": "c31",
+    "met": true
+   },
+   {
+    "evidence": "Committed on feature branch, squash-merged into local main at d41dcf8 with all checks passing; reported no remote configured so no push.",
+    "id": "c13",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered the store-lifted pins, bottom banner rail with X unpin, a plain-httpx fal queue client with 45s typed timeout and per-session guard, a Pydantic-constrained synthesis step, fixture mode, and merged the work to local main with all checks green. Confidence is tempered by the truncated frontend diff, the lack of dedicated generate tests (criteria judged from code), and a 1px top border on the otherwise borderless rail.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.57081,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:14:35.861621+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 5.35918,
+ "replay_cost_usd_label": 5.415564,
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.7,
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "destPath Lstat-walks every component refusing fs.ModeSymlink; writeDest re-checks parents one Mkdir at a time and opens the leaf with O_NOFOLLOW; TestInitRefusesToScaffoldThroughASymlink passes.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "destComponents rejects absolute/unclean/'..' paths and destPath refuses a symlink at any component, so the resolved parent cannot leave destRoot (no separate EvalSymlinks comparison, but equivalent containment).",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "writeDest: os.OpenFile(dst, os.O_WRONLY|os.O_CREATE|os.O_TRUNC|syscall.O_NOFOLLOW, 0o644) with ELOOP mapped to the symlink error.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "TestClassifyRefusesASymlinkedDestinationFile, TestClassifyRefusesASymlinkedParentDirectory, TestApplyStagedRefusesToWriteThroughASymlinkedFile/Parent in scaffold_test.go; deploy package passes.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'Repository.inspectCache compares it to the configured URL on every open; a mismatch... discards the checkout and re-clones'; repository_test.go repointed/multi-URL tests; TestPublishRefusesToPushToARepointedRemote passes.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Publish calls repo.PushURL before each attempt and prints 'pushing %s to %s'; TestPublishReportsThePushDestination checks stderr names the origin.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "git.Client.Isolated passes -c core.hooksPath=/dev/null and --no-verify on commit; TestIsolatedCommitIgnoresAPreCommitHook and TestPublishIgnoresAHookThatWouldWidenTheCommit pass.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Isolated client sets core.editor=true and sequence.editor=true; credential prompting deliberately left enabled and disclosed ('HTTPS pushes legitimately need it').",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "assertStagedScope called immediately before Commit in Publish and publishScaffold; TestPublishRefusesToCommitPathsItDidNotStage requires 'refusing to commit' naming stray.yaml.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "assertCommitScope(ctx, repo.Git, 'HEAD', ...) runs inside the push loop before each attempt; non-vacuity shown by 'refusing to push HEAD: git reports planted.yaml' when isolation was disabled.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Identity is exact-string compare; TestRepositoryIdentityDistinguishesPorts (8443 vs 9443) and TestCheckoutDirSeparatesURLsDifferingOnlyByPort added; gitops passes.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Isolated set only at internal/gitops/repository.go; release/create.go and deploy/resolve.go clients leave it false; create.go diff shows no net change.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "TestCreateHonoursSourceRepositoryHooks PASS: a pre-push hook in the source repo fires during release create's tag push.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "destinationURL strips repo-local remote.origin.pushurl then re-resolves via get-url --push; mismatch fails closed; TestPublishStripsAPushURLInTheCheckout and TestPublishRefusesARewrittenPushDestination pass.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Rewrites error out naming the destination and 'configure gitopsRepo as the repository you want deployed to'; replay states the behaviour is enforced not reported.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "'VET OK' then ok for internal/deploy, git, gitops, release, source.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "go vet ./... && go test ./... all ok; 'FULL SUITE CLEAN'.",
+    "id": "n8",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements all three P1 fixes plus the follow-up tightenings (port-strict identity, hook hardening scoped to the Isolated gitops client, pushurl stripped and pushInsteadOf/insteadOf failing closed) with tests, and the requested vet/test runs pass. Residual doubt is on n4, where the replay disabled editor prompting but explicitly left git credential prompting enabled, and on n1 being satisfied by component-wise symlink refusal rather than an explicit resolved-path comparison.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.81511,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:35.497510+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 11.514282,
+ "replay_cost_usd_label": 11.589687,
+ "session_id": "cb6acc28-47a2-43c8-ae22-b9ef88dec9c1",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

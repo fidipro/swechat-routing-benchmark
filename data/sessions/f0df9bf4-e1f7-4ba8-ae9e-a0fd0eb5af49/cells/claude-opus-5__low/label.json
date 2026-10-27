@@ -1,0 +1,172 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Diff adds TestGitSubprocessesDisableRepositoryFsmonitorHook to internal/gitutil/git_hardening_test.go (authored fresh per user's explicit option-3 answer since #134 was unreachable).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds TestGitLogSubprocessesDisableRepositorySignatureVerification with marker-based gpg.program fixture.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "search_cache_worktree_test.go gains TestWorktreeSnapshotCacheProbeDoesNotRunGitFilters iterating over filter.evil.clean and filter.evil.process subtests.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff is append-only in search_cache_worktree_test.go; existing tests (e.g. TestWorktreeSnapshotBypassesCacheWithUnindexableUntrackedFiles) remain.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches only two _test.go files (one via user-requested rename); no production or doc files changed.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "'=== -v on the three tests ===' run shows PASS for all three; turn 4 reports re-run after rename: PASS.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "'=== -race on the three tests ===' ok for gitutil (1.079s) and sem (1.530s); re-run after rename reported PASS.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "go test ./internal/gitutil ./internal/sem -count=1 exit=0; mise not installed, each mise.toml check task run as literal shell equivalent (gofmt, vet, build, statusline 145/0, race suite) and disclosed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "No GitHub access reported; PR body prepared at /work/.git/PR_BODY_tests_git_hardening.md described as covering fresh-authoring provenance, verification, skips, SHAs, CI/Entire status, Windows limitation.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No remote exists (reported); branch created from local main e31e255 which was already checked out clean.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "'Nothing was pushed, no PR was opened, and nothing was merged — I'm stopping for your approval.'",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "'The old #134 branch was never touched (it doesn't exist locally).'",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "No GitHub access; no comments possible or made.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Tree was clean on main at start; working tree clean at end.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "entire CLI not installed; no lifecycle commands run.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "'All three tests skip on Windows — so this PR adds zero Windows coverage' disclosed in report and PR body.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Could not run: #134 head unreachable (no remote/egress) and entire binary absent; inability reported explicitly.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "'entire graph diff --base main --head HEAD (binary built from this branch) shows exactly 3 added functions'.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "'open PRs not checked for overlap on the two files' explicitly reported as unavailable.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "'no Entire trail/checkpoint — the entire CLI isn't installed' reported.",
+    "id": "n10",
+    "met": true
+   },
+   {
+    "evidence": "'main was not re-fetched and live main may have moved past e31e255' reported due to no remote.",
+    "id": "n11",
+    "met": true
+   },
+   {
+    "evidence": "'Per AGENTS.md I'd normally entire graph search first' and gofmt/vet/build/statusline checks followed; graph-agent.md read not observable.",
+    "id": "n12",
+    "met": true
+   },
+   {
+    "evidence": "not observable; replay reported single local branch and clean tree.",
+    "id": "n13",
+    "met": true
+   },
+   {
+    "evidence": "Local main SHA e31e255 recorded; #134 pin check impossible without remote, reported.",
+    "id": "n14",
+    "met": true
+   },
+   {
+    "evidence": "'no CI run' reported; Windows skips and platform guards inspected and disclosed.",
+    "id": "n15",
+    "met": true
+   },
+   {
+    "evidence": "Replay never mentions Claude Opus 5 or Cursor CLI reviews nor reports their unavailability.",
+    "id": "n16",
+    "met": false
+   },
+   {
+    "evidence": "Explicitly skipped: 'no temporary worktree (nothing to isolate without a remote)' — implementation done in the primary worktree although this was locally possible.",
+    "id": "c11",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced three mutation-tested, passing test-only additions with thorough disclosure of remote limitations, but it deliberately implemented in the primary worktree instead of a temporary one despite that being locally feasible, and it silently omitted the independent Opus/Cursor review step. Those two unmet criteria make the replay fail even though the diff and test criteria are satisfied.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.45312,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:07.543240+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 5.308009,
+ "replay_cost_usd_label": 5.37295,
+ "session_id": "f0df9bf4-e1f7-4ba8-ae9e-a0fd0eb5af49",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

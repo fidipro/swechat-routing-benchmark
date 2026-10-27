@@ -1,0 +1,132 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Diff adds .github/workflows/pr-review.yml with `on: pull_request:`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Workflow uses `ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}` (as env rather than the action's `anthropic_api_key` input, but no OAuth token).",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Workflow passes `agent: pr-reviewer` and `task:` which are not inputs of anthropics/claude-code-action@v1; no `prompt` instructs invoking the pr-reviewer subagent, so the agent would not actually run.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Nothing in the workflow (no prompt, no gh pr comment instruction, no comment-posting config) causes findings to be posted as a PR comment.",
+    "id": "n2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1: per-PR ($0.006–$0.12) and monthly estimates using Opus pricing $4/$20 per 1M tokens.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'Fixed cost: $20/month (Claude Code subscription...) Or free if you already have Claude Pro'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: `gh secret set ANTHROPIC_API_KEY` with variants.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Never asked for the key value in chat; directed to interactive prompt/env var.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'The workflow is already committed'; committed into local main.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4/6 reported no remote and gave `git remote add origin ... git push -u origin test-pr-review` then create PR.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "not observable",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 and 7: 'No entries needed... not a debugging gotcha or generalizable pattern' before committing.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "permissions block only has `contents: read` and `pull-requests: write`; no `id-token: write`.",
+    "id": "c6",
+    "met": false
+   },
+   {
+    "evidence": "Script entry 6 skipped as moot (no CI run possible); nothing in replay called for it.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Plan (workflow triggers, calls action, posts comment) was implemented or reported as untestable without remote.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: 'Test branch merged — Local test work integrated' (TEST_REVIEW.md in final diff on main).",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds docs/adr/0000-template.md.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Template frontmatter title/status/date/audience and sections Context→Decision→Consequences→Sources match the shared ADR structure.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "Final message only says 'derived from existing ADR structure (4 sections...)'; no account of what is consistent vs what varies across ADRs.",
+    "id": "n10",
+    "met": false
+   }
+  ],
+  "reason": "The replay's workflow does not correctly wire claude-code-action to run the pr-reviewer subagent or post a comment (invalid `agent`/`task` inputs, no prompt, no id-token permission), so c2, n2 and c6 are unmet. It also never reported an assessment of what is consistent and what varies across the existing ADRs (n10), though the template itself matches the shared structure.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.33873,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:43.403802+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.391532,
+ "replay_cost_usd_label": 0.412364,
+ "session_id": "5c5242ad-8f8c-4e31-a7f7-ad2e7b2a94ac",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

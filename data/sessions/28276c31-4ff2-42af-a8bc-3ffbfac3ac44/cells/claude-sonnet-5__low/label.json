@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 posed six quiz questions on pain points/alternatives; turn 1 proposal was shaped by the user's two named pain points (junk drawer, buried alerts).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: \"`/impeccable` isn't in my available-skills list right now, so I can't invoke it directly\" — stated no applicable skill available.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "docs/design-plans/2026-10-25-wallet-ia-home-identity-restructure.md covers only the identity wallet; the second app is never mentioned in the doc or the conversation.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 3: \"No Linear MCP tools are available... I can't file Linear issues directly\"; listed two issue titles with wave/project tags as drafts (though full text was deferred).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4 used an Agent subagent and reported it had no Linear tools either.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: assistant only said it cannot restart and to \"ping me\" afterward; no retry of ToolSearch/filing was attempted or reported.",
+    "id": "n3",
+    "met": false
+   },
+   {
+    "evidence": "Turn 6: \"The commit is in locally (`6557feae`)\" on the existing feature branch; diff shows the design doc added.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: \"this repo has no git remote configured at all — so I can't push or open a PR... you'd need to add the remote\".",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay ran the brainstorm, captured a wallet IA design doc, committed it, and correctly handled the missing Linear connector and git remote, but the design doc addresses only the identity wallet and never the second app as c2 requires. It also did not retry the Linear filing after the user proposed a restart (n3), so the replay fails on acceptance criteria.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.29001,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:28.742014+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.913204,
+ "replay_cost_usd_label": 0.969588,
+ "session_id": "28276c31-4ff2-42af-a8bc-3ffbfac3ac44",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

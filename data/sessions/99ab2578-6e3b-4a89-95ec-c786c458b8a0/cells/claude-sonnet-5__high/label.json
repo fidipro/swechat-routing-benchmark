@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Diff adds `## [0.10.4] - 2026-10-25` immediately above `## [0.10.3] - 2026-08-27`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Entry uses ### Added, ### Changed, ### Security, ### Fixed, ### Housekeeping, ### Thanks, matching existing entries.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Every bullet ends with one or more `[#NNNN](https://github.com/entireio/cli/pull/NNNN)` links.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Replay cites the same 37 unique PRs as the reference (1926, 2119, 2140, 2142, 2151–2158, 2163, 2169–2174, 2178–2233 set); turn 0 says it covered all merged PRs since 0.10.3.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Thanks section credits @ChetanReddyC, @MuskanPaliwal, @Solarthis; turn 0 explains the fork-branch-provenance method used to classify external contributors.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets such as 'OAuth token exchange now refuses to follow a redirect to a different host' state only the change and condition, no attack scenarios.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 removed 'malicious', 'could have', 'silent code execution' framing; final Security bullets are plainly worded.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'Trimmed every bullet ... down to one short, neutral sentence'; final bullets are ~100–200 chars versus the multi-sentence draft style.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a complete 0.10.4 entry with the correct placement, headings, PR links, the same 37-PR coverage as the reference, and a Thanks section with stated contributor-classification reasoning. Security bullets are neutral and change-only, and all bullets were shortened to single sentences in the final pass; the pre-turn-2 draft is not directly observable, which is the main source of doubt.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.19988,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:43.085633+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.292196,
+ "replay_cost_usd_label": 2.348581,
+ "session_id": "99ab2578-6e3b-4a89-95ec-c786c458b8a0",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "pass"
+  }
+ ]
+}

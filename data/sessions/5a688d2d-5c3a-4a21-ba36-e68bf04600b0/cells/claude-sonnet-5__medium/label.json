@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.9,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'working tree is clean, and licensing-and-decisions has no commits that main doesn't already have (and vice versa)' — nothing blocking.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'Done — now on main'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'licensing-and-decisions is deleted'.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes the full '### If the checkout lives in iCloud Drive' section through the chflags paragraph.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches only lines 47-68 of README.md; identical to the original diff, no other changes.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'Commit succeeded'.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'there's no remote configured for this repo, so I couldn't push' — replay environment has no remote; user told why.",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay reported the branch status, switched to main and deleted the branch, removed exactly the iCloud Drive section (diff matches the original), and committed. The push was impossible in the no-remote replay environment and the model told the user why, which satisfies the remote criterion.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.0617,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:12.402167+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.143251,
+ "replay_cost_usd_label": 0.143251,
+ "session_id": "5a688d2d-5c3a-4a21-ba36-e68bf04600b0",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.9,
+   "verdict": "pass"
+  }
+ ]
+}

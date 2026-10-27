@@ -1,0 +1,105 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "New .github/workflows/nightly-e2e-matrix.yml with `schedule: - cron: \"30 6 * * *\"` plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "No `strategy.matrix` anywhere; the workflow hard-codes three separate jobs (nightly-e2e-linux/macos/windows) with duplicated steps, despite the user asking for a matrix over OS.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "macOS job: `brew install entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Linux job: `curl -fsSL https://entire.sh/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Windows job: `irm https://entire.sh/install.ps1 | iex` written as if the script existed.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "All jobs use actions/checkout with `ref: main`.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Loops `mise run test:e2e --agent \"$agent\" \"$test_name\"` over 7 agents, but gemini-cli (present in the install case statement and GEMINI_API_KEY env, and a documented agent in e2e.yml) is silently omitted from the agent list with no stated reason; only roger-roger's Windows exclusion has a reason.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Single test TestMidTurnCommit_DifferentFilesThanPreviousTurn selected, described as 2 prompts, commits and checkpoint validation.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'let me look at a few E2E tests... check checkpoint-related tests' and read existing_files_test before choosing.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 summarized e2e.yml, e2e-windows.yml, nightly.yml, release.yml before proposing the plan.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Each OS job runs a single step looping `for agent in \"${agents[@]}\"` sequentially; no per-agent matrix.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Commit 5015de17 on branch add-nightly-matrix-e2e-test; push attempted, then told user 'the test environment doesn't have network access to push'.",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers a nightly workflow with the correct per-OS install methods, main checkout, one smoke test and sequential per-agent runs, and it committed locally and reported the push failure. It fails because it uses three hand-duplicated jobs rather than an OS matrix as explicitly requested, and it leaves gemini-cli out of the agent list without any stated reason.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.99522,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:09.481831+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.442778,
+ "replay_cost_usd_label": 0.463611,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.65,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.75,
+   "verdict": "fail"
+  }
+ ]
+}

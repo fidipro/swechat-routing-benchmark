@@ -1,0 +1,149 @@
+{
+ "analysis": {
+  "acceptance_criteria": [
+   {
+    "basis": "user_request",
+    "id": "c1",
+    "introduced_at_turn": 1,
+    "remote": false,
+    "source": "\"checkout the repo. what might be a good jext steo\"",
+    "text": "After looking over the repository, the assistant suggests at least one concrete next step for the project, with its justification grounded in the repository's actual current state (e.g. planning docs, recent commits, pipeline/test status).",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "user_request",
+    "id": "c2",
+    "introduced_at_turn": 2,
+    "remote": false,
+    "source": "\"Sketch a plan to Stream audio from the Pi Zero w to another Host with more power\"",
+    "text": "The assistant presents a plan for getting audio from the Pi Zero W to a more powerful host, describing at least what runs on the Pi, how the audio is transported to the host, and what the host does with it.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "request_consequence",
+    "id": "n1",
+    "introduced_at_turn": 2,
+    "remote": false,
+    "source": "A plan sketched after asking the user for design decisions must follow the decisions the user made; the turn script states the user's preferences for any clarifying questions.",
+    "text": "If the assistant asked clarifying design questions, the plan reflects the answers the user gave (two-stage approach with the Pi as a first-stage trigger, MQTT via the existing broker, portable stage-2 service with placement undecided) rather than contradicting them.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "user_request",
+    "id": "c3",
+    "introduced_at_turn": 3,
+    "remote": false,
+    "source": "\"pit this plan into an md File for later execution\"",
+    "text": "The plan is written to a new markdown (.md) file inside the repository.",
+    "verifiable_by": "diff"
+   },
+   {
+    "basis": "user_request",
+    "id": "c4",
+    "introduced_at_turn": 3,
+    "remote": false,
+    "source": "\"pit this plan into an md File for later execution\" — the file must hold the plan just presented and be usable for later execution.",
+    "text": "The markdown file contains the plan sketched in turn 2 (the same design and decisions, not a different or truncated one) in enough detail to be executed later.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "request_consequence",
+    "id": "c5",
+    "introduced_at_turn": 3,
+    "remote": false,
+    "source": "The user asked only for a document to be written; changing unrelated application code would break something not requested.",
+    "text": "No existing source, test, or configuration files are modified; the change is limited to the added plan document.",
+    "verifiable_by": "diff"
+   },
+   {
+    "basis": "repo_rule",
+    "id": "n2",
+    "introduced_at_turn": 3,
+    "remote": false,
+    "source": "CLAUDE.md: \"All 44 tests pass; run with `PYTHONPATH=./src:. uv run pytest tests/`\"",
+    "text": "The repository's checks pass: `PYTHONPATH=./src:. uv run pytest tests/`.",
+    "verifiable_by": "tests"
+   }
+  ],
+  "completion_evidence": "Turn 1: assistant ran git/dvc/pytest and read STATE.md, then ranked three next-step options. Turn 2: assistant produced a two-stage MQTT hand-off design after clarifying questions. Turn 3: diff adds docs/superpowers/specs/2026-07-22-two-stage-audio-streaming-design.md (117 lines) containing problem, decisions, architecture, Pi side, host side, failure modes, testing, implementation sequence, out-of-scope; committed as 401804f. Pytest run showed 44 passed; no other files touched.",
+  "confidence": 0.85,
+  "multi_task": false,
+  "notes": "Turn 0 ('checkimi') is unintelligible and got no response; treated as noise. During turn 2 the assistant used AskUserQuestion three times; the user's answers are not shown verbatim but the assistant summarized them as: two-stage detection, pluggable Pi trigger, MQTT end-to-end, portable stage-2 service. The emulated user should answer similar clarifying questions along those lines. The pytest run was part of repo exploration, not a verification of the deliverable. The assistant also committed the file, which the user did not explicitly request; not treated as a criterion. Turn 3 is labeled answer:AskUserQuestion by the harness but is substantively a new instruction.",
+  "original_completed": "yes",
+  "original_tests_cover_criteria": false,
+  "script_issues": [],
+  "session_class": "edit+tests",
+  "task_statement": "The user asked the assistant to survey the doorbell-detector repo and recommend a good next step, then to sketch a plan for streaming audio from the Pi Zero W (which cannot run the ML classifier) to a more powerful host, and finally to persist that plan as a markdown file in the repo for later execution. No application code changes were requested; the deliverable is a design/spec document.",
+  "turn_script": [
+   {
+    "criteria": [
+     "c1"
+    ],
+    "intent": "Look over the repository's current state and suggest what a good next step for the project would be.",
+    "kind": "instruction",
+    "skip_if": "Never; this is the first real request.",
+    "trigger": "Start of the session, after the initial (garbled) greeting.",
+    "turn": 1,
+    "voice": "checkout the repo. what might be a good jext steo",
+    "withdraws": []
+   },
+   {
+    "criteria": [
+     "c2",
+     "n1"
+    ],
+    "intent": "Sketch a plan for streaming audio from the Pi Zero W to another, more powerful host (so heavier processing can happen off the Pi). If the model asks clarifying design questions, the user favors a two-stage approach (Pi as first-stage trigger with pluggable trigger logic, MQTT end-to-end via the existing broker, stage-2 service kept portable with placement undecided).",
+    "kind": "instruction",
+    "skip_if": "The model has already produced such a streaming/hand-off plan on its own.",
+    "trigger": "After the model has delivered its next-step recommendations.",
+    "turn": 2,
+    "voice": "Sketch a plan to Stream audio from the Pi Zero w to another Host with more power",
+    "withdraws": []
+   },
+   {
+    "criteria": [
+     "c3",
+     "c4",
+     "c5",
+     "n2"
+    ],
+    "intent": "Write the plan just sketched into a markdown file in the repo so it can be executed later.",
+    "kind": "instruction",
+    "skip_if": "The model already saved the plan to a markdown file in the repository.",
+    "trigger": "Once the model has presented the plan/design in chat and asks for feedback or next steps.",
+    "turn": 3,
+    "voice": "pit this plan into an md File for later execution",
+    "withdraws": []
+   }
+  ]
+ },
+ "analyst": {
+  "bedrock_id": "us.anthropic.claude-fable-5-1",
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "analyzed_at": "2026-10-21T15:13:45.439803+00:00",
+ "cost_usd": 0.24945,
+ "env_requirements": [],
+ "input_chars": 24449,
+ "script_covers_all_turns": true,
+ "seconds": 34.8,
+ "session_id": "9aa0343f-7308-4e65-a069-4e5d0e94b2cf",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": null,
+  "input_tokens": 12755,
+  "output_tokens": 2438,
+  "output_tokens_details": {
+   "thinking_tokens": 830
+  },
+  "server_tool_use": null,
+  "service_tier": "standard",
+  "speed": null
+ }
+}

@@ -1,0 +1,75 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "FlowView.tsx: clicking a topic node calls onSelectContract and opens a `flow-schema` aside with the contract title and `<SchemaTree>`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "SchemaTree.tsx renders each property as name + type label + 'required' badge (from parent `required` array) and recurses into nested objects/array items; no C# syntax.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Topic.Schema json.RawMessage added next to Topic.Contract in topology.go, documented as the contract type's JSON Schema from the host's exporter; keyed to the topic node on the canvas.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Only a passthrough `Connector.Schema` slot and clickable external node were added; the replay itself says 'nothing in this repo authors or emits a connector's schema yet' — no authoring mechanism (file convention, template, CLI merge) exists for developers to describe an SFTP flat file.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Replay ran only `go test ./internal/topology/... ./internal/dashboard/...` plus `go build ./...`; the full `go test ./...` was never run though it could have been.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Turn 4/5: 'the full `tsc -b && vite build`' reported passing; 'Both sides build and test clean.'",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The internal half is implemented (topic schema passthrough, JSON Schema field tree with required/nesting, clickable topic nodes) and the web build passes. However the external half is only a data slot with no actual way for developers to author a description in this repo (the replay admits nothing emits it), and the full `go test ./...` was not run; the replay also hit the turn cap.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.10852,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:41.505090+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.328021,
+ "replay_cost_usd_label": 1.384406,
+ "session_id": "5bca53b9-3ca9-4570-9b0c-22e405658876",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  }
+ ]
+}

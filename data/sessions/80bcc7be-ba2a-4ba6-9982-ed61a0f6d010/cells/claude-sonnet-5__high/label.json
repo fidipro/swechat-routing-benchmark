@@ -1,0 +1,80 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.68,
+  "criteria": [
+   {
+    "evidence": "Turn 0/1: 'There's no remote configured... can't fetch PR 111 directly'; Turn 2 assessed the pasted comment as valid, grounded in release.yml:49-75 pwsh step with unguarded '& $cc --version'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'PR 112 — valid, confirmed. internal/cli/search.go:1302-1304' with explanation of raw-vs-rounded mismatch after stating the PR could not be fetched.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Diff: rounded := math.Round(TopScore*10)/10; display and ceiling comparison both use `rounded`; new test with 11.96 asserts 'top score 12.0' present and 'below 12' absent — PASS.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4 messages: 'go vet is clean'; test runs show ok for internal/cli and full go test ./... passing.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only internal/cli/search.go and search_confidence_test.go; .github/workflows/release.yml untouched.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No gh/network access; replay never posted or attempted to post comments on either PR.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Replay stated at turn 0 'no remote configured in this repo' and that only main exists locally; commit/push state not observable, fix left in local tree.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay could not reach the PRs, said so, and assessed both pasted comments consistently with the repository, then fixed PR 112 by comparing the rounded display value against the ceiling, added a regression test for 11.96, and ran go vet and the full test suite, leaving release.yml untouched. Doubt remains on n2 since the replay never explicitly said it committed the fix or that it could not push after making the change, though the lack of a remote was disclosed up front.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.57218,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:31:28.289975+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.57553,
+ "replay_cost_usd_label": 0.631914,
+ "session_id": "80bcc7be-ba2a-4ba6-9982-ed61a0f6d010",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.68,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.68,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.68,
+   "verdict": "pass"
+  }
+ ]
+}

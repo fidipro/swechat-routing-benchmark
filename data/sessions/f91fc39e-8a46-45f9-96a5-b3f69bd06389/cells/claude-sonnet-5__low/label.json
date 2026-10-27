@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "run_blob_gc now collects `failed_dids` on reconcile Err and `continue`s past their rows in the expired-owner sweep; regression test passes.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Test `gc_never_sweeps_blobs_of_an_account_whose_reconcile_failed`: A's repo_root_cid corrupted so reconcile errors, both have expired blobs, asserts A's blob row/file survive and B's are gone.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Added `blob_gc_errors_total` counter and `errors` field on SweepRun/SweepState surfaced in /v1/admin/health; log line unchanged but metrics and sweep status distinguish errors>0.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay ran fmt, clippy and targeted tests only; never ran `just ci-pds`, and the changelog gate would fail since no changelog.d entry was added.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Final diff contains no changelog.d/mm-472 entry.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Script entry skipped (no PR/CI in replay); replay ran local fmt/clippy/test gates which passed.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Script entry skipped (no PR exists); nothing in replay called for CodeRabbit review handling.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "metrics.rs test adds `metrics.blob_gc_errors.add(1, &[])` and asserts `rendered.contains(\"blob_gc_errors_total\")`; test passed.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "AGENTS.md metrics table/admin_health row and SweepState `errors` doc now say one per failed account plus per sweep_expired_owner failure, 'not a per-item skip count'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "names::BLOB_GC_ERRORS doc: 'Mixes two distinct failure kinds — one per account whose reconcile failed ... plus one per individual `sweep_expired_owner` failure ... not a per-blob skip count.'",
+    "id": "c10",
+    "met": true
+   }
+  ],
+  "reason": "The core fail-closed fix, regression test, observability counter, and review-finding doc/test updates are all present and the local fmt/clippy/tests pass. However the replay never added the required changelog.d entry referencing MM-472 and did not run the full `just ci-pds` gate whose changelog check would have caught it, so c4 and c5 are unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.36048,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:54.270297+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.266934,
+ "replay_cost_usd_label": 2.323318,
+ "session_id": "f91fc39e-8a46-45f9-96a5-b3f69bd06389",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

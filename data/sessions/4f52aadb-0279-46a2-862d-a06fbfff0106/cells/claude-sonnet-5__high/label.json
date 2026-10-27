@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Diff: `-## [Unreleased]` / `+## [0.9.0] - 2026-08-28`, with Security and Added content kept beneath it.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Every Security, Added and Housekeeping bullet ends with `([#N](https://github.com/entireio/git-sync/pull/N))` and no trailing period precedes the link (e.g. \"Pulls `go-billy` to `v6.0.0-alpha.2` ([#106](...))\").",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Replay added a Security bullet for #104 (x/crypto bump) and a Housekeeping bullet for #105, stating it traced merge commits \"since `gh` wasn't available\".",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only CHANGELOG.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets reduced from multi-sentence paragraphs to 2–3 sentences each (e.g. SSH shell-quoting bullet shrunk from ~6 sentences to 2).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "All 15 Security bullets (14 original + #104) remain after compression, each retaining its PR link.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Final diff still has \"Bumped go-git to `v6.0.0-alpha.5` (from the `alpha.4`-based pseudo-version picked up below)\" under Security AND \"Bumped `go-git` ahead of the alpha.5 security bump above\" under Housekeeping; the replay cross-referenced the two rather than consolidating into one place as the user asked.",
+    "id": "c6",
+    "met": false
+   },
+   {
+    "evidence": "#105 cited on the Housekeeping bullet and #106 cited on the Security go-git bullet (and toolchain/Vulnerability Scan bullets).",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay renamed the heading, back-filled links, added #104/#105, and compressed Security bullets while keeping every entry and link. However, when the user asked for the go-git bump to appear in only one spot, the replay kept a go-git bump bullet in both Security and Housekeeping (merely cross-referencing them), so c6 is unmet; PR attribution for several bullets (#112 vs #109–#111) also looks doubtful though no criterion directly targets it.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.30768,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:42.877784+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.042534,
+ "replay_cost_usd_label": 1.098919,
+ "session_id": "4f52aadb-0279-46a2-862d-a06fbfff0106",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

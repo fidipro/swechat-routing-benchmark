@@ -1,0 +1,117 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0: explains the second-revision dir holds `uat-stray`, under a revision pc2 leaves during the sync, so the mirror must not carry it — matches §2's 'snap boundary' text and the later check.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Replay repeatedly said ssh was unavailable and asked the user to run commands (turns 3–9), but after the user conceded no VMs it reasoned from the repo/ADR (turn 10); fallback clause applies, with doubt.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10: 'The filter was wrong. `allow org.freedesktop.*` alone does nothing—it needs `deny *` first' — runbook error, consistent with the ADR's filter semantics.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff: `printf 'deny *\\nallow org.freedesktop.*\\n' > /home/testuser/uat.filter` in §3 check 2.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 11: 'Verdict: BUG.' — a verdict was given (though based on a doubtful diagnosis that items could be empty).",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "§3 still says each check ends 'before any question'; the added `await registry.load()` sits after the source scan that asks the shape question, so the tool still asks first — neither branch satisfied, no choice stated.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "§4 now: 'the collateral question `remove fortunes-min from pc2, so fortunes is removed as well`' — the on-screen label.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "§4: 'the repository deletion `<s>` (confirmed after the collateral answer)'; §5 bullet rewritten to explain the separate group.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "§5 folds hello-world into `Change snap packages` as a line 'with three answers' plus 'a third line for anything else'; the separate `Install snap packages` question the user saw (before Change) is never named, and §4 orders hello before hello-world.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "§5: '`flatpak_sync` asks `Install flatpak applications (flathub)` offering `io.github.fragglet.sdl_sopwith/x86_64/stable`... Answer `<x>`', placed after snap and before manual; '(flathub)' suffix is an invention but the question, position and answer are documented.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Changed to 'one per directory' claiming 'each subdirectory becomes its own finding', yet the next bullet still says the review offers `/opt/pcsw-uat-vendor`, §4 drops the vendor review question, and §6 checks are untouched — downstream not updated consistently.",
+    "id": "c9",
+    "met": false
+   },
+   {
+    "evidence": "§4 now reads 'the shape question answered \"one per directory\"; then `/opt/pcsw-uat-app` answered `<y>`' — the subsequent `/opt/pcsw-uat-vendor` screen and its answer are missing.",
+    "id": "c10",
+    "met": false
+   },
+   {
+    "evidence": "Turn 17 wrongly blamed convergence by a dry run; turn 18 explicitly corrected to 'Snapd auto-refresh would change the revision back' (after the user proposed it) — counted as a correction, with low confidence.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 18 reply + runbook: 're-pin hello on pc2 to the second revision' via `sudo snap refresh --revision=<that second revision> hello`.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds to §4: 'Before each run, re-establish the revision divergence on pc2 (snapd auto-refresh changes it back between runs)' with the refresh command.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Source file manual_installs_sync.py was changed but the transcript shows no run of codespell, ruff, basedpyright or pytest.",
+    "id": "n5",
+    "met": false
+   }
+  ],
+  "reason": "The replay fixed the flatpak filter, the collateral label, 'second round', and the re-pin step, but misdocumented the snap install question, left §3/check 3 inconsistent with the tool after an unverified code change, switched to 'one per directory' without updating downstream text, dropped the /opt/pcsw-uat-vendor review step, and never ran the repository checks. Multiple non-withdrawn criteria (c4, c7, c9, c10, n5) are unmet, so the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.54002,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:30.001330+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.921579,
+ "replay_cost_usd_label": 0.942411,
+ "session_id": "f444b812-0e31-4e12-ac62-f7711c77970d",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

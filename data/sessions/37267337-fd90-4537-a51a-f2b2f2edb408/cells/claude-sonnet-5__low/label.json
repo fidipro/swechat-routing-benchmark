@@ -1,0 +1,80 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply: 'This isn't apt-specific — any job that writes decision entries (apt, snap, flatpak, manual installs) can accumulate the same kind of debris: user uninstalls something by hand... package gets renamed/replaced, a snap revision is purged' with two reconciliation points proposed.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'No gh CLI, no remote configured, and no GitHub token... Here's the issue content ready to file'; then saved as docs/issues/machine-specific-marks-outlive-item.md at the user's request.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "DecisionFile.prune/forget wired into plan() (load-time) and _converge_one plus apt collateral path; row D73 test 'test_a_mark_on_a_collateral_casualty_is_forgotten_once_its_transaction_removes_it' covers the fortunes/fortunes-min case; suite reported passing at turn 4.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "The replay's own turn-0/1 proposal (load-time prune, apply-time forget, prune/forget primitives, four managers, INFO logging) is reported implemented at turn 4; doc updates (ADR D-43, PKG-FR-MARK-LIFETIME, coverage rows, runbook) done at turn 5 after user prompt.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Rows H128–H132 and D73 point at tests in package_state (TestLoadTimePruning, TestDecisionFilePrune), package_sync_core (forget on REMOVE) and apt/packages (collateral); per-manager snap/flatpak/manual wiring tests are not visible in the record.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Checks were run only at turn 4 ('pytest 4521 passed... ruff/basedpyright/codespell all clean'); turn 5 then edited five docs including the coverage matrix with duplicate row ids H128–H132 colliding with existing H128–H132, and no re-run of pytest (test_scenario_coverage_matrix.py), codespell or ruff is reported afterward.",
+    "id": "c6",
+    "met": false
+   },
+   {
+    "evidence": "Runbook diff adds 'grep -c fortunes ~/.config/pc-switcher/apt.decisions.yaml  # 0 — the §4 mark did not outlive the collateral removal' and rewrites the prose so pc2's mark on fortunes is gone.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a general proposal, an issue file, the implementation and runbook fix, but its final documentation pass introduced duplicate scenario-coverage row ids (H128–H132 already existed) and the repository checks were not re-run after those edits, so c6 is unmet and the replay was turn-capped. Doubt remains about load-time pruning against the manual-only apt inventory and about test coverage of the snap/flatpak/manual wiring, which the truncated diff cannot confirm.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.44754,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:34.607337+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.323749,
+ "replay_cost_usd_label": 6.323749,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

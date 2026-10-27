@@ -1,0 +1,135 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "medium",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "safewrite.go checkWritablePath/mkdirNoFollow/O_NOFOLLOW refuse symlinks at leaf and parent; TestClassifyStagedRefusesSymlinkedDestinationFile and ...SymlinkedParentDirectory pass.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "writeUnderRoot EvalSymlinks the parent and checks underRoot(realRoot, realDir) before opening the file.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "os.OpenFile(dst, os.O_WRONLY|os.O_CREATE|os.O_TRUNC|syscall.O_NOFOLLOW, 0o644) in writeUnderRoot.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "safewrite_test.go covers symlinked destination file, symlinked parent directory, and a link planted after classification; all pass.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "refresh compares resolved origin fetch URL via SameRepository and re-clones on mismatch; TestOpenRecreatesCacheWhenOriginPointsElsewhere passes.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Publish/publishScaffold call repo.PushURL before each push and print 'pushing ... to <url> (<branch>)'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Isolated client prefixes -c core.hooksPath=/dev/null, set in gitops.Open; TestCommitInTheCacheIgnoresPreCommitHooks passes.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Replay disables editor/gpg prompts via -c core.editor=false but states 'Credential prompting is deliberately left alone'; no GIT_TERMINAL_PROMPT=0 or equivalent, so git in the cache can still prompt interactively.",
+    "id": "n4",
+    "met": false
+   },
+   {
+    "evidence": "commitExactly checks StagedPaths against expected before Commit; TestCommitExactlyRefusesAnExtraStagedPath passes with HEAD unchanged.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "assertCommitTouchesOnly runs before every push attempt in Publish loop and after commit in commitExactly.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: identity includes effective port; TestSameRepository table covers 8443 vs 9443 and passes.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Isolated: true set only in gitops.Open; release/create.go and deploy/resolve.go clients non-isolated; package-level Clone no longer isolated.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "TestCreateHonoursSourceRepositoryHooks in internal/release shows a pre-push hook still blocks the tag push; release tests pass.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "assertRemote strips local remote.origin.pushurl, resolves effective push URL, fails closed on mismatch; TestPushURLStripsALocalPushURL and TestPushURLFailsClosedOnARedirectElsewhere pass.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Mismatch returns an error at open and before push naming gitopsRepo as the explicit way out; no warning-only path remains.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "go vet ./... && go test ./internal/deploy/ ./internal/git/ ./internal/gitops/ ./internal/release/ ./internal/source/ all ok.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "go build ./... && go vet ./... && go test ./... all ok, gofmt clean.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "not observable",
+    "id": "n4-note",
+    "met": true
+   }
+  ],
+  "reason": "The replay implements and tests the symlink boundary, origin/push-URL identity checks with port preservation, scoped hook isolation, exact-path commit/push verification, and fail-closed push redirects, with all requested checks passing. However, it explicitly left git credential/terminal prompting enabled in the cache ('Credential prompting is deliberately left alone'), so the criterion that interactive prompting be disabled for cache git invocations is only partially satisfied.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.67266,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:09.726375+00:00",
+ "name": "claude-opus-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 7.234812,
+ "replay_cost_usd_label": 7.310217,
+ "session_id": "cb6acc28-47a2-43c8-ae22-b9ef88dec9c1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "high",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "The attached file did not exist in the replay environment; after the user's short summary the model picked up PR #1915 (commits 37e0fbdf/61c61139, explain_repo.go) and continued without further re-explanation.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 and Turn 4: 'https://github.com/entireio/cli/pull/1915'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Replay still fetches the foreign checkpoint's objects and a ref (refs/entire-foreign/<shard>/<id>) into the cwd repo via FetchCheckpointRefFromInto; the model itself notes 'parked refs are never pruned — they do accumulate', so the cwd repo does gain the foreign ref and objects rather than being a pure lookup.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Prose rendering passes (TestCrossRepoExplain_FetchAndRender with WithForeignRefReads), but resolution works only because the checkpoint is stored locally in a quarantine namespace, not 'looked up without storing it locally'; no test covers the --json/--transcript export path.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "go build ./..., go vet, gofmt clean; checkpoint/... and remote packages ok; 23 cli failures shown pre-existing (core.hooksPath=/dev/null, no remote); golangci-lint and mise not installed and disclosed.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay chose a quarantine-namespace design that still writes the foreign checkpoint's ref and objects into the cwd repo, which directly contradicts c3's requirement that no code path of the cross-repo flow write the foreign ref or objects into the cwd repo, and c4's 'without storing it locally'. Status, PR link, and build/test checks were handled adequately given environment limits, but the core restructuring criterion is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.50576,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:35.463479+00:00",
+ "name": "claude-opus-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.823414,
+ "replay_cost_usd_label": 6.898819,
+ "session_id": "67eaf5ea-dfc8-4fc2-8178-e105d043132e",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

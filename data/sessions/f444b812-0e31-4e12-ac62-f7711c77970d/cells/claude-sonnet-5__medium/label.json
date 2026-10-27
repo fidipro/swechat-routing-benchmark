@@ -1,0 +1,117 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0 ends with the directory being a decoy/stray on pc1 that the mirror must not carry to pc2 (`uat-stray` must not leak), though the opening paragraph gives a wrong 'refresh cache' rationale first.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turns 3/5/7: 'this sandbox has no ssh, hcloud, or pass binaries' and the model reasoned from flatpak_sync.py, the tests and vm-test-fixtures.sh instead.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 verdict: 'nothing to fix in the runbook… the scenario as written should trigger the abort', attributing the non-abort to runtime causes; it never recognised that an allow-only filter denies nothing, so the verdict is wrong about the actual (runbook) cause.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Diff leaves `printf 'allow org.freedesktop.*\\n' > /home/testuser/uat.filter` unchanged; no `deny *` added.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Turn 8: 'Verdict: bug, confirmed from the code' with trace of capture_source_items running before the registry read.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Diff §3: 'Checks 1 and 2 abort before any question. Check 3 does not: its scan asks the `/opt/pcsw-uat-vendor` shape question first… and only aborts once you answer it.'",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'the collateral question `<y>` (there is no option literally labelled \"go ahead\" — `y` is the act key…)'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'the repository deletion `<s>` — a SEPARATE `Delete repositories pc1 no longer has (apt)` screen that apt_sync only plans once it knows the fortunes-min/collateral answers'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4/§5: '`Install snap packages` screen for `hello-world` (left at install…) that comes BEFORE `hello`'s own `Change snap packages` screen'.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4/§5: '`Install flatpak applications` screen for `io.github.fragglet.sdl_sopwith` (left at install…)' placed after snap and before manual.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 13 explains the fixture is deliberately ambiguous and 'one application' is an arbitrary pick to exercise that branch.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: shape question answered 'one application'; review 'asks about `/opt/pcsw-uat-app` FIRST — answered `<y>`… only after that does `/opt/pcsw-uat-vendor`'s own resolution question appear, answered `<x>`'.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 15 attributes it to 'the earlier (non-dry) real run already did its job' although the user said they were still only dry-running and hello-world still appeared (which the reply itself notes contradicts that cause); snapd auto-refresh was not considered and no unreachability caveat given.",
+    "id": "n3",
+    "met": false
+   },
+   {
+    "evidence": "Turn 15/16: 'ssh pc2 … sudo snap refresh --revision=<that second revision> hello' to recreate the mismatch.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Diff contains no re-pin step before §4's runs or repeats; §4 still starts directly with the sync commands.",
+    "id": "c11",
+    "met": false
+   },
+   {
+    "evidence": "No record of `uv run codespell` being run on the edited runbook; only Bash/Read/Edit calls with no check output reported.",
+    "id": "n5",
+    "met": false
+   }
+  ],
+  "reason": "The replay fixed most of the §4/§5 wording issues (collateral key, second round, hello-world and sopwith screens, review order, check-3 ordering) but got the §3 check-2 diagnosis wrong and left the allow-only filter uncorrected, and it neither added the hello re-pin to the runbook nor gave a plausible cause for the missing revision-change question. With c3, c11, n1 and n3 unmet the replay fails the acceptance criteria.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.42683,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:54.167851+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.581435,
+ "replay_cost_usd_label": 2.637819,
+ "session_id": "f444b812-0e31-4e12-ac62-f7711c77970d",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

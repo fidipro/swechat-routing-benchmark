@@ -1,0 +1,122 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.86,
+  "criteria": [
+   {
+    "evidence": "verifyPathWithinRoot Lstats every component and rejects ModeSymlink; called from applyStaged before MkdirAll/WriteFile; TestVerifyPath*/TestApplyStagedRejectsSymlinkEscape pass.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "verifyPathWithinRoot computes filepath.Rel(root, abs) and refuses '..' prefixes after rejecting symlinks, so the cleaned path is confined to the root; no dedicated '..' test though.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "applyStaged still calls os.WriteFile unchanged after the check; no O_NOFOLLOW/O_EXCL or os.Root open was introduced.",
+    "id": "n2",
+    "met": false
+   },
+   {
+    "evidence": "TestVerifyPathRejectsSymlinkAsDestination, TestVerifyPathRejectsSymlinkInParentDirectory and TestApplyStagedRejectsSymlinkEscape added and passing.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "repository.go refresh reads w.Git.RemoteURL(ctx, RemoteName) and returns an error on !git.URLsMatch(currentURL, w.URL) (fails closed); no direct gitops mismatch test but URLsMatch is tested.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "EffectivePushURL/VerifyPushDestination resolve the push URL but nothing prints or reports the destination to the user; EffectivePushURL also only reads remote.origin.pushurl.",
+    "id": "n3",
+    "met": false
+   },
+   {
+    "evidence": "publish.go and init.go use CommitNoHooks (git commit --no-verify); TestCommitNoHooksDisablesPreCommitHooks passes.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "No GIT_TERMINAL_PROMPT=0 or similar env/flag added anywhere in the diff; ExecRunner untouched.",
+    "id": "n4",
+    "met": false
+   },
+   {
+    "evidence": "No staged-path verification before commit; the only check is CommitPaths(ctx, \"HEAD\") after the commit has already been made.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "After commit and before Push, CommitPaths is compared against the expected set and an error returned on any unexpected path in both publish.go and init.go; CommitPaths tests pass.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "URLsMatch only strips .git and otherwise compares strings, so ports are preserved; TestURLsMatchPreservesPort (:443 vs :8443) passes.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Generic Commit() reverted to no --no-verify; a separate CommitNoHooks is used only by publish.go/init.go in the GitOps cache.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Commit/Push/Tag used by release/source remain unchanged, so user repos keep hooks; go test ./internal/release ./internal/source pass.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "EffectivePushURL only reads `config --get remote.origin.pushurl`; url.*.pushInsteadOf rewrites are not resolved (no `remote get-url --push`), so such a redirect would pass unnoticed.",
+    "id": "c8",
+    "met": false
+   },
+   {
+    "evidence": "VerifyPushDestination returns an error (fails closed) on a detected mismatch rather than warning; no warn-only path exists.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "go test ./internal/deploy ./internal/git ./internal/gitops ./internal/release ./internal/source -count=1 all ok; replay reports go vet clean on those packages.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "The replay never ran go build ./... or go test ./...; only the five named packages were tested.",
+    "id": "n8",
+    "met": false
+   }
+  ],
+  "reason": "The replay implemented symlink rejection, origin verification, scoped --no-verify, port-preserving comparison and a pushurl check, but it never added no-follow opens, never disabled interactive prompting, verified paths only after commit rather than staged-before-commit, did not resolve url.*.pushInsteadOf for the effective push URL, did not report the push destination, and never ran go build/go test ./.... Several required criteria are therefore unmet, so the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.61602,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:08.111025+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.253156,
+ "replay_cost_usd_label": 1.273988,
+ "session_id": "cb6acc28-47a2-43c8-ae22-b9ef88dec9c1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.86,
+   "verdict": "fail"
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'whose `_nova_api` property lazily builds a brand-new `ApiGateway` (and thus a brand-new ... ApiClient → aiohttp ClientSession/TCPConnector)... That orphaned session is what aiohttp complains about at interpreter shutdown.'",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 offers two fix directions: share the gateway, or track and close orphaned controllers.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Option 1 (pass existing ApiGateway into Controller, NovaDevice optionally accepts a pre-built gateway) is fully implemented in cell.py, controller.py, gateway.py.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Example not run (no NOVA reachable, not explicitly stated); claim 'examples/start_here.py should no longer leak a client session/connector at exit' is supported by code reasoning consistent with the diff (controller reuses Nova's gateway, closed by runner's nova.close()).",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Diff: `_owns_nova_api_gateway = api_gateway is None`; close() only closes when owned, so shared Nova gateway survives Controller.close() and standalone controllers still close their own.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "'778 passed, 6 skipped, 72 deselected, exit code 0' and 'Full suite, targeted tests, ruff, and ty all pass.'",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'on branch `fix/trajectory-completion-level-detection`, three files modified ... Nothing is staged or committed', plus disclosed uv.lock drift revert.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'Committed on a new branch `fix/controller-api-gateway-leak`, created off local `main`' with commit 13021d3.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Changes were stashed, branch created from main a16cc3d, 'Original branch `fix/trajectory-completion-level-detection` is untouched.'",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Commit message 'fix: share ApiGateway between Nova and controllers to avoid leaked aiohttp session' follows type: Description.",
+    "id": "n4",
+    "met": true
+   }
+  ],
+  "reason": "The replay correctly identified the orphaned second ApiGateway/ClientSession, implemented the shared-gateway fix with ownership tracking, passed the full checks, reported git state accurately, and committed on a new branch off main with an Angular-style message while leaving the feature branch intact. Doubt remains on n2 because the replay did not explicitly state it could not run the example against a NOVA instance, though its hedged claim is backed by sound code reasoning, and it added no new tests (not strictly required).",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.21864,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:44.961771+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.89901,
+ "replay_cost_usd_label": 0.955395,
+ "session_id": "c7f3b6f5-178e-4782-b323-50743067fab3",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "pass"
+  }
+ ]
+}

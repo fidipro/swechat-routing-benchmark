@@ -1,0 +1,62 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "The attached file did not exist in the replay environment; after the emulated user said to skip it, the replay located the PR's local commits ('61c61139 Address PR review findings on cross-repo explain', '37e0fbdf Add cross-repo checkpoint explain') and continued from that context.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "The replay never stated the PR URL; the user supplied 'https://github.com/entireio/cli/pull/1915' in turn 3 and the replay's replies (turns 2-4) do not include it.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Replay still calls remote.FetchCheckpointRefFrom into the cwd repo ('write the canonical ref name ... and made the write temporary instead'), then reverts the ref; objects remain ('Fetched objects stay in the object store unreferenced'), and the fetch-on-miss fallback is untouched — the cwd repo is written to, not left unchanged.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "TestCrossRepoExplain_FetchAndRender passes for prose, but resolution works precisely because the ref is stored locally during the command (borrow-then-revert), not looked up without storing; no export-mode (--json/--transcript) coverage added.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "'go build ./... clean, gofmt clean'; 23 failures in cmd/entire/cli shown identical before/after and on main (hooksPath/no-origin environment); mise and golangci-lint not installed and the replay said so.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay implemented a borrow-and-revert of the foreign ref in the cwd repo rather than a pure lookup, so the cross-repo flow still writes the foreign ref and objects into the local repo and leaves the fetch-on-miss path intact, failing c3 and the 'without storing it locally' clause of c4. It also never provided the PR URL itself (c2), while build/tests were handled acceptably given the environment.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.41032,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:32.601835+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.783915,
+ "replay_cost_usd_label": 2.783915,
+ "session_id": "67eaf5ea-dfc8-4fc2-8178-e105d043132e",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

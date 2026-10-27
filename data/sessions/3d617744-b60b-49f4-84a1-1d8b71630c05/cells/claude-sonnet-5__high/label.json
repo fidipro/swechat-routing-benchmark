@@ -1,0 +1,210 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Turn 1: 'Confirmed — it's a real bug' with root cause in messages.ts mapContent never reading msg.context except for poll lookup.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4 lists 5 concrete WhatsApp-vs-iMessage gaps with file/line refs; all presented as fixable here, with the no-get(id) platform limitation noted for reply targets.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2-4: 'Audit workflow is running' via the Workflow tool (ULTRACODE), results reported at turn 4.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: 'on fix/whatsapp-business-imessage-parity, branched off main' before any code change.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 presents a plan with per-fix sections before implementation; turn 7 finalizes it before coding.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 asks dozens of clarifying questions across all 5 findings plus process questions.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Not observable; plan at turn 6 shows no sign of a superpowers skill invocation.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: 'Verified against the actual SDK wiring' for previewUrl/voice; turn 9: MediaInput.caption 'confirmed in the SDK types', template via SDK TemplateBuilder; rests on SDK types rather than live Meta docs.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "reply-context.test.ts asserts content.type 'reply' and target.id === 'wamid.ORIGINAL1' via the real messages() path.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Only the 'text' case wraps in asReply; interactive/reaction branches untouched and existing poll/reaction tests still pass (42/42).",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Reply, voice, richlink implemented (approved plan); referral/errors explicitly parked per user; group send and templates also added.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 7: 'no from, no fetch, no caching — deferred as agreed'; diff adds no cache.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 13: 'ultracite fix', typecheck clean, 42 tests pass reported after final commit.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "No remote in environment; turn 7/30 told user nothing is pushed and how to push; user said 'no remote's fine'.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "No test added demonstrating a malformed event on the new reply/voice mapping paths is skipped while later messages flow; replay only argued structurally (turn 12) about the pre-existing try/catch.",
+    "id": "c13",
+    "met": false
+   },
+   {
+    "evidence": "Turn 11 and 16: finding confirmed real, severity scoped to fan-out path only, option 2 recommended.",
+    "id": "c14",
+    "met": true
+   },
+   {
+    "evidence": "GroupSendPartialFailureError added with test 'attaches already-sent records...'; outbound-only so stream untouched; no PR reachable, explanation given to user at turn 16.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 14 separates stream vs process, traces clientStream guard, core dispatchSend rethrow, and unhandled-rejection risk.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "Turn 16 restates CodeRabbit's scenario then shows captioned single-send case and fan-out try/catch case.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 17 explains 24h window, why not in universal Content union, __platform tag, iMessage precedent.",
+    "id": "n10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 18: `space.send(template(\"order_confirmation\", \"en_US\", [\"Jane\", \"#12345\"]))` with payload walkthrough.",
+    "id": "n11",
+    "met": true
+   },
+   {
+    "evidence": "Turn 19: 'genuinely not possible', gap at the provider adapter layer, no custom escape hatch, no exposed client.",
+    "id": "n12",
+    "met": true
+   },
+   {
+    "evidence": "Turn 20: describes the SDK and says no repository/homepage in package.json so a GitHub URL couldn't be determined.",
+    "id": "n13",
+    "met": true
+   },
+   {
+    "evidence": "Turn 21/22: SDK vs adapter layers explained; 'we never touched a line of it (we can't; it's node_modules)'.",
+    "id": "n14",
+    "met": true
+   },
+   {
+    "evidence": "Turn 23 gives portability, normalization, shared machinery, insulation reasons plus honest costs.",
+    "id": "n15",
+    "met": true
+   },
+   {
+    "evidence": "Turn 25 lists all 6 commits with files and test files.",
+    "id": "n16",
+    "met": true
+   },
+   {
+    "evidence": "Turn 26 explains stub rationale, type/unit-level verification and limits, and states no sender-name change exists.",
+    "id": "n17",
+    "met": true
+   },
+   {
+    "evidence": "Turn 29 gives messages.ts line ranges for voice, richlink, partial-failure and test file paths.",
+    "id": "n18",
+    "met": true
+   },
+   {
+    "evidence": "Turn 32 reasons from in-repo code that WhatsApp inbound bypasses the webhook path and notes external consumers cannot be verified; no external spectrum-webhook repo consulted.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "Turn 33: sender.name 'was never populated to begin with' so nothing to survive or drop.",
+    "id": "n19",
+    "met": true
+   },
+   {
+    "evidence": "Diff shows sender remains `{ id: msg.from }` only; no name field ever added; 42 tests pass.",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "Nothing to remove/push; no remote configured and user said not to worry about pushing.",
+    "id": "n20",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches only packages/whatsapp-business files.",
+    "id": "n21",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivers the audit, plan, five fixes with tests, partial-failure error, and all the explanatory turns, and the sender-name concern is moot since it was never added. It fails only c13: the user's one hard requirement was stream safety, and the replay added no test demonstrating that a malformed event on the new reply/voice mapping paths is skipped while later messages continue to flow, relying on structural argument alone.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 2.56767,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:38:08.023091+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 25.506778,
+ "replay_cost_usd_label": 25.506778,
+ "session_id": "3d617744-b60b-49f4-84a1-1d8b71630c05",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.62,
+   "verdict": "fail"
+  }
+ ]
+}

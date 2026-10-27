@@ -1,0 +1,117 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply: pc1's second revision dir holds `uat-stray` data the mirror must skip, making §6's `ls ~/snap/hello` check discriminating (mirror asks pc2's snapd which revisions it holds).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3/4: 'ssh and scp are not installed … no ~/.ssh … I have not touched pc1 or pc2' then reasoned from ADR-020 measurements and flatpak_sync.py:1677-1713.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: 'Verdict: runbook bug, not a tool bug. The non-abort was the correct outcome for the fixture as written' — consistent with _abort_on_a_source_filter_that_denies_its_own_apps reading flatpak's listing.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff: `printf 'deny *\\nallow org.freedesktop.*\\n' > /home/testuser/uat.filter` plus explanatory sentence after the block.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: 'Verdict: expected, not a bug' with the capture_source_items/registry ordering from manual_installs_sync.py.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Diff §3 preamble: 'The first two end it before any question at all; the third is reached after the one question manual_installs_sync asks outside its review' plus the check-3 note that the shape question comes first and the abort follows.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4 item 2: collateral question on `fortunes` answered `y`, word `remove`, sentence quoted, `s` and `q` named.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4 item 2 'apt, second round … This round exists for the questions only the first round's answers can settle, which is why both come after every screen above'.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4 item 3 'snap. `hello-world` left at install; `hello`'s revision change left applied', placed after apt second round.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4 item 4 'flatpak. `io.github.fragglet.sdl_sopwith` left at install', between snap and manual installs.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10 reply and §4 item 5 explain the scan reads one level down, either answer legitimate, runbook walks one-application branch to leave a single finding for §6.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4 item 5: '/opt/pcsw-uat-app first, answered y … /opt/pcsw-uat-vendor second, answered x'.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 12: dry run does not hold snapd auto-refresh so pc2 drifted back onto pc1's revision; noted 'since I can't look at your machines' and pointed to the DEBUG log.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 12: `ssh testuser@\"$PC2\" 'sudo snap refresh --revision=<that second revision> hello && snap list hello'` then run again.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Diff §4: 'Re-pin `hello` on pc2 before EVERY run below, including a repeated dry run' with the refresh line before both the dry run and the real run.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "Replay reports `codespell` clean after each edit; only the runbook markdown changed, so ruff/basedpyright/pytest not required.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "Every divergence was diagnosed with a verdict, the VM-unreachability was stated and the replay reasoned from ADR-020 and the code, and the runbook diff fixes the filter, §3 prose, collateral key, second-round wording, the two missing install questions, the review order, and the re-pin instruction. Doubt remains only on c1 (cannot see the runbook's later checks to confirm consistency) and on whether codespell was run repo-wide.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.39761,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:41.547043+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 5.085795,
+ "replay_cost_usd_label": 5.085795,
+ "session_id": "f444b812-0e31-4e12-ac62-f7711c77970d",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "pass"
+  }
+ ]
+}

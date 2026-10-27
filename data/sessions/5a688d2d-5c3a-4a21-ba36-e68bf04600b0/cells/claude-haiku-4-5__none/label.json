@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.9,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'No blockers — the working tree is clean and the branch has no commits ahead of main.'",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'you're now on main'",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'the licensing-and-decisions branch is deleted'",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes the entire '### If the checkout lives in iCloud Drive' section through the chflags note.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff touches only lines 50-65 of README.md; identical to original diff, no other hunks.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'Commit is done'",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'there's no remote configured' — push not performable in replay environment, user told why and accepted local commit.",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay reported a clean, non-diverged state, switched to main, deleted the branch, removed exactly the iCloud Drive section with a diff identical to the original, and committed. The push was impossible due to no remote in the replay environment, which the model disclosed, satisfying the remote criterion.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.06163,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:12.854815+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.042076,
+ "replay_cost_usd_label": 0.062908,
+ "session_id": "5a688d2d-5c3a-4a21-ba36-e68bf04600b0",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.9,
+   "verdict": "pass"
+  }
+ ]
+}

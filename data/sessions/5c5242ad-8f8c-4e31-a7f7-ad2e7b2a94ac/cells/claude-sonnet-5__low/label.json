@@ -1,0 +1,140 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": ".github/workflows/pr-review.yml added with `on: pull_request: types: [opened, ready_for_review, synchronize]`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Step uses `anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}`; no OAuth token input.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Prompt: 'Read .claude/agents/pr-reviewer.md in full and follow it exactly as your operating instructions... review the current pull request'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Prompt instructs `gh pr comment ... --body-file <file>`, with `pull-requests: write` and `GITHUB_TOKEN` env wired to the step.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 gave per-PR (~$0.20) and per-month estimates but asserted pricing ('Sonnet 5.5: $2/MTok input, $10/MTok output') without fetching current pricing or stating it could not be fetched.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1: subscription route 'draws from the subscription's included usage pool rather than metered API billing... shares the same pool as your interactive Claude Code sessions'.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: `gh secret set ANTHROPIC_API_KEY --repo <owner>/<repo>`.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'go ahead and run it in your own terminal with the key value' — never asked for the key in chat.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4/5: commit `fa50380` on branch `ci/pr-review-agent` adding the workflow.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: reported no remote configured and said once set 'I can push and run `gh pr create`'.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: commit message `👷 ci: run pr-reviewer agent on pull requests`; later commit messages not observable.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'Nothing from this session clears the bar for DEVELOPMENT.md/TROUBLESHOOTING.md — it's new infra, not a recurring pattern or a debugged gotcha.'",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Diff shows `permissions: ... id-token: write`; amended into local commit `0893f9f` (no remote to push to).",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turns 8–9: stated no network/run logs reachable, explained gh needs GITHUB_TOKEN exported into the step env despite `permissions`, and wired it.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Turn 10–11: merged workflow branch locally; follow-up test PR reported as not possible because no remote exists.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 11: 'there's no remote so no follow-up test PR to actually open' — reported could not be merged and why; entry 8 skipped as moot.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds docs/adr/0000-template.md.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Template frontmatter title/status/date/audience and sections Context → Decision → Alternatives considered (optional) → Consequences → Sources, matching the shared ADR structure.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 12: reported the shared frontmatter/section pattern across 0003/0019/0020 and that `Alternatives considered` is optional/varies; assessment thin (3 of 20 ADRs read).",
+    "id": "n10",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered the workflow with ANTHROPIC_API_KEY, id-token: write, comment posting, local commit/merge, and the ADR template, reporting remote actions as impossible. However, the cost estimate was given with asserted pricing figures without fetching current pricing or disclosing that it could not be fetched, so c3 is not literally met; n10's assessment was also thin.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.23219,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:38.407729+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.181553,
+ "replay_cost_usd_label": 1.181553,
+ "session_id": "5c5242ad-8f8c-4e31-a7f7-ad2e7b2a94ac",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

@@ -1,0 +1,197 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.7,
+  "criteria": [
+   {
+    "evidence": "Replay reply: 'Pins lifted to `pinned: PinnedRef[]` with `togglePin`/`clearPins`' in the store; idea-board lifted (diff truncated, relied on model report).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "PinnedRef has id, title, lane, nullable image_url/source_url; stickers pin with null URL and 'one pin path for stickers and future Lane B tiles alike' — snake_case naming deviation was disclosed.",
+    "id": "c14",
+    "met": true
+   },
+   {
+    "evidence": "'Rail fixed to the foot, borderless… label `N pins · conditioning input`; 48px thumbs' (turn 0 reply).",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Rail has one Generate button with idle/generating/error states described.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "'hidden at zero pins' and `--pin-rail-space` is 0px with no pins.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "'enters on `workspace-enter`'; no new dependency reported, pnpm build cached without lockfile change.",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "api.py adds POST /v1/generate with GenerateRequest/GenerateResponse StrictModel contracts (session_id, transcript, pins; image_url, prompt, model, reference_count).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "SynthesisedPrompt is `prompt: str = Field(min_length=1, max_length=900)` plus `subject`; no validator enforces the under-80-word limit, so an overlong prompt is not a validation error (only the instructions text asks for <80 words).",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "fal arguments are `{\"prompt\": prompt}` (+ image_urls); transcript only enters `_synthesis_input`.",
+    "id": "c18",
+    "met": true
+   },
+   {
+    "evidence": "Headers include 'X-Fal-Store-IO': '0'; `_submit` then `_poll` against queue.fal.run; docstring 'No webhook'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "`fal_poll_timeout_seconds` default 45.0; GenerationTimedOut → `_generation_refusal(payload, \"timeout\")` typed status.",
+    "id": "c19",
+    "met": true
+   },
+   {
+    "evidence": "'Deliberately not retried, at any status' in `_submit`, plus X-Fal-No-Retry header.",
+    "id": "c20",
+    "met": true
+   },
+   {
+    "evidence": "OpenAI(api_key, timeout=timeout, max_retries=0) with wait_for; httpx.Timeout(connect/read/write/pool) on the fal client.",
+    "id": "c21",
+    "met": true
+   },
+   {
+    "evidence": "`import httpx`, no fal SDK; 'no new dependencies, so no lockfile movement'.",
+    "id": "c22",
+    "met": true
+   },
+   {
+    "evidence": "`reference_urls(pins, limit)` with `public_https_url` filter; model = fal_reference_model if image_urls else fal_fallback_model; live fixture check showed schnell vs kontext switch.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "`steering_terms` adds every title; fixture run returned reference_count: 0 with titles in prompt; no URL fabricated.",
+    "id": "c23",
+    "met": true
+   },
+   {
+    "evidence": "GenerationService per-session in-flight set, `AlreadyGenerating` → typed 'already_generating' response; test_generation covers in_flight.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "config.py adds fal_key, fal_reference_model 'fal-ai/flux-pro/kontext/max/multi', fal_fallback_model 'fal-ai/flux/schnell', fal_max_reference_images=4 matching .env.example.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "FixturePromptSynthesiser + FixtureImageGenerator return a data-URI SVG with no network; live fixture-mode POST returned ok.",
+    "id": "c24",
+    "met": true
+   },
+   {
+    "evidence": "'Done generation takes the workpane: image, then the prompt verbatim with model id and reference count'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "'rail stays visible' on the result view.",
+    "id": "c25",
+    "met": true
+   },
+   {
+    "evidence": "'Generate idle / disabled-and-pulsing / error-with-correlation-id-still-clickable'.",
+    "id": "c26",
+    "met": true
+   },
+   {
+    "evidence": "dist/ grep showed no FAL_KEY/OPENAI_API_KEY/Authorization Key/queue.fal.run; all calls in apps/api.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Final run: pnpm lint/typecheck/build pass, 'All checks passed!', mypy 'no issues found in 22 source files'.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "pnpm lint and typecheck pass; model reports strict TS (TS diff truncated, not directly inspected).",
+    "id": "c27",
+    "met": true
+   },
+   {
+    "evidence": "generation.py uses `except Exception as error` and typed excepts; no bare except.",
+    "id": "c28",
+    "met": true
+   },
+   {
+    "evidence": "No README.md or docs/ hunks in the replay diff.",
+    "id": "c29",
+    "met": true
+   },
+   {
+    "evidence": "'41 passed, 1 warning in 1.61s'.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: docked mic subtracts `--pin-rail-space` so 'the mic now sits directly above the rail'.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "'Solid very light panel (`#fcfcfb`) with a hairline top edge… read as one surface'.",
+    "id": "c30",
+    "met": true
+   },
+   {
+    "evidence": "'Every thumbnail carries its unpin button at all times'.",
+    "id": "c31",
+    "met": true
+   },
+   {
+    "evidence": "'Merged into `main` as `395e517`… Not pushed. There's no git remote configured'.",
+    "id": "c13",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered the rail, the route, the fal client, the repositioning fixes and a local merge to main with all checks green, but its SynthesisedPrompt schema only bounds the prompt to 900 characters and never validates the under-80-word constraint the criterion requires, so a malformed/overlong prompt would not be a validation error. All other criteria appear met, with some frontend ones judged from the model's descriptions because the TS diff was truncated.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.54162,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:14:13.433958+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 6.766195,
+ "replay_cost_usd_label": 6.8416,
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.7,
+   "verdict": "fail"
+  }
+ ]
+}

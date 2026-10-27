@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Diff adds `## [0.10.4] - 2026-10-25` immediately above `## [0.10.3] - 2026-08-27`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Entry uses Added, Changed, Security, Fixed, Housekeeping, Thanks headings matching existing entries.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Every bullet ends with `([#NNNN](https://github.com/entireio/cli/pull/NNNN))` links in the existing form.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Replay cites 28 PRs; missing at least #2142, #2154, #2156, #2163, #2140, #2178, #2186, #2187, #2151 that the git history/original show were merged since v0.10.3, and the replay never states GitHub unreachability or that the list is complete.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Thanks section includes @paul and @Suhaan-Thayyil (apparently team members, excluded in the reference) alongside external contributors, with no stated classification or reasoning.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Security bullets such as 'OAuth token-exchange POST no longer accepts cross-host redirects' state only the change, no attack scenarios.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets use plain wording ('validates file paths from input', 'warns when agent sandboxing is disabled'); model reported removing 'planted binaries', 'arbitrary file access'.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Final bullets are one-liners (e.g. 'Search skill installed on every agent by default'), clearly shorter than the turn-0 draft described as 'detailed descriptions'.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The entry is correctly placed, sectioned, linked, and the Security bullets are neutral and short, but it omits nine merged PRs (including the .entire symlink hardening and config-dir permission fixes) without disclosing any gap. The Thanks section also credits apparent team members as external contributors without stating any classification reasoning, so c3 and c4 are unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.17308,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:37.683770+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.467553,
+ "replay_cost_usd_label": 0.488386,
+ "session_id": "99ab2578-6e3b-4a89-95ec-c786c458b8a0",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

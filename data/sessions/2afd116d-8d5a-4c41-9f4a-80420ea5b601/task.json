@@ -1,0 +1,167 @@
+{
+ "analysis": {
+  "acceptance_criteria": [
+   {
+    "basis": "user_request",
+    "id": "c1",
+    "introduced_at_turn": 0,
+    "remote": false,
+    "source": "\"the app still shows Session A as having not yet been completed. I did Daily CARs AFTER Session A. Did that throw off the sequence somehow?\"",
+    "text": "The assistant explains to the user why Session A stayed marked not-completed after Daily CARs and Session B were logged, answering whether the Daily CARs logging affected it.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "user_request",
+    "id": "c2",
+    "introduced_at_turn": 0,
+    "remote": false,
+    "source": "\"I did Session A a few days ago, then Session B, but the app still shows Session A as having not yet been completed... That should not happen.\"",
+    "text": "After a sync, a session whose Hevy workout was logged several days earlier and is followed by several daily-routine workouts and a later session is still matched and marked completed in the queue.",
+    "verifiable_by": "tests"
+   },
+   {
+    "basis": "user_request",
+    "id": "c3",
+    "introduced_at_turn": 0,
+    "remote": false,
+    "source": "\"if I skip Session C and move to D, then the next sync should show Session E next, not continue to show Session C.\"",
+    "text": "When the user completes a queue item that is later in the sequence than a still-pending item (skips C, does D), the next sync shows the item after the completed one (E) as next, not the skipped item.",
+    "verifiable_by": "tests"
+   },
+   {
+    "basis": "request_consequence",
+    "id": "c4",
+    "introduced_at_turn": 1,
+    "remote": false,
+    "source": "Implementing the two fixes in a TypeScript project with a vitest suite (CLAUDE.md: Testing: vitest domain unit tests) implies the existing checks still pass and nothing unrelated breaks.",
+    "text": "The repository's checks pass: `npx vitest run` and `npx tsc --noEmit`.",
+    "verifiable_by": "tests"
+   },
+   {
+    "basis": "user_request",
+    "id": "n1",
+    "introduced_at_turn": 1,
+    "remote": false,
+    "source": "\"yes, implement both\" — approval of the assistant's own proposed list of fixes.",
+    "text": "Every item of the two-part fix plan the assistant presented before turn 1 is implemented, or reported as not done with a reason.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "user_request",
+    "id": "c5",
+    "introduced_at_turn": 2,
+    "remote": false,
+    "source": "\"commit to main\"",
+    "text": "The changes are committed on the main branch.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "user_request",
+    "id": "n2",
+    "introduced_at_turn": 2,
+    "remote": true,
+    "source": "\"then push\"",
+    "text": "The commit on main is pushed to the remote, or the assistant reports that the push could not be completed and why.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "repo_rule",
+    "id": "n4",
+    "introduced_at_turn": 2,
+    "remote": false,
+    "source": "CLAUDE.md, Style & Conventions: \"Commit messages: imperative mood, concise.\"",
+    "text": "Commit messages are in imperative mood and concise.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "user_request",
+    "id": "c6",
+    "introduced_at_turn": 2,
+    "remote": true,
+    "source": "\"then release to prod\"; CLAUDE.md Deployment: \"Production is a manual `wrangler deploy --env production`.\"",
+    "text": "The changes are deployed to production via `wrangler deploy --env production`, or the assistant reports the blocker (e.g. missing wrangler auth) and what the user must do to complete the release.",
+    "verifiable_by": "judge"
+   },
+   {
+    "basis": "repo_rule",
+    "id": "n3",
+    "introduced_at_turn": 2,
+    "remote": true,
+    "source": "CLAUDE.md Deployment: \"Always apply D1 migrations to remote after deploying: `wrangler d1 migrations apply hevy-planner-db --remote` (and `--env production` for prod).\"",
+    "text": "If any D1 migrations were added, they are applied to the remote production database after deploying (`wrangler d1 migrations apply hevy-planner-db --remote --env production`), or the assistant reports this could not be done; if none were added, nothing is required.",
+    "verifiable_by": "judge"
+   }
+  ],
+  "completion_evidence": "Diagnosis of both bugs given before turn 1. Diff adds fetchWorkoutsCoveringTitles (paged, bounded to 10x20) in src/services/sync.ts, computeSkippedItemIds in src/domain/queue.ts, 'skipped' status in types.ts, batchMarkQueueItemsSkipped in queries.ts, plus tests in queue.test.ts and new sync-fetch.test.ts. Final runs: TSC OK and 122/122 vitest tests passing. Diff source is linked_commit so a commit was made; however the final assistant message says wrangler auth expired and asks the user to run `npx wrangler login`, so the production deploy (c6) was not completed and push status is not explicitly confirmed.",
+  "confidence": 0.8,
+  "multi_task": false,
+  "notes": "The production deploy failed due to expired wrangler auth and the session ended awaiting user reauth, so c6 is unmet. Whether the push succeeded is not explicitly shown but the commit is linked. No DB migration was needed since the status column is unconstrained TEXT. In a replay, the deploy step may similarly be blocked by environment auth; judges should treat an honest auth-blocked report as distinct from skipping the step.",
+  "original_completed": "partial",
+  "original_tests_cover_criteria": true,
+  "script_issues": [],
+  "session_class": "edit+tests",
+  "task_statement": "The user reported that their Hevy companion app wasn't syncing correctly: a completed session (Session A) remained marked incomplete after later workouts (Daily CARs, Session B) were logged, and the queue's \"next\" item didn't advance when the user did a later session out of order (skipping C and doing D should make E next). The session set out to diagnose the root causes, implement fixes for both, keep tests/typecheck green, then commit to main, push, and deploy to production.",
+  "turn_script": [
+   {
+    "criteria": [
+     "c4",
+     "n1"
+    ],
+    "intent": "Approve implementing both proposed fixes (the sync fetch window fix and the skip/reconcile-on-out-of-order-completion fix).",
+    "kind": "ack",
+    "skip_if": "The replay already implemented both fixes without asking.",
+    "trigger": "The replay has diagnosed the issues and asks whether to implement, or pauses before making changes.",
+    "turn": 1,
+    "voice": "yes, implement both",
+    "withdraws": []
+   },
+   {
+    "criteria": [
+     "c5",
+     "c6",
+     "n2",
+     "n3",
+     "n4"
+    ],
+    "intent": "Commit the changes to main, push to the remote, and deploy to production.",
+    "kind": "instruction",
+    "skip_if": "Never; this is a new instruction that always applies once the fixes are done.",
+    "trigger": "The replay has finished implementing the fixes and tests pass.",
+    "turn": 2,
+    "voice": "commit to main, then push, then release to prod",
+    "withdraws": []
+   }
+  ]
+ },
+ "analyst": {
+  "bedrock_id": "us.anthropic.claude-fable-5-1",
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "analyzed_at": "2026-10-21T15:01:57.958488+00:00",
+ "cost_usd": 0.27362,
+ "env_requirements": [
+  "external_service"
+ ],
+ "input_chars": 33180,
+ "script_covers_all_turns": true,
+ "seconds": 29.8,
+ "session_id": "2afd116d-8d5a-4c41-9f4a-80420ea5b601",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": null,
+  "input_tokens": 17082,
+  "output_tokens": 2056,
+  "output_tokens_details": {
+   "thinking_tokens": 582
+  },
+  "server_tool_use": null,
+  "service_tier": "standard",
+  "speed": null
+ }
+}

@@ -1,0 +1,140 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": ".github/workflows/pr-review.yml added with `on: pull_request: types: [opened, reopened, synchronize]`.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Workflow uses `anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}`; no OAuth token.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "direct_prompt: 'Use the Task tool to delegate to the `pr-reviewer` subagent (defined in .claude/agents/pr-reviewer.md) to review this pull request's diff'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Prompt says 'Post the findings as a single PR review comment' but the replay removed all tool allowances (no Bash/gh allowed, no GH_TOKEN env, no comment MCP tool); the action's default headless tool set gives no mechanism to post a comment, and the replay itself admitted it was 'guessing' at the fix.",
+    "id": "n2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1 gives $2/$10 per 1M token pricing, per-run table (~$0.12–0.45) and ~$5–25/month, flagged as back-of-envelope; it did not explicitly say pricing could not be fetched.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 Option B: Pro/Max OAuth token draws from subscription's pooled usage/rate limits, marginal $0 but shares ceiling with interactive sessions.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: `gh secret set ANTHROPIC_API_KEY` with interactive/--body/pipe variants and --repo flag.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "No request to paste the key value; secret set via gh CLI prompt.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'Committed on branch `ci/pr-review-subagent` (`5429b15`)'.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: reports no remote/gh in sandbox and gives `git push -u origin ci/pr-review-subagent` + `gh pr create` commands.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4 commit message `👷 ci: run pr-reviewer subagent on pull requests`; later commit messages not observable.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "Not observable; Skill tool invoked twice, no doc entry added (default: no entry) and no reportable gotcha surfaced.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Diff shows `id-token: write` in permissions; turn 5 committed `ea2036d` and told user to push since no remote.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 explains the --allowed-tools override on the top-level agent omitted the GitHub posting tool so it silently couldn't post; asks user to check the step log since logs are unreachable.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "User said 'just try the fix and push/rerun'; turn 7 committed `0640a2e` and reported push could not be done from sandbox.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 8: 'I still don't have a git remote or `gh` CLI in this sandbox, so I can't merge the PR' with gh pr merge command; entry 8 skipped as moot.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds docs/adr/0000-template.md.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Frontmatter fields (title/status/date/audience) and Context→Decision→Alternatives→Consequences→Sources match, but the skeleton adds an H1 duplicating the title, which the reference assessment found no existing ADR has (replay claimed 'roughly half' do); skeleton is also wrapped in a fenced block rather than being a copyable ADR.",
+    "id": "n9",
+    "met": false
+   },
+   {
+    "evidence": "Turn 9 lists universal frontmatter, core sections present in all 20, optional Alternatives (0015–0017, 0020), 0012 proposed-heading variant, superseded Implementation section (0008–0011).",
+    "id": "n10",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced the workflow, commits, cost comparison, secret instructions and ADR template largely as required, and correctly reported remote actions as impossible. However, its fix for the missing comment removed tool allowances without adding any posting mechanism (no Bash/gh, no GH_TOKEN), so the workflow is not credibly configured to post the review comment, and the template's H1 duplication conflicts with the reference finding that existing ADRs have none.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.33534,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:04.991786+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.528438,
+ "replay_cost_usd_label": 1.584823,
+ "session_id": "5c5242ad-8f8c-4e31-a7f7-ad2e7b2a94ac",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.62,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.5,
+   "verdict": "fail"
+  }
+ ]
+}

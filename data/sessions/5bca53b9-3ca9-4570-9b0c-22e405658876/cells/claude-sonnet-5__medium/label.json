@@ -1,0 +1,67 @@
+{
+ "cap_hit": "turns",
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.72,
+  "criteria": [
+   {
+    "evidence": "Turn 5: topic nodes in FlowView are clickable and open a right-hand 'Contract' panel showing the topic's contract type and schema tree (onNodeClick → onSelectTopic, flow-side-panel aside).",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "SchemaTree.tsx renders field name, type, an 'optional' badge when not required, and recursive nested fields — no C# source; comment states 'It never renders source code'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Topic.Schema added to topology.go as 'reflected off the Contract type by the host's graph verb', keyed to the (pubsub, topic) entry; actual .NET reflection deferred to the template repo with user's explicit agreement in turn 4, mirroring the original's deferral.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "readContract() in handlers.go reads contract.json beside the scaffold (user approved this mechanism) and DetailPanel renders it in a 'Contract' section via SchemaTree; TestIntegrationContract covers it.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Final run: `go build ./... && go test ./...` all packages ok.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: 'npm build is clean' and 'No type errors'; replay reverted regenerated web/dist, confirming the vite build ran.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered a schema field tree for internal topics tied to their channel, a clickable topic contract panel, a contract.json mechanism for external messages surfaced in DetailPanel, and green go tests and npm build. It is far less elaborate than the original and the turn cap was hit, but every acceptance criterion is satisfied by the final state; doubt remains on c3 since POCO derivation is only prepared for, not performed, in this repo (as in the original).",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.34875,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:25.010374+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.733858,
+ "replay_cost_usd_label": 1.790243,
+ "session_id": "5bca53b9-3ca9-4570-9b0c-22e405658876",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.72,
+   "verdict": "pass"
+  }
+ ]
+}

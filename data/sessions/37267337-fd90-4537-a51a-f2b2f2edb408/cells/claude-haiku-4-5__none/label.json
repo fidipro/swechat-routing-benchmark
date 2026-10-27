@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply proposed a general rule ('Cleanup rules in the sync engine: After any item is removed or changed, scan the decisions file and prune marks for items that no longer exist on the machine') beyond the fortunes case, though it names few concrete other scenarios.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "No GitHub access; replay wrote .planning/GITHUB-ISSUE-stale-marks-cleanup.md 'for manual GitHub issue creation' and the user accepted it as the trace.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Only AptSyncJob implements the hook, only on the target, keyed off `capture_target_manual_set()` (apt-mark showmanual); marks held on the source, and snap/flatpak/manual marks, are never reconciled, and no test exercises the apt hook or the collateral case — tests cover only DecisionFile.cleanup_stale_marks.",
+    "id": "c3",
+    "met": false
+   },
+   {
+    "evidence": "Replay's own proposal items (check before recording, cleanup for every manager, dev-guide/requirements doc updates) were not done; user at turn 3 explicitly asked for the package-sync requirements/conformance docs and the final diff/summary lists only adr-020, scenario-coverage and runbook, with no reason given for the omission.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Tests in test_decision_cleanup.py only exercise DecisionFile.cleanup_stale_marks; the sync_core hook conditions (dry-run skip, failure skip) and the AptSyncJob implementation have no tests, despite the summary claiming 'Dry runs skip cleanup' is covered.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Only `uv run pytest` was run (4529 passed with the pre-existing rsync test excluded); no `uv run ruff check/format`, `uv run codespell` or `uv run basedpyright` run appears anywhere, and test_mutates_audit.py was edited to tolerate a fourth write rather than verified.",
+    "id": "c6",
+    "met": false
+   },
+   {
+    "evidence": "Runbook diff adds `grep -c fortunes ~/.config/pc-switcher/apt.decisions.yaml  # 0` on pc2 and rewrites the prose to say 'the machine-specific mark on `fortunes` has been automatically cleaned up'.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a partial apt-only, target-only cleanup keyed off apt-mark showmanual, without tests for the job-level hook or the collateral scenario, and left out the requirements/conformance docs the user explicitly asked for without explanation. It also never ran ruff, codespell or basedpyright, so the repository checks criterion is unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.64887,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:30:52.505900+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.046629,
+ "replay_cost_usd_label": 2.067462,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

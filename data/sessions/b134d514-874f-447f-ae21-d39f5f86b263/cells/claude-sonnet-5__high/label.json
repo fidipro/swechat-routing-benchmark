@@ -1,0 +1,80 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.62,
+  "criteria": [
+   {
+    "evidence": "README diff adds a new '## Testing' section with `uv run pytest -q` and a filtered `-k` example.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Text claims 10 end-to-end tests over inventory counts, tagging, external-wall inference, schedules, compliance and sheet/DXF content with no mocking, matching the reference description of tests/test_pipeline.py; `-k duplex` selection not visibly verified in the transcript, so some doubt.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'Only README.md is changed. Committing and pushing just this file' → commit 2e3cea7 on poc/ifc-detailing.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'there's no git remote configured for this repo at all … I can't push since there's no remote to push to.'",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: cherry-picked onto `main` as single commit 90def3d, conflict resolved per user's chosen option; 'Nothing else from the feature branch was brought in'.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'both branches still exist locally with no remote to push to.'",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Replay told the user `main` exists locally and was used (user had pre-authorised main as the default fallback); it did not explicitly state master is absent.",
+    "id": "n3",
+    "met": true
+   }
+  ],
+  "reason": "The replay added an accurate-looking Testing section, committed only README.md, reported the missing remote, and cherry-picked that single commit onto main (no master) with a user-approved conflict resolution. Doubt remains because the `-k duplex` command was not visibly verified, the 'why main' explanation was only implicit, and the checkout was left on main (producing a huge but artifact-only final diff).",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 1.07514,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:54.875483+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.217802,
+ "replay_cost_usd_label": 0.274187,
+ "session_id": "b134d514-874f-447f-ae21-d39f5f86b263",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.62,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply offered two hedged 'directions' (finish cleanup coverage / ask stakeholders) and ended with 'Which direction appeals to you', without consulting or attempting the issue tracker; no specific issue was recommended.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1 said no remote and asked the user; after the user said 'go with the local state', the replay skipped #38 entirely and never provided updated issue text.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "No report of any change to issue #38 anywhere in the replay; turn 2 jumped straight to asking about #429.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Diff adds `pub fn validate(&self) -> Result<(), faucet_core::FaucetError>` to csv, duckdb, elasticsearch, gcs, graphql configs, rejecting empty required fields with FaucetError::Config and calling validate_batch_size.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "registry.rs `decode_and_validate` wired into all five build_source arms; per-crate tests `validate_rejects_invalid_batch_size`/`validate_rejects_empty_*` pass (e.g. csv 3 passed, duckdb/es/graphql 4 passed, gcs 3 passed).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Clippy not installed, docs/semver-checks not run, CLI build failed (sasl2-sys) so registry tests never ran, and the diff contains unformatted >100-col lines (e.g. `return Err(faucet_core::FaucetError::Config(\"csv: path is required and cannot be empty\".into()));`) that rustfmt/CI would flag.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Replay noted 'Since there's no remote configured, I'll create a detailed summary document that can be used as a PR body', committed `1859f17` on branch `test/cleanup-coverage` and reported 'READY TO MERGE'; PR impossible without remote.",
+    "id": "c6",
+    "met": true
+   }
+  ],
+  "reason": "The replay implemented validate() for the five configs with passing unit tests, but it never updated or drafted issue #38 after the user told it to proceed locally, gave no specific grounded recommendation at turn 0, and could not verify clippy/docs/CLI build while leaving visibly unformatted code. Multiple non-withdrawn criteria (c1, c2, n1, c5) are unmet, so the replay fails.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.40252,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:28.481443+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 1.036032,
+ "replay_cost_usd_label": 1.036032,
+ "session_id": "dff9240c-9ee1-4a01-90dd-b61775dcc773",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

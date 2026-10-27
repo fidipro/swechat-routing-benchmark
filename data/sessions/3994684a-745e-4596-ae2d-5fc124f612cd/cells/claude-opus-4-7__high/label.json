@@ -1,0 +1,67 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-4-7",
+  "effort": "high",
+  "model": "claude-opus-4-7"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.95,
+  "criteria": [
+   {
+    "evidence": "Diff shows AGENTS.md deleted as regular file and recreated with mode 120000 containing 'CLAUDE.md'.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'Committed as `04dff91`.'",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 reply: 'No — line 1 is just the filename echoed back, and line 3 tells Claude what Claude is already reading. Both are pure framing for a human skimmer.'",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes '# CLAUDE.md' and 'This file provides guidance to AI agents when working with code in this repository.' lines from CLAUDE.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Diff hunk only removes lines 1-5 (header and blanks); '## Project Overview' onward unchanged, matching original blob 6bde9bb.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 reply: 'Done, `cbef7aa`.' indicating the removal was committed.",
+    "id": "c5",
+    "met": true
+   }
+  ],
+  "reason": "The replay produced a diff identical to the original (same resulting blob hashes), with the symlink and header removal each committed. The assistant also directly answered the usefulness question with a reason before removing the lines on the user's instruction.",
+  "verdict": "pass"
+ },
+ "judge_cost_usd": 0.06187,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:22.804414+00:00",
+ "name": "claude-opus-4-7__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.388844,
+ "replay_cost_usd_label": 0.388844,
+ "session_id": "3994684a-745e-4596-ae2d-5fc124f612cd",
+ "verdict": "pass",
+ "votes": [
+  {
+   "confidence": 0.95,
+   "verdict": "pass"
+  }
+ ]
+}

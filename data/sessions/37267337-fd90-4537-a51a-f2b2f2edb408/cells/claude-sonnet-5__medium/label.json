@@ -1,0 +1,80 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.55,
+  "criteria": [
+   {
+    "evidence": "Turn 0/1 replies frame it as 'structural, not apt-specific', listing hand removal via apt/snap/flatpak, repo/channel drop, and deleted /opt unowned installs.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'I can't create the GitHub issue right now: there's no gh CLI... no GitHub token' and gave ready-to-file Title/Body; then wrote docs/dev/issues/machine-specific-marks-outlive-item.md.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "tests/unit/jobs/apt/test_apt_decision_prune.py::TestCollateralRemovalPrunesTheStaleMark::test_mark_is_gone_from_the_decision_file_after_the_run PASSED; prune wired into apply() after converge loop.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Replay's own proposal (turns 0–1) promised a plan-time prune before filter_inert plus an immediate drop at the collateral removal; implementation only prunes at end of apply(), and the final summary never says the plan-time reconcile was dropped or why; the issue file still says 'Proposed fix... not yet implemented' listing the plan-time prune while its status line says 'implemented'.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "Tests for pure prune_stale/DecisionFile.prune, base hook (dry run, non-interactive, scoping, logging, post-loop timing, source/target), apt collateral same-run + declined control, snap/flatpak/manual wiring; matrix test confirms all cited tests exist (2505 passed).",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Final: 'ruff format/ruff check/codespell clean, basedpyright 0 errors'; pytest 4483 passed with the only failure FileNotFoundError: 'rsync' in test_apt_etc_apt (tool missing in environment, unrelated to the diff); test_mutates_audit 18 passed, scenario matrix 2505 passed.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Runbook diff adds 'grep -c fortunes ~/.config/pc-switcher/apt.decisions.yaml  # 0 — ... its stale mark was pruned the same run (D-43)' on pc2 plus a paragraph stating the mark does not outlive its item.",
+    "id": "c7",
+    "met": true
+   }
+  ],
+  "reason": "The replay implemented and tested an end-of-apply prune that removes pc2's stale fortunes mark, updated ADR/requirements/conformance/matrix/runbook, and ran the project checks (only an rsync-missing environment failure remained). However, its own proposal included a plan-time reconcile before filter_inert and an immediate drop at the collateral step, neither of which was implemented or explicitly reported as dropped with a reason, and the issue trace still contradicts itself about what was implemented, so c4 is not met.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 2.08228,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:01.517361+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 16.318051,
+ "replay_cost_usd_label": 16.374435,
+ "session_id": "37267337-fd90-4537-a51a-f2b2f2edb408",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "pass"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

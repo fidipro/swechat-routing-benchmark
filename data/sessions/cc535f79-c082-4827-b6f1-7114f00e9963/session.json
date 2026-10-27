@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-07-18T05:32:14.967Z",
+ "hand_picked": {
+  "effort": "xhigh",
+  "efforts_seen": [
+   "xhigh"
+  ],
+  "model": "claude-fable-5",
+  "models_seen": [
+   "claude-fable-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.212",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 28.107314
+ },
+ "repo_id": "saiprasannasastry/cli",
+ "repo_url": "https://github.com/saiprasannasastry/cli",
+ "session_id": "cc535f79-c082-4827-b6f1-7114f00e9963",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "main",
+  "commit": "ad28b3688daa0315884920118569122d1de82a85",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-07-17T20:40:22.162Z",
+ "user_turns": 4
+}

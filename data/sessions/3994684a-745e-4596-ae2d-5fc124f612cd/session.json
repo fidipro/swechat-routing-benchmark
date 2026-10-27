@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-08-07T10:17:55.641Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-opus-4-7",
+  "models_seen": [
+   "claude-opus-4-7"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.224",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 1.023065
+ },
+ "repo_id": "flaksit/pc-switcher",
+ "repo_url": "https://github.com/flaksit/pc-switcher",
+ "session_id": "3994684a-745e-4596-ae2d-5fc124f612cd",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "worktree-docs-debloat-271",
+  "commit": "6e54efebd9b027aaf84f1f0f4d0b4e805f6752d4",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-08-07T10:16:02.542Z",
+ "user_turns": 5
+}

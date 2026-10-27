@@ -1,0 +1,115 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.6,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply categorizes checkpoint mechanics, sweep auto-resume, --requeue, data shuffling into 'Works already', 'Kinda there, needs work', 'Missing entirely' before any design.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 only notes 'save_every defaults to 10k steps... should be chosen against your expected failure interval'; turn 3 explicitly leaves 'when we save' to save_every and designs only retention; no cadence recommendation for weekly/every-few-days failures appears in the design or plan.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 0 (accelerator.save_state: model/optimizer/scheduler/RNG + trainer_state.json counters), turn 3 (wall_clock_seconds), turn 4 (per-rank dataset state_dict sidecar, world_size/num_workers) together specify full resume state; plan Phase 2 persists wall_clock_seconds and Phase for data-exact resume adds dataset state_dict.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6: --requeue, SIGTERM flag + all-reduce + emergency checkpoint, --signal=TERM@N, train.auto_resume injected by oplm slurm generate, SLURM_RESTART_COUNT>=5 breaker (turn 7).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 table: 6B ~96GB fits, 12B ~200GB does not, 24-30B 384-480GB does not, with 16 bytes/param fp32-AdamW reasoning.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1: 'yes, build and validate FSDP now'; turn 2 added distributed_strategy fsdp to SlurmConfig/render and FSDP2 checkpoint test; design reflects it.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "n/a",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 adds keep_every_n_steps and keep_every_n_hours to TrainConfig; plan Phase 2 Task 1 implements both.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3 and plan Phase 2 Task 2: '_rotate_checkpoints: skip any directory containing PERMANENT... apply save_total_limit only to what's left.'",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "Turn 6 ran an ad-hoc cross-rank duplication check on the dataset, but the plan's 12 listed phases (atomicity, retention, guardrails, signals, auto-resume, data-exact resume, NCCL, pre-flight, sync, W&B, docs, verification) show no task to verify/fix the accelerate dataloader double-sharding issue in the visible diff or summary.",
+    "id": "c7",
+    "met": false
+   },
+   {
+    "evidence": "Turn 10: spec written to docs/superpowers/specs/2026-10-26-training-resilience-design.md covering nine numbered changes including user's keep_every_n_steps, hard-error, and override additions; TODOS.md links to it.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "TODOS.md diff: '**Spec:** [docs/superpowers/specs/2026-10-26-training-resilience-design.md]'.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Plan is divided into 12 dependency-ordered phases (atomicity, retention, guardrails, signals, auto-resume, data-exact resume, NCCL, pre-flight, sync, W&B, docs, verification) mapping to the nine spec changes the user approved at turn 10/11.",
+    "id": "n5",
+    "met": true
+   }
+  ],
+  "reason": "The replay audited the codebase, answered the memory/FSDP questions, and produced a spec plus a phased TODOS.md with the requested retention semantics, but it never designed an actual checkpoint interval/cadence for the stated failure model and the plan shows no task to verify and fix the accelerate dataloader double-sharding issue. The design also veered into implementing FSDP before the design was agreed, though the user accepted that.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 2.07462,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:34:32.592237+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 8.053385,
+ "replay_cost_usd_label": 8.105584,
+ "session_id": "be5c66b2-dc2d-461c-9e87-d6bcff4e05a9",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.55,
+   "verdict": "fail"
+  }
+ ]
+}

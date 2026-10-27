@@ -1,0 +1,105 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-opus-5",
+  "effort": "low",
+  "model": "claude-opus-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": true,
+ "judge": {
+  "confidence": 0.62,
+  "criteria": [
+   {
+    "evidence": "New .github/workflows/nightly-install-smoke.yml with `schedule: - cron: \"0 8 * * *\"` plus workflow_dispatch.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "matrix.include has linux/ubuntu-latest, macos/macos-latest, windows/windows-latest entries.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "macOS step: `brew tap entireio/tap; brew trust entireio/tap; brew install --cask entire@nightly`.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Linux step: `curl -fsSL https://entire.io/install.sh | bash -s -- --channel nightly`.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Windows pwsh step runs `./scripts/install.ps1 -Channel nightly` (a newly created real script) with a comment pointing to `irm https://entire.io/install.ps1 | iex` once hosted; the user left the placeholder choice to the assistant and accepted the plan, though the invocation is of the repo copy rather than the published URL.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "`actions/checkout` with `ref: main` and persist-credentials: false.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Runs `mise run test:e2e \"$E2E_TEST_FILTER\"` via E2E_AGENT env list (no --agent flag) for claude-code, opencode, codex, cursor-cli, factoryai-droid, copilot-cli; gemini-cli exclusion is reasoned, but `pi` (listed by the replay itself as a registered agent and in its turn-0 plan) is silently dropped with no stated reason.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Single test TestMultiSessionManualCommit chosen: two prompts, a commit, then WaitForCheckpoint/AssertCheckpointExists/trailer assertions.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'I reviewed every file in e2e/tests/' with comparison of the four multi-prompt candidates.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 opens with a survey of e2e.yml, e2e-windows.yml, e2e-isolated.yml, e2e-checkpoint-store.yml, e2e-checkpoints-v2.yml, nightly.yml before the plan.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "One `smoke` job per OS; agents run as parallel subtests inside the job via ForEachAgent with E2E_AGENT comma list, not separate matrix jobs.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'Commit done: 5a851540 on the existing branch add-nightly-matrix-e2e-test', push failed (no remotes), 'PR not opened: gh isn't installed', with instructions to the user.",
+    "id": "c9",
+    "met": true
+   }
+  ],
+  "reason": "The workflow is nightly, OS-matrixed, installs per-OS as requested, checks out main, uses one appropriate two-prompt smoke test, keeps agents within one job per OS, and was committed with the push/PR limitation disclosed. However c5 is unmet: the `pi` agent, which the replay itself identified as registered and included in its initial plan, is omitted from the final agent set without any stated reason (and the run command drops the `--agent` flag in favour of an env-var mechanism added via harness code changes).",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 1.17517,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:32:10.311878+00:00",
+ "name": "claude-opus-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.971859,
+ "replay_cost_usd_label": 3.047264,
+ "session_id": "3d8e0a15-a5d3-4343-9cf6-76adbd846850",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.62,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  },
+  {
+   "confidence": 0.6,
+   "verdict": "fail"
+  }
+ ]
+}

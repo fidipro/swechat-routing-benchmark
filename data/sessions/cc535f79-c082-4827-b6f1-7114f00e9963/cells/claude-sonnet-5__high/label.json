@@ -1,0 +1,97 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "high",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Turn 0: 'I don't have network access to GitHub from this sandbox... I can't pull the issue directly'; Turn 1 then explains the false REVIEW NEEDED from the double-quote-only regex consistent with trust.go.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 traces doctor.go:440 checkCodexHookTrust, lifecycle.go:196 SessionStart call, HookTrustGaps, readCodexTrustedKeys and the regex at trust.go:131.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2: 'Here's my plan before touching anything' with regex change, tests, and 'Sandbox testing here means running the actual Go test suite'.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "Turn 2 contains only a plan; Edit tools first used in turn 3 after 'yeah go ahead'.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Regex now accepts '([^']+)'; TestHookTrustGaps_SingleQuotedHeaderNotFlaggedAsGap and TestHookTrustGaps_MixedQuoteStyles PASS.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Regex still captures double-quoted keys raw (`\"([^\"]+)\"`) with no unescaping of `\\\\`; no test for escaped Windows backslashes in basic strings — this case is not handled.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "go test on codex package ok; filtered run across ./cmd/entire/cli/... 'Codex|Trust|Lifecycle' reported 'no failures' including TestCheckCodexHookTrust_* — full unfiltered mise run test not shown.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: 'A Windows Docker container isn't possible here... No Docker at all in this sandbox... Linux host can't run Windows containers' — no false claim of Windows execution; GOOS=windows cross-build done.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "'full repo go build ./... passes', gofmt and go vet clean; golangci-lint run not explicitly reported, but the small diff shows no evident lint defect.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'I can't actually do the push/PR/comment part from here — No git remote configured... No gh CLI and no GitHub credentials... No network path to github.com'.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: 'Comment on issue #1761 linking the PR... neither of those two steps can happen from here.'",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Turn 4: 'I can't answer it'll be under saiprasannasastry either way — that depends entirely on credentials this sandbox doesn't have.'",
+    "id": "n4",
+    "met": true
+   }
+  ],
+  "reason": "The replay fixed single-quoted keys, explained and planned well, and honestly reported the unavailable Windows container and remote actions. However, it kept the raw-capture regex for double-quoted keys so escaped Windows backslashes (\"C:\\\\repo\\\\...\") are not unescaped, failing c4; lint coverage is also only partially evidenced.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.34836,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:07.233440+00:00",
+ "name": "claude-sonnet-5__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.855107,
+ "replay_cost_usd_label": 0.911491,
+ "session_id": "cc535f79-c082-4827-b6f1-7114f00e9963",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

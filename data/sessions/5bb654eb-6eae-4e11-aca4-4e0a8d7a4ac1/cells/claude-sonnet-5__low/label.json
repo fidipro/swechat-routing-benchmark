@@ -1,0 +1,197 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 reply: 'pin state lifted into stores/session.ts, idea-board.tsx now pushes PinnedRefs to the store'; frontend diff truncated so togglePin/clearPins not directly visible.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "contracts.py PinnedRef {id,title,lane,image_url: str|None,source_url: str|None}; comment 'stickers pin as \"demo\"', single pin path to the store claimed.",
+    "id": "c14",
+    "met": true
+   },
+   {
+    "evidence": "After turn 1 the rail became a centered card with 'capped width' (min(100%-48px, 920px)), 'rounded corners (20px), subtle border + shadow' — not full width and not borderless; label text never shown in replay.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "pin-rail.tsx with Generate button described; placement not visible in truncated diff — accepted with doubt.",
+    "id": "c15",
+    "met": true
+   },
+   {
+    "evidence": "Not visible in truncated diff; no evidence of violation, accepted with doubt.",
+    "id": "c16",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'CSS added with reduced-motion handling'; no motion dependency added in diff.",
+    "id": "c17",
+    "met": true
+   },
+   {
+    "evidence": "GenerateRequest{session_id,transcript,pins}, GenerateResponse{image_url,prompt,model,reference_count} as StrictModel Pydantic v2; test_generate.py hits the route.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "api.py passes intent=None always ('synthesis runs without the distiller's structured intent'); SynthesizedPrompt only has max_length=600 with description 'Under 80 words' — no word-count validator, so an over-80-word prompt is not a validation error.",
+    "id": "c4",
+    "met": false
+   },
+   {
+    "evidence": "fal_client.generate(prompt=synthesized.prompt, pins=...) — transcript never reaches the fal client.",
+    "id": "c18",
+    "met": true
+   },
+   {
+    "evidence": "HttpFalClient posts to https://queue.fal.run/{model} with 'X-Fal-Store-IO': '0' and polls /requests/{id}/status; no webhook.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "fal_poll_timeout_seconds=45.0 deadline in _poll; FalTimeout → GenerateResponse(status='timeout').",
+    "id": "c19",
+    "met": true
+   },
+   {
+    "evidence": "_submit makes a single client.post with no retry loop.",
+    "id": "c20",
+    "met": true
+   },
+   {
+    "evidence": "httpx.Timeout(fal_request_timeout_seconds) on the fal client; AsyncOpenAI(timeout=timeout_seconds).",
+    "id": "c21",
+    "met": true
+   },
+   {
+    "evidence": "Plain httpx against queue.fal.run, no fal SDK import; no dependency changes in diff.",
+    "id": "c22",
+    "met": true
+   },
+   {
+    "evidence": "_public_image_urls (https only, capped at fal_max_reference_images) selects fal_reference_model with image_urls, else fal_fallback_model text-only.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "pin_titles passed to synthesizer; reference_count=len(reference_urls) → 0 when none public; fixture test asserts reference_count 0 for no pins.",
+    "id": "c23",
+    "met": true
+   },
+   {
+    "evidence": "GenerationLock raises AlreadyGenerating → status 'already_generating'; test_generate_rejects_a_second_call_while_one_is_in_flight.",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "config.py adds fal_key, fal_reference_model='fal-ai/flux-pro/kontext/max/multi', fal_fallback_model='fal-ai/flux/schnell', fal_max_reference_images=4 matching .env.example.",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "build_fal_client/build_synthesizer return Fixture* in fixture mode; test_generate_returns_fixture_result_with_no_pins passes without network.",
+    "id": "c24",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'workpane.tsx shows the generated image with the verbatim prompt/model/reference count'; not visible in truncated diff.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Rail is fixed to the page bottom independent of workpane content; accepted with doubt.",
+    "id": "c25",
+    "met": true
+   },
+   {
+    "evidence": "Error state and generating state claimed in use-generate/pin-rail; not verifiable from truncated diff, accepted with doubt.",
+    "id": "c26",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: grep of built dist for FAL_KEY/OPENAI_API_KEY found zero matches; both calls live in apps/api/glia/generation.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0 and turn 3: mypy, ruff, pnpm typecheck, lint, build all reported passing (also on main post-merge).",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "TS portion of diff truncated; typecheck passed and model made no mention of any/!; accepted with doubt.",
+    "id": "c27",
+    "met": true
+   },
+   {
+    "evidence": "All excepts in fal.py/synthesis.py/api.py are typed (httpx.HTTPError, ValueError, APIError, etc.).",
+    "id": "c28",
+    "met": true
+   },
+   {
+    "evidence": "No README.md or docs/ hunks in the diff.",
+    "id": "c29",
+    "met": true
+   },
+   {
+    "evidence": "Turn 0: 'pytest (36 tests)' passed; test_api.py pinned DEMO_MODE=fixture for the websocket test.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: rail 'floating 20px above the bottom edge (bottom: 20px)... sitting below the docked mic/composer'.",
+    "id": "c12",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'light background (#f6f5f1), rounded corners... so it reads as one contained card'.",
+    "id": "c30",
+    "met": true
+   },
+   {
+    "evidence": "Turn 1 reply: 'Unpin X: now always visible on each thumbnail (small black circular badge)'.",
+    "id": "c31",
+    "met": true
+   },
+   {
+    "evidence": "Turn 3: committed on claude/pin-rail-generate-ea20be and merged into local main; no push per user instruction, reported.",
+    "id": "c13",
+    "met": true
+   }
+  ],
+  "reason": "The replay delivered most of the backend and UI work, verified checks, and merged into main locally, but the synthesis step ignores the VisualIntent entirely and the SynthesizedPrompt schema has no word-count validator, so an over-80-word prompt is not a validation error (c4). The rail also ended as a capped-width bordered card rather than the full-width borderless rail named in c2, and several frontend criteria could only be accepted on the model's word because the diff was truncated.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.56991,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:14:47.149328+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 3.068002,
+ "replay_cost_usd_label": 3.124387,
+ "session_id": "5bb654eb-6eae-4e11-aca4-4e0a8d7a4ac1",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

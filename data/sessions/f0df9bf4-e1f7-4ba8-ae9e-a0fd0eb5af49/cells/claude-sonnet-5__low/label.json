@@ -1,0 +1,172 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "low",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.8,
+  "criteria": [
+   {
+    "evidence": "Replay added TestGitSubprocessesDisableRepositoryFsmonitorHook in a new file git_hardening_regression_test.go but stated 'I reconstructed the three tests from their names/behavior... I never had access to #134's real source'; test only exercises ListIndexFiles, not carried forward from the #134 head.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "TestGitLogSubprocessesDisableRepositorySignatureVerification present but explicitly a reconstruction, not carried forward from #134 (only FileCochanges checked, no FindCommitWithCheckpoint).",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Test with both filter.evil.clean/process subtests was placed in a new file internal/sem/worktree_cache_probe_filters_test.go, not in internal/sem/search_cache_worktree_test.go as the criterion names.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "search_cache_worktree_test.go is not touched in the final diff, so its live-main tests remain intact.",
+    "id": "n2",
+    "met": true
+   },
+   {
+    "evidence": "Final diff contains only two new *_test.go files; git.go, search_cache.go and docs unchanged.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "go test -count=1 -v runs: gitutil both PASS (after fix), sem TestWorktreeSnapshotCacheProbeDoesNotRunGitFilters PASS with both subtests.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "go test -race -count=1 -v: gitutil 'ok', sem 'ok' with both subtests PASS.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "Model reported 'Full package tests passed' for go test ./internal/gitutil ./internal/sem; mise not installed, ran gofmt/vet/build/go test -race ./... /statusline test manually and disclosed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "GitHub unreachable reported; prepared PR body given with test-only successor statement, commands, platform, results, skips, live main SHA e31e255..., head 3fbec5f..., CI provenance, Entire status, Windows limitation.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "No remote; model reported 'Cut from local main @ e31e2553... (fast-forward confirmed, 2 commits ahead, no divergence)' and branch created in temp worktree; pull/134/head fetch impossible and reported.",
+    "id": "n4",
+    "met": true
+   },
+   {
+    "evidence": "'Not merging — stopping here for your approval, as instructed.'",
+    "id": "c7",
+    "met": true
+   },
+   {
+    "evidence": "No remote access; #134 branch untouched ('#134's own branch was never touched').",
+    "id": "c8",
+    "met": true
+   },
+   {
+    "evidence": "No gh available; no comments posted anywhere.",
+    "id": "n5",
+    "met": true
+   },
+   {
+    "evidence": "not observable; work done in separate /tmp/wt-pr134-successor worktree.",
+    "id": "n6",
+    "met": true
+   },
+   {
+    "evidence": "No entire session/stop commands run; model noted no entire CLI present.",
+    "id": "n7",
+    "met": true
+   },
+   {
+    "evidence": "Report and PR body disclose runtime.GOOS==windows skips due to POSIX shell fixtures in all three tests.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Not run because #134 head 24bf7643 was unreachable (no remote); model reported '#134 itself was not accessible'.",
+    "id": "c10",
+    "met": true
+   },
+   {
+    "evidence": "Ran './entire-graph diff --base e31e255 --head HEAD' on the final branch, confirmed purely additive.",
+    "id": "n8",
+    "met": true
+   },
+   {
+    "evidence": "Reported no gh/origin so open PRs could not be inspected.",
+    "id": "n9",
+    "met": true
+   },
+   {
+    "evidence": "'Entire checkpoint: not obtainable here — there's no entire CLI/session wrapper in this sandbox'.",
+    "id": "n10",
+    "met": true
+   },
+   {
+    "evidence": "All work and verification in /tmp/wt-pr134-successor worktree on branch tests/pr-134-successor.",
+    "id": "c11",
+    "met": true
+   },
+   {
+    "evidence": "No remote to re-fetch; impossibility reported, local main SHA recorded.",
+    "id": "n11",
+    "met": true
+   },
+   {
+    "evidence": "not observable (7 Read calls; no explicit mention of AGENTS.md).",
+    "id": "n12",
+    "met": true
+   },
+   {
+    "evidence": "not observable.",
+    "id": "n13",
+    "met": true
+   },
+   {
+    "evidence": "Live main SHA e31e2553... recorded; #134 pin unverifiable and reported inaccessible.",
+    "id": "n14",
+    "met": true
+   },
+   {
+    "evidence": "PR body: 'CI: none run — this PR was prepared in a disconnected sandbox with no CI access'; skips inspected.",
+    "id": "n15",
+    "met": true
+   },
+   {
+    "evidence": "No mention anywhere of Claude Opus / Cursor CLI reviews or their unavailability.",
+    "id": "n16",
+    "met": false
+   }
+  ],
+  "reason": "The replay produced three same-named tests but explicitly reconstructed them rather than carrying forward #134's code (which was unreachable without a remote), placed the sem test in a new file instead of search_cache_worktree_test.go, and never addressed the independent Opus/Cursor reviews. Verification, test-only scope, Windows disclosure, PR body preparation and stopping before merge were otherwise handled well, but the task as a whole depended on fetching #134's head which was impossible in this environment.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.42248,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:59.243243+00:00",
+ "name": "claude-sonnet-5__low",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.192133,
+ "replay_cost_usd_label": 2.192133,
+ "session_id": "f0df9bf4-e1f7-4ba8-ae9e-a0fd0eb5af49",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.8,
+   "verdict": "fail"
+  }
+ ]
+}

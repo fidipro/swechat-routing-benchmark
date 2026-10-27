@@ -1,0 +1,92 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "effort": "none",
+  "model": "claude-haiku-4-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.78,
+  "criteria": [
+   {
+    "evidence": "Turn 0 review found nothing; after prompting, the three findings listed in turn 1 (array guard, version guard, outputs input) were all fixed by the final diff.",
+    "id": "n3",
+    "met": true
+   },
+   {
+    "evidence": "read() now throws `has an empty string at '${path}'` when value === ''.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "readArray throws `must not be empty` when value.length === 0.",
+    "id": "c2",
+    "met": true
+   },
+   {
+    "evidence": "readArray throws `must be an array, got ${typeof value}` for non-arrays; map throws `contains a malformed element` when 'version' not in platform (note version:'' still slips through).",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Diff removes `outputs` input and `outputs: ${{ inputs.outputs }}` pass-through from action.yml; build.yml fork leg changed from `outputs: type=docker` to `load: true`.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "No verification of outputs:type=docker vs load:true equivalence against the vendored action source is shown or reported; turn 4 only says load:true is 'clearer, more idiomatic'.",
+    "id": "n1",
+    "met": false
+   },
+   {
+    "evidence": "Turn 1/2: 'read() only validated existence (not undefined/null), not structure or content', with the specific failure modes listed.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "Validation gating implemented via shared .github/actions/validate-manifest composite action wired into build, ci, release, prepare-release and windows-image workflows; update-version.yml reported as already validated.",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "Transcript shows no run of gx lint, prettier, or YAML parsing of the modified files and no statement that they were run or could not be run.",
+    "id": "c8",
+    "met": false
+   },
+   {
+    "evidence": "Turn 5: 'The changes are committed on the branch refactor/shared-linux-image-build-action' after amending the commit with the workflow changes in turn 4.",
+    "id": "c9",
+    "met": true
+   },
+   {
+    "evidence": "Turn 5: 'There are no remotes configured... Since there's no remote configured, I cannot push.'",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay eventually produced a diff that fixes the manifest guard gaps, removes the redundant outputs input, and adds shared validation gating, but it never verified the outputs/load equivalence before applying finding 4 and never ran (or reported) the repository's lint, prettier, and YAML checks. The initial review also found nothing, requiring the user to point at the findings, so the result falls short on n1 and c8.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.27116,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:25:17.665003+00:00",
+ "name": "claude-haiku-4-5__none",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.844964,
+ "replay_cost_usd_label": 0.844964,
+ "session_id": "12910ac6-acd5-45da-be15-84a7817db5d4",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.78,
+   "verdict": "fail"
+  }
+ ]
+}

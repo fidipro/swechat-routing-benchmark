@@ -1,0 +1,77 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-5",
+  "effort": "medium",
+  "model": "claude-sonnet-5"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Diff adds `## [0.9.0] - 2026-08-28` with the former Unreleased content under it; an empty `## [Unreleased]` header is retained above (Keep-a-Changelog convention), which is a deviation from a literal 'replaced' but the versioned section is correctly formed.",
+    "id": "c1",
+    "met": true
+   },
+   {
+    "evidence": "Nearly every bullet has a period before the link, e.g. `...transitively. ([#105](...), [#106](...))` and `...gated on the policy. ([#114](...))`; criterion requires no period before the link.",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Model said 'No `gh` CLI available... git log instead'; #104 appears as x/crypto bump in Housekeeping and #105 is cited on the go-git Security bullet.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "Final diff touches only CHANGELOG.md.",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Security bullets reduced to 2-4 sentences each, e.g. the materialized-object-limit bullet shrank from a long paragraph to three sentences.",
+    "id": "c5",
+    "met": true
+   },
+   {
+    "evidence": "All 13 Security entries from the Unreleased section remain (the workflow-permissions one moved to Housekeeping earlier, still present) and each ends with a PR link.",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "go-git bump appears only once, on the Security bullet; Housekeeping lists only the `golang.org/x/crypto` bump (#104).",
+    "id": "c6",
+    "met": true
+   },
+   {
+    "evidence": "go-git bullet cites `([#105](...), [#106](...))`.",
+    "id": "n2",
+    "met": true
+   }
+  ],
+  "reason": "The replay cut the 0.9.0 section, compressed Security, and consolidated the go-git mention, but it placed a period before the PR link on almost every bullet, directly violating c2's 'no period before the link' requirement. Additionally several PR attributions differ from the original (#109, #110, #111 are never cited, with #112 used instead), raising doubt about link accuracy though not directly scored by the criteria.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.30519,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:40:45.948675+00:00",
+ "name": "claude-sonnet-5__medium",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 0.710688,
+ "replay_cost_usd_label": 0.767072,
+ "session_id": "4f52aadb-0279-46a2-862d-a06fbfff0106",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}

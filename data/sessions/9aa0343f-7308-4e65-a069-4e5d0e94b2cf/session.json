@@ -1,0 +1,39 @@
+{
+ "ended_at": "2026-07-22T11:49:10.571Z",
+ "hand_picked": {
+  "effort": "high",
+  "efforts_seen": [
+   "high"
+  ],
+  "model": "claude-fable-5",
+  "models_seen": [
+   "claude-fable-5"
+  ],
+  "switched_mid_session": false
+ },
+ "harness": "claude-code",
+ "harness_version": "2.1.212",
+ "image": {
+  "dropped_reason": null,
+  "ok": true
+ },
+ "original_usage": {
+  "cost_logged_usd": null,
+  "cost_recomputed_usd": 3.470338
+ },
+ "repo_id": "amjadsaadeh/doorbell-detector",
+ "repo_url": "https://github.com/amjadsaadeh/doorbell-detector",
+ "session_id": "9aa0343f-7308-4e65-a069-4e5d0e94b2cf",
+ "source": {
+  "dataset": "SALT-NLP/SWE-chat",
+  "revision": "df393df57195593d4227aefc31f691f01d4b81a5"
+ },
+ "start_state": {
+  "branch": "main",
+  "commit": "3d2700dc866ea6cbf2cd9ab921a16ea931840c70",
+  "source": "linked_commit_parent",
+  "status": "clean"
+ },
+ "started_at": "2026-07-21T19:27:40.810Z",
+ "user_turns": 4
+}

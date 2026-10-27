@@ -1,0 +1,72 @@
+{
+ "cap_hit": null,
+ "cell": {
+  "bedrock_id": "us.anthropic.claude-sonnet-4-6",
+  "effort": "high",
+  "model": "claude-sonnet-4-6"
+ },
+ "deciding_tier": "judge",
+ "failure_class": "model",
+ "flag_for_review": false,
+ "judge": {
+  "confidence": 0.85,
+  "criteria": [
+   {
+    "evidence": "Turn 0 survey misidentified the repo as 'pg2ch', a PostgreSQL→ClickHouse CDC tool, and proposed generic features (Distributed Table Sink, DLQ) not tied to any open issue or the actual faucet-stream code; reply was also truncated and ended with a stray 'duplicate background notification' note.",
+    "id": "c1",
+    "met": false
+   },
+   {
+    "evidence": "Replay said gh was unavailable and drafted a 'Progress update — Oct 2026' comment listing recent commits, but did not produce updated epic body text or identify stale/shipped items in #38 as the user asked ('show me what you'd change in the issue body').",
+    "id": "c2",
+    "met": false
+   },
+   {
+    "evidence": "Turn 2 reply presents the draft and summarises 'That covers what shipped, what the CI gate now enforces, and aligns the next items with the roadmap.'",
+    "id": "n1",
+    "met": true
+   },
+   {
+    "evidence": "Diff adds pub fn validate() to Csv/Duckdb/Elasticsearch/Gcs/Graphql configs checking trim().is_empty() on required fields and validate_batch_size, returning FaucetError::Config, wired into each constructor.",
+    "id": "c3",
+    "met": true
+   },
+   {
+    "evidence": "CsvSource::new/GraphqlStream::new now call config.validate()? (returning Result), Duckdb/Elasticsearch/Gcs new() call validate()?; validate tests pass (5/5/6/4/6).",
+    "id": "c4",
+    "met": true
+   },
+   {
+    "evidence": "Only cargo check and `cargo test ... -- validate` are shown; no clippy, docs, semver-checks, CLI builds, schema check or coverage run, and changing CsvSource::new/GraphqlStream::new from -> Self to -> Result is a public API break semver-checks would flag.",
+    "id": "c5",
+    "met": false
+   },
+   {
+    "evidence": "Final message summarises code changes only; no commit, branch, PR attempt, or report of PR state/what remains and why.",
+    "id": "c6",
+    "met": false
+   }
+  ],
+  "reason": "The replay's initial recommendation was grounded in a hallucinated project description rather than the repo's issues or code, and it never attempted or reported on a PR, nor ran the repository's CI checks despite introducing a breaking constructor signature change. The validate() implementation itself is sound and tested, but multiple non-withdrawn criteria (c1, c2, c5, c6) are unmet.",
+  "verdict": "fail"
+ },
+ "judge_cost_usd": 0.43064,
+ "judge_model": {
+  "effort": "medium",
+  "model": "claude-fable-5-1"
+ },
+ "judged_at": "2026-10-27T15:33:25.629089+00:00",
+ "name": "claude-sonnet-4-6__high",
+ "refusal": null,
+ "refusals": 0,
+ "replay_cost_usd": 2.916672,
+ "replay_cost_usd_label": 2.916672,
+ "session_id": "dff9240c-9ee1-4a01-90dd-b61775dcc773",
+ "verdict": "fail",
+ "votes": [
+  {
+   "confidence": 0.85,
+   "verdict": "fail"
+  }
+ ]
+}
